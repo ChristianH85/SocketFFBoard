@@ -5,23 +5,26 @@ import useSocket from 'use-socket.io-client'
 import Login from './Login';
 import SignUp from './SignUp';
 import Chatbox from './Chatbox';
+import PlayerList from './PlayerL';
+import LeagueOptions from './LeagueOptions';
 
 function Landing(){
     const [ loginP, switchL] = useState(true)
-        // const endpoint= process.env.Port || 'http://127.0.0.1:3001'
-        // // const socket = socketIOClient(endpoint);
-        // const [socket] = useSocket(endpoint)
-        // socket.connect();
-        // // console.log(socket)
+        const endpoint= process.env.Port || 'http://127.0.0.1:3001'
+        // const socket = socketIOClient(endpoint);
+        const [socket] = useSocket(endpoint)
+        socket.connect();
+        // console.log(socket)
 
-        // socket.on('connected',data=>{
-        //   console.log('connected')
-        // })
-        // socket.on('user', data=>{
-        //     console.log("######################User"+data)
-        //     // const user= data.user
+        socket.on('connected',data=>{
+            // debugger
+          console.log('connected')
+        })
+        socket.on('user', data=>{
+            console.log("######################User"+data)
+            // const user= data.user
             
-        // })
+        })
 
         // const login=(data)=>{
         //             let email=data.email
@@ -39,7 +42,7 @@ function Landing(){
 return(
     <div className= 'home valign-wrapper center-align'>
         <Row >
-            <Col s={12} md={8} lg={8}>
+            <Col s={12} md={7} lg={7}>
             {/* <Card className='splash'>
                 {loginP===true?
                     <div>
@@ -55,7 +58,12 @@ return(
                     </div>
                 }
             </Card> */}
+            
             <Chatbox/>
+            </Col>
+            <Col s={12} md={5} lg={5}>
+                {/* <LeagueOptions/> */}
+            <PlayerList className='pTable'/>
             </Col>
         </Row>
     </div>

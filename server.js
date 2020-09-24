@@ -78,32 +78,32 @@ const schema  = {
     }, 
 
 }
-readXlsxFile('./2020ffnew.xlsx',{schema}).then((data) => {
-    console.log(data.rows, data.errors )
+// readXlsxFile('./2020ffnew.xlsx',{schema}).then((data) => {
+//     console.log(data.rows, data.errors )
 
 
-    data.rows.map((data)=>{
-        const pObj= {
-            playe:data.player,
-            team:data.team,
-            pos:data.position,
-            espn:data.espn,
-            ppr:data.ppr,
-            age:data.age,
-        }
-        console.log(pObj)
-        // db.Player.create(pObj).then(res => {
-        //     console.log(res)
-        // })
-    })
-    // for(let i = 1 ; i<rows.length;i++){
-    //     let pObj={
-    //         rank: row[i]
-    //     }
-    // }
+//     data.rows.map((data)=>{
+//         const pObj= {
+//             playe:data.player,
+//             team:data.team,
+//             pos:data.position,
+//             espn:data.espn,
+//             ppr:data.ppr,
+//             age:data.age,
+//         }
+//         console.log(pObj)
+//         // db.Player.create(pObj).then(res => {
+//         //     console.log(res)
+//         // })
+//     })
+//     // for(let i = 1 ; i<rows.length;i++){
+//     //     let pObj={
+//     //         rank: row[i]
+//     //     }
+//     // }
 
     
-  })
+//   })
   
 const server = http.createServer(app);
 

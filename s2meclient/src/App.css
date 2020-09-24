@@ -2,6 +2,30 @@
   width: 100vw;
   height: 100vh;
   background-color: #a89587e3;
+  overflow: auto;
+}
+
+.pbutt {
+  width: 100%;
+  height: 100%;
+  background-color: #39d16c;
+
+}
+
+.highlight {
+  background-color: #444038d7;
+}
+
+.leagueForm {
+  background-color: #ebf0f1;
+  height: 30em;
+  overflow: auto;
+}
+
+.chatIn {
+  margin-bottom: 1em;
+  width: 50%;
+  overflow: auto;
 }
 
 .splash {
@@ -24,6 +48,35 @@
   border-radius: 8px;
   margin-bottom: .25rem;
   color: white
+}
+
+.headRow {
+  /* position: fixed; */
+  background-color: #141263;
+  color: white;
+}
+
+.headSep {
+  height: 1em;
+}
+
+.pcard {
+  padding-top: 0%;
+}
+
+.pTable {
+  height: 50em;
+  overflow: auto;
+}
+
+.tableN {
+  padding: 0%;
+  border-right: 1px solid black;
+}
+
+.tableSec {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .App-logo {

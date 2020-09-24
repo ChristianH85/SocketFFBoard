@@ -9,6 +9,7 @@ e.preventDefault()
 console.log(inputVal)
 tempL.push(inputVal)
 setMsgL(tempL)
+setInputVal('')
 
 }
 
@@ -25,7 +26,7 @@ const inputChng =(e)=>{
 return<>
     <Card className='Chatcard'>
         <Row>
-            <Col sm={3} >
+            <Col s={12} >
                 <Card>
                     <div>
                         {msgL? msgL.map((data,i)=>{
@@ -33,7 +34,7 @@ return<>
                         }):<h6>No Messages Yet</h6>}
                     </div>
                     <hr/>
-                    <span><Textarea onChange={inputChng} value={inputVal}></Textarea><Button onClick={nMsg}>Send</Button></span>
+                    <span ><Textarea onChange={inputChng} value={inputVal}className='chatIn'></Textarea><Button onClick={nMsg}>Send</Button></span>
                     
                     {/* <span><Textarea></Textarea><Button>Send</Button></span> */}
                 </Card>
