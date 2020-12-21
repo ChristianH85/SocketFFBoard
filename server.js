@@ -12,7 +12,13 @@ const mongoose = require('mongoose')
 const readXlsxFile = require('read-excel-file/node');
 const passport=require('./passport')
 const db = require('./models');
-
+require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 const app = express();
 
 app.use(express.urlencoded({extended:true}));
@@ -124,13 +130,16 @@ io.on ('connection', socket=>{
     })
 
     socket.on('outgoingMsg',data=>{
+      
         if(data){
         const msg= data.outgoingMsg
-        const user= data.sender
+        // const user= data.sender
         const time= data.msgTime
         console.log(data)
-        socket.emit('incomingMsg',{msg,user,time} )
+        socket.broadcast.emit('incomingMsg', data);
+        // socket.emit('incomingMsg',{msg,time} )
     }
+    else{console.log ('no data')}
 })
     socket.on('newUser', data=>{
         // console.log("######################User"+data)
@@ -164,7 +173,19 @@ io.on ('connection', socket=>{
             });
           });
         // socket.broadcast.emit('user',user)
-    
+    socket.on('img', data=>{
+      console.log(data)
+    //   try {
+        
+    //     const uploadResponse = await cloudinary.uploader.upload(data, {});
+    //     console.log(uploadResponse);
+    //     // res.json({ msg: 'yaya' });
+    // } catch (err) {
+    //     console.error(err);
+    //     // res.status(500).json({ err: 'Something went wrong' });
+    // }
+      // console.log("imgSTR"+data)
+    })
     socket.on('login', data=>{
         // console.log("######################User"+data)
         const userE= data.email

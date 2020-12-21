@@ -4,72 +4,87 @@ const players=[
         rank:1,
         bye:3,
         team:'Eagles',
+        id:1
     },
     {
         name:'Joe',
         rank:2,
         bye:7,
         team:'Bucs',
+        id:2
     },
     {
         name:'Bill',
         rank:3,
         bye:5,
         team:'Bills',
+        id:3
     },
     {
         name:'Tony',
         rank:4,
         bye:7,
         team:'Cowboys',
+        id:4
     },
     {
         name:'Bobby',
         rank:6,
         bye:8,
         team:'Rams',
+        id:5
     },
     {
         name:'Mike',
         rank:5,
         bye:3,
         team:'49ers',
+        id:6
     },
     {
         name:'Peter',
         rank:7,
         bye:8,
         team:'Vikings',
+        id:7
     },
     {
         name:'Jamal',
         rank:8,
         bye:5,
         team:'Browns',
+        id:8
     },
     {
         name:'Drew',
         rank:9,
         bye:7,
         team:'Saints',
+        id:9
     },
     {
         name:'Terry',
         rank:10,
         bye:8,
         team:'Jags',
+        id:10
     },
     {
         name:'Phil',
         rank:11,
         bye:3,
         team:'WFT',
+        id:11
     },
     {
         name:'Justin',
         rank:12,
         bye:7,
         team:'Jets',
+        id:12
     }
 ]
 export default players
+
+
+
