@@ -3,13 +3,17 @@ import Landing from './pages/Landing'
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
+import Login from './pages/Login';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path ='/'  component={Landing}/>
+          <Route exact path ='/'  component={Login}/>
+          {/* <Route exact path='/home' component={Signup}/> */}
+          <Route exact path='/home' component={Landing}/>
+          
         </Switch>
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />

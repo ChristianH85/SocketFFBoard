@@ -8,7 +8,7 @@ import Chatbox from './Chatbox';
 import PlayerList from './PlayerL';
 import LeagueOptions from './LeagueOptions';
 import DraftOrderBox from './DraftOrderBox';
-import ex from '../images/ex.mp3'
+// import ex from '../images/ex.mp3'
 import Dropzone from 'react-dropzone'
 import Chat2 from '../Chat2/Chat2';
 function Landing(){
@@ -77,7 +77,7 @@ return(
     <div className= 'home valign-wrapper center-align'>
         <Row >
             <Col s={12} md={7} lg={7}>
-                <Chat2></Chat2>
+                {/* <Chat2></Chat2> */}
             {/* <Card className='splash'>
                 {loginP===true?
                     <div>

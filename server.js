@@ -119,7 +119,7 @@ let interval;
 io.on ('connection', socket=>{
     console.log(socket.id)
     console.log('New Client Now Connected')
-    socket.emit('connected')
+    socket.emit('connected','Hello @ connection login')
     // if(interval){
     //     clearInterval(interval);
     // }
@@ -128,153 +128,150 @@ io.on ('connection', socket=>{
         console.log("buh bye")
         console.log(socket.id)
     })
-
-    socket.on('outgoingMsg',data=>{
-      
-        if(data){
-        const msg= data.outgoingMsg
-        // const user= data.sender
-        const time= data.msgTime
-        console.log(data)
-        socket.broadcast.emit('incomingMsg', data);
-        // socket.emit('incomingMsg',{msg,time} )
-    }
-    else{console.log ('no data')}
-})
-    socket.on('newUser', data=>{
-        // console.log("######################User"+data)
-        const userN= data.usr
-        const userE= data.email
-        const userP= data.pword
-        // console.log("######################User "+user)
-        // db.User.post("/", (req, res) => {
-        //     console.log("user signup");
-        //     console.log(req.body);
-        //     const { email, password, username } = req.body;
-            // ADD VALIDATION
-            db.User.findOne({ username: userN }, (err, user) => {
-              if (err) {
-                console.log("User.js post error: ", err);
-              } else if (user) {
-                res.json({
-                  error: `Sorry, already a user with the username: ${userN}`
-                });
-              } else {
-                console.log("creating new user");
-                const newUser = {
-                  username: userN,
-                  password: userP,
-                  email: userE
-                };
-                db.User.create(newUser).then(data=>{
-                    console.log(data)
-                })
-              }
-            });
-          });
-        // socket.broadcast.emit('user',user)
-    socket.on('img', data=>{
-      console.log(data)
-    //   try {
-        
-    //     const uploadResponse = await cloudinary.uploader.upload(data, {});
-    //     console.log(uploadResponse);
-    //     // res.json({ msg: 'yaya' });
-    // } catch (err) {
-    //     console.error(err);
-    //     // res.status(500).json({ err: 'Something went wrong' });
-    // }
-      // console.log("imgSTR"+data)
-    })
     socket.on('login', data=>{
-        // console.log("######################User"+data)
-        const userE= data.email
-        const userP= data.pword
-       console.log (data)
-       passport.use(
-        new LocalStrategy(
-          // Our user will sign in using an email, rather than a "username"
-          {
-            usernameField: "email"
-          },
-          function(userE, userP, done) {
-            console.log(userE,userP)
-            // When a user tries to sign in this code runs
-            // db.User.findOne({
-            //   where: {
-            //     email: userE
-            //   }
-            // }).then(function(dbUser) {
-            //   // If there's no user with the given email
-            //   if (!dbUser) {
-            //     return done(null, false, {
-            //       message: "Incorrect email."
-            //     });
-            //   }
-            //   // If there is a user with the given email, but the password the user gives us is incorrect
-            //   else if (!dbUser.validPassword(password)) {
-            //     return done(null, false, {
-            //       message: "Incorrect password."
-            //     });
-            //   }
-            //   // If none of the above, return the user
-            //   return done(null, dbUser);
-            // });
-          }
-        )
-      );
-        // function(req, res, next) {
-        //     console.log("routes/user.js, login, req.body: ");
-        //     console.log(req.body);
-        //     next();
-        //   },
-        // function(username, password, done) {
-        //     User.findOne({ email: email }, (err, user) => {
-        //         if (err) {
-        //             return done(err)
-        //         }
-        //         if (!user) {
-        //             return done(null, false, { message: 'Incorrect email' })
-        //         }
-        //         if (!user.checkPassword(password)) {
-        //             return done(null, false, { message: 'Incorrect password' })
-        //         }
-        //         return done(null, user)
-        //     })
-        // }
-        
-        // function login (userE, userP, done) {
-        // db.User.findOne({ email: userE }, (err, user) => {
-        //     if (err) {
-        //         return done(err)
-        //     }
-        //     if (!user) {
-        //         return done(null, false, { message: 'Incorrect email' })
-        //     }
-        //     if (!user.checkPassword(userP)) {
-        //         return done(null, false, { message: 'Incorrect password' })
-        //     }
-        //     return done(null, user)
+      // console.log("######################User"+data)
+      // const userE= data.email
+      // const userP= data.pword
+     console.log (data)
+      db.User.create(data)
 
-        // app.post('/login',passport.authenticate("local"),
-        // (req, res) => {
-        //     console.log( res)
-        //   console.log("logged in", req.user);
+     socket.emit('user',data)
+    })
+  
+})
+//     socket.on('newUser', data=>{
+//         // console.log("######################User"+data)
+//         const userN= data.usr
+//         const userE= data.email
+//         const userP= data.pword
+//         // console.log("######################User "+user)
+//         // db.User.post("/", (req, res) => {
+//         //     console.log("user signup");
+//         //     console.log(req.body);
+//         //     const { email, password, username } = req.body;
+//             // ADD VALIDATION
+//             db.User.findOne({ username: userN }, (err, user) => {
+//               if (err) {
+//                 console.log("User.js post error: ", err);
+//               } else if (user) {
+//                 res.json({
+//                   error: `Sorry, already a user with the username: ${userN}`
+//                 });
+//               } else {
+//                 console.log("creating new user");
+//                 const newUser = {
+//                   username: userN,
+//                   password: userP,
+//                   email: userE
+//                 };
+//                 db.User.create(newUser).then(data=>{
+//                     console.log(data)
+//                 })
+//               }
+//             });
+//           });
+//         // socket.broadcast.emit('user',user)
+//     socket.on('img', data=>{
+//     //   try {
+        
+//     //     const uploadResponse = await cloudinary.uploader.upload(data, {});
+//     //     console.log(uploadResponse);
+//     //     // res.json({ msg: 'yaya' });
+//     // } catch (err) {
+//     //     console.error(err);
+//     //     // res.status(500).json({ err: 'Something went wrong' });
+//     // }
+//       // console.log("imgSTR"+data)
+//     })
+    // socket.on('login', data=>{
+    //     // console.log("######################User"+data)
+    //     // const userE= data.email
+    //     // const userP= data.pword
+    //    console.log (data)
+//       //  passport.use(
+//       //   new LocalStrategy(
+//       //     // Our user will sign in using an email, rather than a "username"
+//       //     {
+//       //       usernameField: "email"
+//       //     },
+//       //     function(userE, userP, done) {
+//       //       console.log(userE,userP)
+//       //       // When a user tries to sign in this code runs
+//       //       // db.User.findOne({
+//       //       //   where: {
+//       //       //     email: userE
+//       //       //   }
+//       //       // }).then(function(dbUser) {
+//       //       //   // If there's no user with the given email
+//       //       //   if (!dbUser) {
+//       //       //     return done(null, false, {
+//       //       //       message: "Incorrect email."
+//       //       //     });
+//       //       //   }
+//       //       //   // If there is a user with the given email, but the password the user gives us is incorrect
+//       //       //   else if (!dbUser.validPassword(password)) {
+//       //       //     return done(null, false, {
+//       //       //       message: "Incorrect password."
+//       //       //     });
+//       //       //   }
+//       //       //   // If none of the above, return the user
+//       //       //   return done(null, dbUser);
+//       //       // });
+//       //     }
+//       //   )
+//     });
+//         // function(req, res, next) {
+//         //     console.log("routes/user.js, login, req.body: ");
+//         //     console.log(req.body);
+//         //     next();
+//         //   },
+//         // function(username, password, done) {
+//         //     User.findOne({ email: email }, (err, user) => {
+//         //         if (err) {
+//         //             return done(err)
+//         //         }
+//         //         if (!user) {
+//         //             return done(null, false, { message: 'Incorrect email' })
+//         //         }
+//         //         if (!user.checkPassword(password)) {
+//         //             return done(null, false, { message: 'Incorrect password' })
+//         //         }
+//         //         return done(null, user)
+//         //     })
+//         // }
+        
+//         // function login (userE, userP, done) {
+//         // db.User.findOne({ email: userE }, (err, user) => {
+//         //     if (err) {
+//         //         return done(err)
+//         //     }
+//         //     if (!user) {
+//         //         return done(null, false, { message: 'Incorrect email' })
+//         //     }
+//         //     if (!user.checkPassword(userP)) {
+//         //         return done(null, false, { message: 'Incorrect password' })
+//         //     }
+//         //     return done(null, user)
+
+//         // app.post('/login',passport.authenticate("local"),
+//         // (req, res) => {
+//         //     console.log( res)
+//         //   console.log("logged in", req.user);
       
-        //   // var userInfo = {
-        //   //   // username: req.user.username
-        //   //   ...req.user
-        //   // };
-        //   // res.send(userInfo);
-        // })
+//         //   // var userInfo = {
+//         //   //   // username: req.user.username
+//         //   //   ...req.user
+//         //   // };
+//         //   // res.send(userInfo);
+//         // })
           
         
-//         }) 
+// //         }) 
          
-//     }
-//     login(userE,userP)
-})
-})
+// //     }
+// //     login(userE,userP)
+// })
+// })
 server.listen(PORT,()=>{
     console.log('Listening on ',PORT)
 })

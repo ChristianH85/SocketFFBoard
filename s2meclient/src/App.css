@@ -46,9 +46,12 @@
   width: 100%;
   background-color:rgb(47, 47, 95);
 }
+
+
 .App {
   text-align: center;
   background: url("./images/nflkids2.jpg");
+  height: 100vh;
 }
 
 .msgS {
@@ -93,7 +96,33 @@
   pointer-events: none;
 }
 
+.login{
+  margin-top:25%;
+  border-radius: 8px;
+  background-color: #1e1ca8f8;
+  padding:1.33em;
 
+}
+/* #email{
+  border-radius:5px;
+
+} */
+.iLabel{
+  font-size: 1.75em;
+  font-weight:700;
+  color:white;
+}
+.lInput{
+  border-radius:5px;
+}
+#loginB{
+  width: 100%;
+}
+#errMess{
+  background-color:red;
+  color:white;
+  font-weight: 700;
+}
 
 .App-header {
   background-color: #282c34;
