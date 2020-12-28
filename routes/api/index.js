@@ -9,8 +9,8 @@ router.use("/user", userRoutes);
 // router.use("/player", playerRoutes);
 // router.use('/chat', chatRoutes);
 
-router.use(function(req, res) {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-  });
+// router.use(function(req, res) {
+//     res.sendFile(path.join(__dirname, "../s2meclient/public/index.html"));
+//   });
 
   module.exports = router;

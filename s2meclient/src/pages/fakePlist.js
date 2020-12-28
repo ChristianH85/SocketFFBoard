@@ -3,6 +3,7 @@ const players=[
         name:'Dave',
         rank:1,
         bye:3,
+        pos:'QB',
         team:'Eagles',
         id:1
     },
@@ -10,6 +11,7 @@ const players=[
         name:'Joe',
         rank:2,
         bye:7,
+        pos:"WR",
         team:'Bucs',
         id:2
     },
@@ -17,6 +19,7 @@ const players=[
         name:'Bill',
         rank:3,
         bye:5,
+        pos:"RB",
         team:'Bills',
         id:3
     },
@@ -24,6 +27,7 @@ const players=[
         name:'Tony',
         rank:4,
         bye:7,
+        pos:'TE',
         team:'Cowboys',
         id:4
     },
@@ -31,6 +35,7 @@ const players=[
         name:'Bobby',
         rank:6,
         bye:8,
+        pos:"K",
         team:'Rams',
         id:5
     },
@@ -38,6 +43,7 @@ const players=[
         name:'Mike',
         rank:5,
         bye:3,
+        pos:'RB',
         team:'49ers',
         id:6
     },
@@ -45,6 +51,7 @@ const players=[
         name:'Peter',
         rank:7,
         bye:8,
+        pos:'QB',
         team:'Vikings',
         id:7
     },
@@ -52,6 +59,7 @@ const players=[
         name:'Jamal',
         rank:8,
         bye:5,
+        pos:'WR',
         team:'Browns',
         id:8
     },
@@ -59,6 +67,7 @@ const players=[
         name:'Drew',
         rank:9,
         bye:7,
+        pos:'RB',
         team:'Saints',
         id:9
     },
@@ -66,6 +75,7 @@ const players=[
         name:'Terry',
         rank:10,
         bye:8,
+        pos:'QB',
         team:'Jags',
         id:10
     },
@@ -73,6 +83,7 @@ const players=[
         name:'Phil',
         rank:11,
         bye:3,
+        pos:'WR',
         team:'WFT',
         id:11
     },
@@ -80,6 +91,7 @@ const players=[
         name:'Justin',
         rank:12,
         bye:7,
+        pos:'K',
         team:'Jets',
         id:12
     }

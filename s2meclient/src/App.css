@@ -1,7 +1,7 @@
 .home {
-  width: 100vw;
+  /* width: 100vw; */
   /* height: 100vh; */
-  background-color: #a89587e3;
+  /* background-color: #a89587e3; */
   /* overflow: auto; */
 }
 #Textarea-12{
@@ -20,6 +20,7 @@
 }
 
 .leagueForm {
+  margin-top:5em;
   background-color: #ebf0f1;
   height: 30em;
   overflow: auto;
@@ -50,8 +51,12 @@
 
 .App {
   text-align: center;
-  background: url("./images/nflkids2.jpg");
+  background: url("./images/field.jpg") ;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
+  
 }
 
 .msgS {
@@ -64,6 +69,9 @@
 
 .headRow {
   /* position: fixed; */
+  top:0;
+  max-width: 100%;
+  align-content: center;
   background-color: #141263;
   color: white;
 }
@@ -71,9 +79,16 @@
 .headSep {
   height: 1em;
 }
-
+.tabStyle{
+  height: 90vh;
+}
 .pcard {
-  padding-top: 0%;
+  padding:.75em;
+  height: 90vh;
+  background-color:#696459f5;
+  /* padding-bottom: .75em; */
+  /* min-height:60vh; */
+  overflow:auto;
 }
 
 .pTable {
@@ -87,6 +102,8 @@
 }
 
 .tableSec {
+  color: white;
+  font-weight: 700;
   border-right: 1px solid black;
   border-left: 1px solid black;
 }
@@ -139,6 +156,43 @@
   color: #61dafb;
 }
 
+.findL{
+  margin-top:40vh;
+  background-color:#4a47f0f8;
+  /* vertical-align: middle; */
+  font-weight: 700;
+  padding:.2em;
+}
+#search{
+  margin-bottom:0em;
+}
+#lBtn{
+  height: 100%;
+  padding: 0;
+  margin-right: .25em;
+}
+#lSearch{
+  background-color:#a1a0c5;
+  padding:.1em;
+  border-radius: 5px;
+}
+#tabs{
+  margin-top:10vh;
+  height:95vh;
+}
+.tabs .tab a{
+  background-color:#141194;
+  color:white;
+  font-weight:500;
+}
+.tabs .tab a:hover, .tabs .tab a.active {
+  background-color:white;
+  color:#141194;
+}
+/* .tab a.active {
+  background-color:white;
+  color:#141194;
+} */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

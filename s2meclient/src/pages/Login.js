@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { Card, TextInput, Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
+import { Link } from 'react-router-dom'
+import axios from 'axios';
+
 function Login (props) {
 
     const [email, setEmail] = useState('')
@@ -38,6 +41,7 @@ function Login (props) {
                     password: password,
                 }
             socket.emit('login', loginOBj)
+            // axios.post('api/user', loginOBj)
         }
     }
     return (
@@ -69,6 +73,7 @@ function Login (props) {
                         <Button id='loginB' type='submit' onClick={handleSubmit}id='primaryBtn'>Login</Button>
                         </Col>
                     </Row>
+                    <Link to="/signup">Signup for new account</Link>
                 </form>
             </Col>
         </Row>

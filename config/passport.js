@@ -11,6 +11,7 @@ passport.use(
       usernameField: "email"
     },
     function(email, password, done) {
+      console.log(email,password)
       // When a user tries to sign in this code runs
       db.User.findOne({
         where: {

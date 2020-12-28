@@ -2,29 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require("connect-mongo")(session);
-// const passport = require('./config/passport');
+const passport = require('./config/passport');
 // var LocalStrategy = require("passport-local").Strategy;
-const routes = require("./routes");
+const routes = require("./routes/api");
 const http = require('http');
 const socketIo = require('socket.io');
 const PORT = process.env.PORT || 3001;
 const mongoose = require('mongoose')
 const readXlsxFile = require('read-excel-file/node');
-const passport=require('./passport')
+// const passport=require('./passport')
 const db = require('./models');
 require('dotenv').config();
-const cloudinary = require('cloudinary').v2;
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 const app = express();
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static('s2meclient/build'));
+    app.use(express.static('s2meclient/public'));
   }
 app.use(express.static('s2meclient/public'))
 
@@ -34,19 +28,19 @@ mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/footy", { useNewUrlParser: true,  useUnifiedTopology: true }
   );
 
-app.use(
-    session({
-        secret:process.env.SESSION_SECRET,
-        resave:true,
-        saveUninitialized:true
-    })
-);
+// app.use(
+//     session({
+//         secret:process.env.SESSION_SECRET,
+//         resave:true,
+//         saveUninitialized:true
+//     })
+// );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// require('./routes/api.js')(app)
+// app.use('./routes')
+// require('./routes')(app)
 
 const schema  = {
     
@@ -128,17 +122,39 @@ io.on ('connection', socket=>{
         console.log("buh bye")
         console.log(socket.id)
     })
-    socket.on('login', data=>{
+    socket.on('signup', function(req, res) {
       // console.log("######################User"+data)
       // const userE= data.email
       // const userP= data.pword
-     console.log (data)
-      db.User.create(data)
+     console.log (req)
+      db.User.create(req).then(data=>{
+          console.log('137'+' '+data)
+          socket.emit('user',data)
+      })
 
-     socket.emit('user',data)
+    //  socket.emit('user',data)
+    })
+    socket.on('login', function(req, res) {
+        // res.json(req.user);
+    //    passport.authenticate("local")
+       console.log(req)
+       socket.emit('user',req.email)
+       console.log(res)
+      });
+    socket.on('outgoingMsg', data=>{
+        console.log(data)
+        socket.emit('incomingMsg',data)
+    })
+    socket.on('Nleague',data=>{
+        console.log(data)
+    })
+    socket.on('findL', data=>{
+        console.log(data)
     })
   
 })
+
+
 //     socket.on('newUser', data=>{
 //         // console.log("######################User"+data)
 //         const userN= data.usr

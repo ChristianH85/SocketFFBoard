@@ -38,11 +38,12 @@ function PlayerList(){
         
     },[available])
     return(<>
-    <Card className='pcard'>
+    <form className='pcard'>
         <Table hoverable='true' centered='true'>
             <tr className='headRow'>
             <th >Name</th>
             <th >Rank</th>
+            <th >POS</th>
             <th >Bye Week</th>
             <th >Team</th>
             </tr>
@@ -54,6 +55,7 @@ function PlayerList(){
                 <tr id={player.id}>
                     <td className='tableN'><Button className='pbutt' onClick={handlepick} name={player.id} value={player.name}>{player.name}</Button></td>
                     <td className='tableSec'>{player.rank}</td>
+                    <td className='tableSec'>{player.pos}</td>
                     <td className='tableSec'>{player.bye}</td>
                     <td className='tableSec'>{player.team}</td>
                 </tr>
@@ -62,7 +64,7 @@ function PlayerList(){
             </tbody>
             
         </Table>
-    </Card>
+    </form>
         
     </>)
 }

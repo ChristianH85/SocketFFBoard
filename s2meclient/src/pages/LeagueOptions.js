@@ -1,11 +1,16 @@
 import React, {useEffect,useContext, useState} from 'react'
-import {Card, TextInput, Button, Select} from 'react-materialize'
-import Dropzone from 'react-dropzone'
+import {Card, TextInput, Button, Select, Col, Row} from 'react-materialize'
+import {user} from '../Atoms'
+import {useAtom} from 'jotai'
+import socket from '../socketConfig'
 function LeagueOptions(){
+    const[commish, setComm]= useAtom(user)
     const [leagueName, setLName]=useState('')
     const [numP, setLNumP]=useState(0)
+    const [date1, setD1]= useState('')
+    const [date2, setD2]= useState('')
     // const [pNum, setPNum]=useState('')
-    let [rounds,setRounds]=useState(17)
+    let [rounds,setRounds]=useState(0)
     let [ePlayers, setEPlay]=useState(12)
     const handleOption=(e)=>{
         let val= e.target.value
@@ -20,34 +25,57 @@ function LeagueOptions(){
         if(name==="setLName"){
             setLName(val)
         }
-        else if(name==="setPNum")
+        else if(name==="setPNum"){
         console.log(val)
             setLNumP(val)
-    }
-    
-    const handleFChange=acceptedFiles => {
-        acceptedFiles.forEach((file) => {
-            const reader = new FileReader()
-       
-            reader.onabort = () => console.log('file reading was aborted')
-            reader.onerror = () => console.log('file reading has failed')
-            reader.onload = () => {
-            // Do whatever you want with the file contents
-              const binaryStr = reader.result
-              console.log(reader.result)
+        }
+        else if(name==="rounds"){
+            console.log(val)
+                setRounds(val)
             }
-            reader.readAsArrayBuffer(file)
-          })
+    }
+    const handleDate=(e)=>{
+        let id=e.target.id
+        let val= e.target.value
+
+        if(id==='date1'){
+            // let date=new Date(val)
+            setD1(val)
+        }else if(id==='date2'){
+            setD2(val)
+        }
+    }
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        let lObj={
+            leagueName:leagueName,
+            commish:commish.id,
+            date: date1+" "+date2,
+        }
+        socket.emit('Nleague', lObj)
     }
     
     // console.log(emailList)
     return(
-        <div className='leagueForm'>
+        <Row>
+        <Col s={12} m={8} offset='m2' className='leagueForm'>
             <form >
-                    <TextInput label='League Name' name="setLName" onChange={handleInput} value={leagueName}></TextInput>
-                
+                <Row>
+                    <Col s={12} m={6}>
+                        <TextInput label='League Name' name="setLName" onChange={handleInput} value={leagueName}></TextInput>
+                    </Col>
+                    <Col s={6} m={3}>
+                        <label>Draft Date:</label>
+                        <input type='date' id='date1' onChange={handleDate}/>
+                    </Col>
+                    <Col s={6} m={3}>
+                        <label>Draft Time:</label>
+                        <input type='time' id='date2'onChange={handleDate}/>
+                    </Col>
+                    <Col s={6} m={3}>
                     <Select
                     // id="Select-9"
+                    label='# of players' 
                     multiple={false}
                     options={{
                         classes: '',
@@ -86,30 +114,27 @@ function LeagueOptions(){
                     <option value="11">11</option>
                     <option value="12">12</option> */}
                     </Select>
-                    <TextInput label="Total Picks" name="setPNum" onChange={handleInput}></TextInput>
+                    </Col>
+                    <Col s={6} m={3}>
+                        <TextInput label="Total Picks" name="rounds" onChange={handleInput}></TextInput>
+                    </Col>
                     
-                {numP>1?[...Array(parseInt(numP))].map((u,i)=>{
-                    // console.log(u,i)
-                    let x=i+1
-                    return(
-                    <div key={i.toString()}className='row'>
-                        <div className="col s8 m6">
-                        <TextInput label={"Player Email # "+x.toString()} id={i.toString()} type="email"></TextInput>
-                        </div>
-                    </div>)}
-                
-       ):<div><Dropzone onDrop={handleFChange}>
-       {({getRootProps, getInputProps}) => (
-         <section>
-           <div {...getRootProps()}>
-             <input {...getInputProps()} />
-             <p>Drag 'n' drop some files here, or click to select files</p>
-           </div>
-         </section>
-       )}
-     </Dropzone></div>}
+                    </Row>
+                    <Row>
+                        {numP>1?[...Array(parseInt(numP))].map((u,i)=>{
+                        // console.log(u,i)
+                        let x=i+1
+                        return(
+                            <Col s={6} m={4} key={i.toString()}>
+                            <TextInput label={"Player Email # "+x.toString()} id={i.toString()} type="email"></TextInput>
+                            </Col>
+                        )}
+                        ):<div></div>}
+                    </Row>                
+                <Button onClick={handleSubmit}>Create League</Button>
             </form>
-        </div>
+        </Col>
+        </Row>
     )
     
 }
