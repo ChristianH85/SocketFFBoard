@@ -33,8 +33,11 @@ router.post("/signup", (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-  })
+    failureRedirect: "/signup"}),
+    function(req,res) {
+      res.json(req.user)
+      // socket.emit('user',data)
+      // res.redirect('/');
+  }
 );
 module.exports = router;

@@ -14,8 +14,8 @@ function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
   socket.on('user',data=>{
-    setUser(data)
-    setLogin(true)
+    // setUser(data)
+    // setLogin(true)
   })
   return (
     <div className="App">

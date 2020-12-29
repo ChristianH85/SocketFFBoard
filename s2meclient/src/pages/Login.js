@@ -3,12 +3,16 @@ import { Card, TextInput, Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
 import { Link } from 'react-router-dom'
 import axios from 'axios';
+import { useAtom } from 'jotai'
+import {loggedIn, user} from '../Atoms'
 
 function Login (props) {
 
     const [email, setEmail] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
+    const[logInStatus, setLogin]=useAtom(loggedIn)
+  const [userInfo, setUser]=useAtom(user)
     socket.on('connected',data=>{
         // debugger
       console.log(data)
@@ -42,7 +46,10 @@ function Login (props) {
                 }
                 console.log(loginOBj)
             // socket.emit('login', loginOBj)
-            axios.post('api/user/login', loginOBj).then(data=>{console.log(data)})
+            axios.post('api/user/login', loginOBj).then(data=>{
+                setUser(data)
+                setLogin(true)
+            })
         }
     }
     return (

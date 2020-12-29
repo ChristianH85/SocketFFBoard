@@ -19,7 +19,7 @@ passport.use(
       db.User.findOne({
           email: email
       }).then(function(dbUser) {
-        console.log(dbUser)
+        // console.log(dbUser)
         // If there's no user with the given email
         if (!dbUser) {
           console.log("Incorrect email.")
@@ -33,10 +33,10 @@ passport.use(
           return done(null, false, {
             message: "Incorrect password."
           });
-        }
+        }else{return done(null, dbUser);}
         // If none of the above, return the user
         // console.log("34"+dbUser)
-        return done(null, dbUser);
+        
       });
     }
   )
