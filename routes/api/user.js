@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router();
 const User = require("../../models/users");
-const passport = require("../../passport");
+const passport = require("../../config/passport");
 
-router.post("/", (req, res) => {
+router.post("/signup", (req, res) => {
   console.log("user signup");
   console.log(req.body);
   const { email, password, username } = req.body;
@@ -30,4 +30,11 @@ router.post("/", (req, res) => {
   });
 });
 
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
+  })
+);
 module.exports = router;

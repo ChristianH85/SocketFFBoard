@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Card, TextInput, Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 function Signup (props) {
 
     const [email, setEmail] = useState('')
@@ -43,7 +44,8 @@ function Signup (props) {
                     email:email,
                     password: password,
                 }
-            socket.emit('signup', signupOBj)
+                axios.post('api/user/signup',signupOBj).then(data=>{console.log(data)})
+            // socket.emit('signup', signupOBj)
         }
     }
     return (

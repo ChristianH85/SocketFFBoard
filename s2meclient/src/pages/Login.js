@@ -40,8 +40,9 @@ function Login (props) {
                     email:email,
                     password: password,
                 }
-            socket.emit('login', loginOBj)
-            // axios.post('api/user', loginOBj)
+                console.log(loginOBj)
+            // socket.emit('login', loginOBj)
+            axios.post('api/user/login', loginOBj).then(data=>{console.log(data)})
         }
     }
     return (

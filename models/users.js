@@ -5,13 +5,14 @@ const bcrypt = require('bcryptjs');
 const userSchema = new Schema({
     email: {type: String, required: true },
     password: { type: String, required: true },
-    // username: { type: String, required: true },
+    username: { type: String, required: true },
     team: { type: Array, default: [] },
 
 })
 
 userSchema.methods = {
     checkPassword: function(password){
+        // console.log(bcrypt.compareSync(password,this.password))
         return bcrypt.compareSync(password,this.password)
     },
     hashPassword: function(password){
