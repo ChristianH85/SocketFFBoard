@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
       app.use(express.static('s2meclient/build'));
     }
 app.use(express.static('s2meclient/public'));
-app.use(routes);
+
 
 const sessionMiddleware = session({ secret: "mallon", resave: false, saveUninitialized: false });
 app.use(sessionMiddleware);
@@ -33,7 +33,7 @@ const wrap= middleware=>(socket,next)=>middleware(socket.request, {}, next);
 io.use(wrap(sessionMiddleware))
 io.use(wrap(passport.initialize()));
 io.use(wrap(passport.session()));
-
+app.use(routes);
 io.on('connect', (socket) => {
     console.log(`new connection ${socket.id}`);
     // socket.on('whoami', (cb) => {
