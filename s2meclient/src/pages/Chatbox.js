@@ -2,6 +2,8 @@ import React,{useState, useEffect} from 'react'
 import {Row, Col, Button} from 'react-materialize'
 import { useAtom } from 'jotai'
 import {user} from '../Atoms'
+import axios from 'axios';
+
 // import {messages} from '../Atoms'
 import socket from "../socketConfig";
 // socket.emit('subscribe','whatabuda')
@@ -66,30 +68,32 @@ return<>
                             // console.log(data)
                             if(data.userId===userInfo._id){
                                 return (
-                                    <div className='msgS'key={i}>
+                                    <div className='msgS msg'key={i}>
                                         <Row>
-                                        <h6>{data.msg} </h6>
+                                        <h5>{data.msg} </h5>
                                         </Row>
+                                        <hr/>
                                         <Row>
                                             <Col s={6}>
                                             <p className='time'>{data.time.toString()}</p>
                                             </Col>
                                             <Col s={6}>
-                                            <p className='userN'> {data.username.toString()}</p>
+                                            <h6 className='userN'> {data.username.toString()}</h6>
                                             </Col>
                                         </Row>
                                     </div>)
                             }else{return (
-                                <div className='msgR'key={i}>
+                                <div className='msgR msg'key={i}>
                                     <Row>
-                                    <h6>{data.msg} </h6>
+                                        <h5>{data.msg} </h5>
                                     </Row>
-                                    <Row>
+                                        <hr/>
+                                     <Row>
                                         <Col s={6}>
-                                        <p className='time'>{data.time.toString()}</p>
+                                            <p className='time'>{data.time.toString()}</p>
                                         </Col>
                                         <Col s={6}>
-                                        <p className='userN'> {data.username.toString()}</p>
+                                            <h6 className='userN'> {data.username.toString()}</h6>
                                         </Col>
                                     </Row>
                                 </div>)}

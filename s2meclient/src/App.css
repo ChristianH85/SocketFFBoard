@@ -18,10 +18,10 @@
 .highlight {
   background-color: #444038d7;
 }
-/* .Chatcard{
-  overflow: auto;
-  height:65vh;
-} */
+.Chatcard{
+  background-color: #d3d0cb;
+  padding:.75em;
+}
 .leagueForm {
   margin-top:5em;
   background-color: #ebf0f1;
@@ -65,36 +65,40 @@
 .msgbox{
   height:50vh;
   overflow: auto;
-  background-color:#aaa9a8;
+  background-color:#f5f4f3;
+  border:3px inset #444038;
+  border-radius:5px;
+  margin-top:.5em;
+  margin-bottom:.5em;
+  padding:0em .5em .25em .5em; 
 }
 
 .carousel.carousel-slider .carousel-item p {
   font-size:.6em ;
-  color: #c2bebe;
+  color: #e7e4e4;
   font-weight: 400;
 }
-.carousel.carousel-slider .carousel-item .userN p {
-  font-size:.8em ;
-  color: #ece8e8;
-  font-weight: 700;
-}
+
 .msgS {
-  background-color: #d46d6dd7;
-  width: 80%;
-  font-size:1em;
-  font-weight: 600;
+  background-color: #ecab1e;
+  
+}
+.msg .row{
+  margin-bottom: 0em;
+}
+.msg{
+  padding-left:1.25em;
+  max-width: 80%;
+  font-weight: 700;
   border-radius: 8px;
   margin-bottom: .25rem;
-  color: white
+  color: white;
+  text-align: left;
+  padding-right:1.25em;
 }
 .msgR {
-  background-color: #85a3f5d7;
-  width: 80%;
-  font-weight: 700;
-  border-radius: 8px;
-  margin-bottom: .25rem;
+  background-color: #3464e9;
   margin-left: 20%;
-  color: white
 }
 
 .headRow {
