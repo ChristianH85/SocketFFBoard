@@ -1,46 +1,70 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {useAtom} from 'jotai';
 import {user} from '../Atoms';
-import {Row, Col, Button, Card} from 'react-materialize'
+import {Row, Col, Button} from 'react-materialize'
 
 function Account(){
     const [showNPass, setNPassShow]=useState(false)
+    const [showUpName, showUp]=useState(false)
+    const [uName,setUName]= useState('')
     const[nPass,setNPass]=useState('')
     const[nPass1,setNPass1]=useState('')
-    const[user,setUser]=useAtom(user)
+    const[userInfo,setUser]=useAtom(user)
     const [oEmails, setOemails]=useState('')
     const [errM, setErrM]=useState('')
-    const handleNP=(e)=>{
+    const handleSel=(e)=>{
         e.preventDefault();
+        let name = e.target.name
+        if(name==='setP'){
         setNPassShow(true)
+        }else if(name==='setU'){
+            showUp(true)
+        }
     }
     const handlePChange=(e)=>{
         e.preventDefault();
-        if (nPass===Npass1){
+        if (nPass===nPass1&& nPass.length>=6){
             console.log('equalll')
         }
-        else{
+        else if(nPass.length<6){
             console.log(nPass,nPass1)
-            setErrM('New passwords do not Match')
+            setErrM('Password is too short')
         }
+        else if(nPass!==nPass1){
+            setErrM('Passwords do not Match')
+        }
+    }
+    const handleUChange=(e)=>{
+        e.preventDefault();
+        if(uName.length<1){
+            setErrM('username has no input')
+        }
+        console.log(uName)
     }
     return(
         <Row>
             <Col s={12} m={8} offset='m2'>
-                <Card>{showNPass?
-                    <div>
-                        <label>Old Password</label>
-                        <input type='text'></input>
-                        <br/>
+                <form>{showNPass?
+                    <div>{errM?<p>{errM}</p>:<></>}
                         <label>New Password</label>
                         <input type='password' onChange= {e=>{setNPass(e.target.value)}}></input>
                         <br/>
                         <label>New Password 1 more Time</label>
                         <input type='password' onChange= {e=>{setNPass1(e.target.value)}}></input>
-                        <Button onClick={handlePChange}>Change Passowrd</Button>
+                        <Button onClick={handlePChange}>Update Password</Button>
+                    </div>:showUpName?
+                        <div>
+                            {errM?<p>{errM}</p>:<></>}
+                        <label>New Username</label>
+                        <input type='text' onChange= {e=>{setUName(e.target.value)}}></input>
+                        <Button onClick={handleUChange}>Update UserName</Button>
                     </div>:
-                    <Button onClick={handleNP}>Change Password</Button>}
-                </Card>
+                    <div>
+                        <Button name='setU' onClick={handleSel}>Change UserName</Button>
+                        <br/>
+                        <Button name='setP' onClick={handleSel}>Change Password</Button>
+                    </div>}
+                </form>
             </Col>
         </Row>
     )

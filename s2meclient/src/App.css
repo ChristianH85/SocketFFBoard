@@ -18,7 +18,10 @@
 .highlight {
   background-color: #444038d7;
 }
-
+/* .Chatcard{
+  overflow: auto;
+  height:65vh;
+} */
 .leagueForm {
   margin-top:5em;
   background-color: #ebf0f1;
@@ -59,11 +62,32 @@
   
 }
 
+.msgbox{
+  height:50vh;
+  overflow: auto;
+  background-color:#aaa9a8;
+}
+
+#time{
+  /* font-size:.3em; */
+  color: #c2bebe;
+  font-weight: 400;
+}
 .msgS {
-  background-color: #df744dd7;
-  width: 60%;
+  background-color: #d46d6dd7;
+  width: 80%;
+  font-weight: 700;
   border-radius: 8px;
   margin-bottom: .25rem;
+  color: white
+}
+.msgR {
+  background-color: #85a3f5d7;
+  width: 80%;
+  font-weight: 700;
+  border-radius: 8px;
+  margin-bottom: .25rem;
+  margin-left: 20%;
   color: white
 }
 
@@ -177,8 +201,14 @@
   border-radius: 5px;
 }
 #tabs{
-  margin-top:10vh;
+  /* margin-top:10vh; */
   height:95vh;
+}
+.tabCont{
+  height:75vh;
+}
+.tabs-content{
+  height:85vh;
 }
 .tabs .tab a{
   background-color:#141194;

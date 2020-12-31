@@ -7,10 +7,10 @@ router.post("/signup", (req, res) => {
   console.log("user signup");
   console.log(req.body);
   const { email, password, username } = req.body;
-  // ADD VALIDATION
+  
   User.findOne({ username: username }, (err, user) => {
     if (err) {
-      console.log("User.js post error: ", err);
+      console.log(err);
     } else if (user) {
       res.json({
         error: `Sorry, already a user with the username: ${username}`
@@ -36,8 +36,6 @@ router.post(
     failureRedirect: "/signup"}),
     function(req,res) {
       res.json(req.user)
-      // socket.emit('user',data)
-      // res.redirect('/');
   }
 );
 module.exports = router;

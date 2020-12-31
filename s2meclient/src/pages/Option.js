@@ -35,6 +35,15 @@ function Options(){
                         </Link>
                     </Card>
                 </Col>
+                <Col s={12} >
+                <Card>
+                <Link to='/account'>
+                        <Button>
+                            Settings
+                        </Button>
+                        </Link>
+                    </Card>
+                </Col>
             </Row>
         </div>
     )

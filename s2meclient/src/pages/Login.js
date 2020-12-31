@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, TextInput, Button, Row, Col } from 'react-materialize'
+import { Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
 import { Link } from 'react-router-dom'
 import axios from 'axios';

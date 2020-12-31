@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react'
-import {Card, Row, Col,Textarea, Button, Tabs, Tab, Table} from 'react-materialize'
+import {Button, Table} from 'react-materialize'
 import players from './fakePlist'
 function PlayerList(){
     const [available, setAvail]=useState(players)
@@ -39,7 +39,8 @@ function PlayerList(){
     },[available])
     return(<>
     <form className='pcard'>
-        <Table hoverable='true' centered='true'>
+        <Table hoverable={true} centered={true}>
+            <thead>
             <tr className='headRow'>
             <th >Name</th>
             <th >Rank</th>
@@ -47,12 +48,13 @@ function PlayerList(){
             <th >Bye Week</th>
             <th >Team</th>
             </tr>
+            </thead>
             {/* <div className='headsSep'></div> */}
             <tbody>
                 
             {available.map((player)=>{
                 return(
-                <tr id={player.id}>
+                <tr id={player.id} key={player.rank}>
                     <td className='tableN'><Button className='pbutt' onClick={handlepick} name={player.id} value={player.name}>{player.name}</Button></td>
                     <td className='tableSec'>{player.rank}</td>
                     <td className='tableSec'>{player.pos}</td>

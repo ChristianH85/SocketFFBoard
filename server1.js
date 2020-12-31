@@ -36,10 +36,18 @@ io.use(wrap(passport.session()));
 app.use(routes);
 io.on('connect', (socket) => {
     console.log(`new connection ${socket.id}`);
-    // socket.on('whoami', (cb) => {
-    //   cb(socket.request.user ? socket.request.user.username : '');
-    // });
-    
+    // socket.on('outgoingMsg', data=>{
+    //   console.log(data)
+    //   socket.emit('incomingMsg',data)
+    // })
+    socket.on('subscribe', function(data){
+      console.log(data)
+      socket.join(data)
+    })
+    socket.on('outgoingMsg', function(data) {
+      console.log('sending message');
+      io.sockets.in(data.room).emit('incomingMsg', data);
+  });
     const session = socket.request.session;
   console.log(`saving sid ${socket.id} in session ${session.id}`);
   session.socketId = socket.id;

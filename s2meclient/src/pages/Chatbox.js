@@ -1,41 +1,56 @@
 import React,{useState, useEffect} from 'react'
-import {Card, Row, Col,Textarea, Button} from 'react-materialize'
+import {Row, Col, Button} from 'react-materialize'
 import { useAtom } from 'jotai'
 import {user} from '../Atoms'
 // import {messages} from '../Atoms'
 import socket from "../socketConfig";
-
+// socket.emit('subscribe','whatabuda')
 function Chatbox(props){
 const [userInfo, setUInfo]=useAtom(user)
-const [msgL, setMsgL]= useState('')
+const [msgL, setMsgL]= useState([])
 const [inputVal, setInputVal]= useState('')
+const [leagueId, setLeagueId]=useState('5fecd6021523ca47ba76f906')
+const [numMess, setNumM]=useState(0)
 // const tempL= msgL
-console.log(userInfo)
+// console.log(userInfo)
+useEffect(()=>{
+    socket.on('incomingMsg',data=>{
+        let mList=msgL
+        mList.push(data)
+        setMsgL(mList)
+        setInputVal('')
+        console.log(data)
+        // setNumM(numMess+1)
+        
+
+        // let msgData={
+        //     msg:data.msg,
+        //     username:data.username,
+        //     time:data.time
+        // }
+        // tempL.push(msgData)
+        // // console.log('message data:'+data.msg)
+        // // console.log(tempL)
+        // setMsgL(tempL)
+        // console.log(incoming)
+    })
+    socket.emit('subscribe', leagueId)
+},[msgL, numMess])
+
 const handleOutMessage=(e)=>{
     e.preventDefault()
     let mObj={
+        room: leagueId,
         msg:inputVal,
-        username: userInfo,
+        username: userInfo.data.username,
+        userId: userInfo.data._id,
         time:new Date()
     }
     socket.emit('outgoingMsg', mObj)
     
 }
 
-socket.on('incomingMsg',data=>{
-    setMsgL(data.msg)
-    console.log(data)
-    // let msgData={
-    //     msg:data.msg,
-    //     username:data.username,
-    //     time:data.time
-    // }
-    // tempL.push(msgData)
-    // // console.log('message data:'+data.msg)
-    // // console.log(tempL)
-    // setMsgL(tempL)
-    // console.log(incoming)
-})
+
 // console.log(props)
 // const nMsg = (e)=>{
 // e.preventDefault()
@@ -62,25 +77,35 @@ const inputChng =(e)=>{
 //     return <div className='msgS'key={i}>{data}</div>
 //  }):<h6>No Messages Yet</h6>
 return<>
-    <Card className='Chatcard'>
+    {/* <form className='Chatcard'> */}
         <Row>
             <Col s={12} >
-                <Card>
-                    <div>
-                        {/* {msgL? msgL.map((data,i)=>{
+                <form className='Chatcard'>
+                    <div className='msgbox'>
+                        {msgL? msgL.map((data,i)=>{
                             // console.log(data)
-                        return <div className='msgS'key={i}>{data.msg} <p>{data.time.toString()}</p></div>
+                            if(data.userId===userInfo.data._id){
+                                return <div className='msgS'key={i}>{data.msg} <p className='time'>{data.time.toString()}</p></div>
+                            }else{return <div className='msgR'key={i}>{data.msg} <p className='time'>{data.time.toString()}</p></div>}
+                        
                             
-                        }):<h6>No Messages Yet</h6>} */}
+                        }):<h6>No Messages Yet</h6>}
                     </div>
-                    <hr/>
-                    <span ><textarea onChange={inputChng} value={inputVal}className='chatIn'></textarea><Button onClick={handleOutMessage}>Send</Button></span>
-                    
-                    {/* <span><Textarea></Textarea><Button>Send</Button></span> */}
-                </Card>
+                    <Row>
+                        <Col s={12} > 
+                        <textarea onChange={inputChng} value={inputVal}className='chatIn'></textarea>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col s={10} offset='s1'> 
+                        <Button onClick={handleOutMessage}>Send</Button>
+                        </Col>
+                    </Row>
+                </form>
             </Col>
         </Row>
-    </Card>
+       
+    {/* </form> */}
 </>
 
 }

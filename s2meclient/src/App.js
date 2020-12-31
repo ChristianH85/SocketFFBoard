@@ -1,7 +1,7 @@
 import React from 'react';
 import Landing from './pages/Landing'
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useAtom } from 'jotai'
@@ -10,6 +10,7 @@ import socket from "./socketConfig";
 import LeagueOptions from './pages/LeagueOptions';
 import DraftContainer from './pages/DraftContainer';
 import DraftSearch from './pages/DraftSearch';
+import Account from './pages/Account';
 function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
@@ -26,6 +27,7 @@ function App() {
               <Route exact path='/loptions' component={LeagueOptions}/>
               <Route exact path ='/draft' component={DraftContainer}/>
               <Route exact path ='/search' component={DraftSearch}/>
+              <Route exact path ='/account' component={Account}/>
             </Switch>:
              <Switch>
              <Route exact path ='/'  component={Login}/>

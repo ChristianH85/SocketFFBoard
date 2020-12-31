@@ -1,5 +1,5 @@
 import {atom} from 'jotai'
-import useSocket from 'use-socket.io-client'
+
 
 // export 
 
@@ -9,6 +9,3 @@ export const user =atom('')
 export const messages=([{msg:'',username:'',time:''}])
 export const draft =atom({})
 // export const team =atom()
-// const [socket] = useSocket(endpoint)
-
-// export const io= atom(socket)

@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {useAtom} from 'jotai'
+import React from 'react'
+// import {useAtom} from 'jotai'
 import {Tabs,Tab,Row,Col} from 'react-materialize'
 import PlayerList from './PlayerL'
 import Chatbox from './Chatbox'
@@ -8,7 +8,7 @@ import DraftOrderBox from './DraftOrderBox'
 function DraftContainer(){
     return(
         <Row id ='tabs'>
-            <Col s={12} m={8} offset='m2' >
+            <Col s={12} m={8} offset='m2' className='tabCont' >
                 <Tabs
                 className="  z-depth-1"
                 options={{
@@ -16,7 +16,7 @@ function DraftContainer(){
                 }}
                 >
                 <Tab
-                    // className="blue"
+                    className='tabStyle'
                     options={{
                     duration: 300,
                     onShow: null,
@@ -25,11 +25,11 @@ function DraftContainer(){
                     }}
                     title="Players"
                 >
-                    <PlayerList className='tabStyle'/>
+                    <PlayerList />
                 </Tab>
                 <Tab
                     // active
-                    // className="red"
+                    className='tabStyle'
                     options={{
                     duration: 300,
                     onShow: null,
@@ -38,10 +38,10 @@ function DraftContainer(){
                     }}
                     title="Chat"
                 >
-                    <Chatbox className='tabStyle'/>
+                    <Chatbox />
                 </Tab>
                 <Tab
-                    // className="green"
+                    className='tabStyle'
                     options={{
                     duration: 300,
                     onShow: null,
@@ -50,7 +50,7 @@ function DraftContainer(){
                     }}
                     title="Draft Order"
                 >
-                    <DraftOrderBox className='tabStyle'/>
+                    <DraftOrderBox />
                 </Tab>
                 </Tabs>
             </Col>
