@@ -4,10 +4,11 @@ import socket from "../socketConfig";
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useAtom } from 'jotai'
-import {loggedIn, user} from '../Atoms'
+import {loggedIn, user, port} from '../Atoms'
 
 function Login (props) {
-
+    console.log(process.env.POR)
+    const[point, setPort]=useAtom(port)
     const [email, setEmail] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
@@ -44,10 +45,12 @@ function Login (props) {
                     email:email,
                     password: password,
                 }
-                console.log(loginOBj)
+                // console.log(loginOBj)
             // socket.emit('login', loginOBj)
             axios.post('api/user/login', loginOBj).then(data=>{
-                setUser(data)
+                console.log(data)
+                setPort(data.data.port)
+                setUser(data.data.user)
                 setLogin(true)
             })
         }

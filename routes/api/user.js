@@ -35,7 +35,11 @@ router.post(
   passport.authenticate("local", {
     failureRedirect: "/signup"}),
     function(req,res) {
-      res.json(req.user)
+      console.log(req.user)
+      // console.log(req.user)
+      const userInfo={port:process.env.PORT, user:req.user}
+      res.json(userInfo)
+      console.log(process.env.PORT)
   }
 );
 module.exports = router;

@@ -68,15 +68,21 @@
   background-color:#aaa9a8;
 }
 
-#time{
-  /* font-size:.3em; */
+.carousel.carousel-slider .carousel-item p {
+  font-size:.6em ;
   color: #c2bebe;
   font-weight: 400;
+}
+.carousel.carousel-slider .carousel-item .userN p {
+  font-size:.8em ;
+  color: #ece8e8;
+  font-weight: 700;
 }
 .msgS {
   background-color: #d46d6dd7;
   width: 80%;
-  font-weight: 700;
+  font-size:1em;
+  font-weight: 600;
   border-radius: 8px;
   margin-bottom: .25rem;
   color: white

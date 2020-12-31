@@ -1,5 +1,6 @@
 import openSocket from 'socket.io-client';
-
-const socket = openSocket(process.env.PORT||"http://localhost:3001");
+import {port} from './Atoms'
+console.log(port)
+const socket = openSocket(port);
 
 export default socket;

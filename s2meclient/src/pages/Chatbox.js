@@ -11,8 +11,7 @@ const [msgL, setMsgL]= useState([])
 const [inputVal, setInputVal]= useState('')
 const [leagueId, setLeagueId]=useState('5fecd6021523ca47ba76f906')
 const [numMess, setNumM]=useState(0)
-// const tempL= msgL
-// console.log(userInfo)
+
 useEffect(()=>{
     socket.on('incomingMsg',data=>{
         let mList=msgL
@@ -20,30 +19,18 @@ useEffect(()=>{
         setMsgL(mList)
         setInputVal('')
         console.log(data)
-        // setNumM(numMess+1)
-        
-
-        // let msgData={
-        //     msg:data.msg,
-        //     username:data.username,
-        //     time:data.time
-        // }
-        // tempL.push(msgData)
-        // // console.log('message data:'+data.msg)
-        // // console.log(tempL)
-        // setMsgL(tempL)
-        // console.log(incoming)
     })
     socket.emit('subscribe', leagueId)
-},[msgL, numMess])
+},[])
+// useEffect(()=>{},)
 
 const handleOutMessage=(e)=>{
     e.preventDefault()
     let mObj={
         room: leagueId,
         msg:inputVal,
-        username: userInfo.data.username,
-        userId: userInfo.data._id,
+        username: userInfo.username,
+        userId: userInfo._id,
         time:new Date()
     }
     socket.emit('outgoingMsg', mObj)
@@ -69,26 +56,44 @@ const handleOutMessage=(e)=>{
 const inputChng =(e)=>{
     setInputVal(e.target.value)
 }
-// useEffect=()=>{
 
-// }
-
-// const popMsg= msgL? msgL.map((data,i)=>{
-//     return <div className='msgS'key={i}>{data}</div>
-//  }):<h6>No Messages Yet</h6>
 return<>
-    {/* <form className='Chatcard'> */}
         <Row>
             <Col s={12} >
                 <form className='Chatcard'>
                     <div className='msgbox'>
                         {msgL? msgL.map((data,i)=>{
                             // console.log(data)
-                            if(data.userId===userInfo.data._id){
-                                return <div className='msgS'key={i}>{data.msg} <p className='time'>{data.time.toString()}</p></div>
-                            }else{return <div className='msgR'key={i}>{data.msg} <p className='time'>{data.time.toString()}</p></div>}
-                        
-                            
+                            if(data.userId===userInfo._id){
+                                return (
+                                    <div className='msgS'key={i}>
+                                        <Row>
+                                        <h6>{data.msg} </h6>
+                                        </Row>
+                                        <Row>
+                                            <Col s={6}>
+                                            <p className='time'>{data.time.toString()}</p>
+                                            </Col>
+                                            <Col s={6}>
+                                            <p className='userN'> {data.username.toString()}</p>
+                                            </Col>
+                                        </Row>
+                                    </div>)
+                            }else{return (
+                                <div className='msgR'key={i}>
+                                    <Row>
+                                    <h6>{data.msg} </h6>
+                                    </Row>
+                                    <Row>
+                                        <Col s={6}>
+                                        <p className='time'>{data.time.toString()}</p>
+                                        </Col>
+                                        <Col s={6}>
+                                        <p className='userN'> {data.username.toString()}</p>
+                                        </Col>
+                                    </Row>
+                                </div>)}
+
                         }):<h6>No Messages Yet</h6>}
                     </div>
                     <Row>
@@ -104,8 +109,7 @@ return<>
                 </form>
             </Col>
         </Row>
-       
-    {/* </form> */}
+
 </>
 
 }

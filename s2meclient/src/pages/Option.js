@@ -1,12 +1,15 @@
 import React from 'react'
 import {Row, Col, Card, Button} from 'react-materialize'
 import {Link} from 'react-router-dom'
-
+import {user} from '../Atoms'
+import {useAtom} from 'jotai'
 
 function Options(){
-    
+    const [currUser, setCurrentUser]= useAtom(user)
+    console.log(currUser)
     return(
         <div>
+            <h3>Welcome: {currUser.username}</h3>
             <Row>
                 <Col s={12} >
                     <Card>
