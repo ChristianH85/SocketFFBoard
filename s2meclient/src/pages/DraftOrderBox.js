@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react'
-import {Card} from 'react-materialize'
+import {Col, Row} from 'react-materialize'
+import Timer from '../components/Timer'
 
 function DraftOrderBox(){
     const teams=[
@@ -18,18 +19,20 @@ function DraftOrderBox(){
     ]
     
     
-    const dRounds=15
-    const turnFunct=()=>{
-        for(let i =0;i<dRounds;i++){
-           teams.map((team)=>{
-           return <Card>{team}</Card>
-           })
-        }
-    }
+    // const dRounds=15
+    // const turnFunct=()=>{
+    //     for(let i =0;i<dRounds;i++){
+    //        teams.map((team)=>{
+    //        return <Card>{team}</Card>
+    //        })
+    //     }
+    // }
     return (
-        <div>
-            {turnFunct()}
-        </div>
+        <Row className='currDRow'>
+            <Col s={3}>
+                <Timer/>
+            </Col>
+        </Row>
             )
 }
 export default DraftOrderBox

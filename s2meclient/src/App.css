@@ -233,12 +233,19 @@
   background-color:white;
   color:#141194;
 } */
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+#timer{
+  font-family: 'Luckiest Guy';
+  font-weight:600
+}
+.low{
+  color:#9b0909;
+}
+.med{
+  color:#283c64
+}
+.high{
+  color:#0b8032
+}
+.currDRow{
+  background-color:white;
 }
