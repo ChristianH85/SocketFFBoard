@@ -36,10 +36,6 @@ io.use(wrap(passport.session()));
 app.use(routes);
 io.on('connect', (socket) => {
     console.log(`new connection ${socket.id}`);
-    // socket.on('outgoingMsg', data=>{
-    //   console.log(data)
-    //   socket.emit('incomingMsg',data)
-    // })
     socket.on('subscribe', function(data){
       console.log(data)
       socket.join(data)

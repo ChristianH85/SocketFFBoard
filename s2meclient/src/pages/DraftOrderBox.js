@@ -3,6 +3,7 @@ import {Col, Row} from 'react-materialize'
 import Timer from '../components/Timer'
 
 function DraftOrderBox(){
+    // const [round, setRound]
     const teams=[
         'Team1',
         'Team2',
@@ -28,11 +29,23 @@ function DraftOrderBox(){
     //     }
     // }
     return (
-        <Row className='currDRow'>
-            <Col s={3}>
-                <Timer/>
-            </Col>
-        </Row>
+        <div>
+            <Row className='currDRow'>
+                <Col s={3}>
+                    <Timer/>
+                </Col>
+            </Row>
+            <Row>
+                {teams.map((team, i)=>{
+                    return(
+                    <Col s={12} className='teams'>
+
+                        {team}
+                    </Col>
+                    )
+                })}
+            </Row>
+        </div>
             )
 }
 export default DraftOrderBox

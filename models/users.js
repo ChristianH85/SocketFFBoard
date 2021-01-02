@@ -7,6 +7,7 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     username: { type: String, required: true },
     team: { type: Array, default: [] },
+    leagues:{type:Array , default: []}
 
 })
 

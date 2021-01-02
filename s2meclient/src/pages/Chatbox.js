@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import {Row, Col, Button} from 'react-materialize'
 import { useAtom } from 'jotai'
 import {user} from '../Atoms'
+import {draft} from '../Atoms'
 import axios from 'axios';
 
 // import {messages} from '../Atoms'
@@ -11,7 +12,7 @@ function Chatbox(props){
 const [userInfo, setUInfo]=useAtom(user)
 const [msgL, setMsgL]= useState([])
 const [inputVal, setInputVal]= useState('')
-const [leagueId, setLeagueId]=useState('5fecd6021523ca47ba76f906')
+const [leagueInfo, setLeagueInfo]=useAtom(draft)
 const [numMess, setNumM]=useState(0)
 
 useEffect(()=>{
@@ -22,14 +23,14 @@ useEffect(()=>{
         setInputVal('')
         console.log(data)
     })
-    socket.emit('subscribe', leagueId)
+    socket.emit('subscribe', leagueInfo.id)
 },[])
 // useEffect(()=>{},)
 
 const handleOutMessage=(e)=>{
     e.preventDefault()
     let mObj={
-        room: leagueId,
+        room: leagueInfo.id,
         msg:inputVal,
         username: userInfo.username,
         userId: userInfo._id,

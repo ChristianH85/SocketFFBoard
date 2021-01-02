@@ -11,6 +11,7 @@ router.post('/:id',function(req, res){
     console.log(req.params.id)
 })
 router.get('/:id',function(req, res){
-
+    console.log(req.params.id)
+    League.findById(req.params.id).then(data=>{res.json(data)})
 })
 module.exports = router;

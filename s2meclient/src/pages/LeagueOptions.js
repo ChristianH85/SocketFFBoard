@@ -13,8 +13,8 @@ function LeagueOptions(){
     const [lEmails, setEmails]=useState('')
     const [eList, setEList]=useState([])
     // const [pNum, setPNum]=useState('')
-    let [rounds,setRounds]=useState(0)
-    let [ePlayers, setEPlay]=useState(12)
+    const [rounds,setRounds]=useState(0)
+    const [ePlayers, setEPlay]=useState(12)
     const handleOption=(e)=>{
         let val= e.target.value
         setEmails(Array(parseInt(val)))
@@ -35,7 +35,7 @@ function LeagueOptions(){
         }
         else if(name==="rounds"){
             console.log(val)
-                setRounds(val)
+                setRounds(parseInt(val))
             }
     }
     const handleDate=(e)=>{
@@ -69,26 +69,22 @@ function LeagueOptions(){
         let email= e.target.value;
         let index=e.target.id
         const list= eList
-        
-        // let tList=list.map((data)=>{data=null})
         list[index]=email
-        
-        // let upList= list
-        console.log(list)
-
-        setList(list) 
+        setEList(list) 
         console.log(email+" \n"+index)
 
     }
     const setUpLeage=(e)=>{
         e.preventDefault()
-        console.log(commish.data._id)
+        console.log(commish._id)
         let lObj={
             leagueName: leagueName,
             draftTime: date1+" "+date2,
-            // time: date2,
+            // rounds: rounds,
             teams: eList,
-            commish: commish.data._id
+            numbTeams:numP,
+            numbRounds:rounds,
+            commish: commish._id
         }
         axios.post('/api/league/',lObj).then(res=>console.log(res))
     }
@@ -101,17 +97,23 @@ function LeagueOptions(){
                     <Col s={12} m={6} >
                         <TextInput label='League Name' name="setLName" onChange={handleInput} value={leagueName}></TextInput>
                     </Col>
-                    <Col s={6} m={3}>
+                    <Col s={6} m={6}>
                         <label>Draft Date:</label>
                         <input type='date' id='date1' onChange={handleDate}/>
                     </Col>
-                    <Col s={6} m={3}>
+                    <Col s={6} m={6}>
                         <label>Draft Time:</label>
                         <input type='time' id='date2'onChange={handleDate}/>
                     </Col>
-                    <Col s={6} m={3}>
+                    <Col s={12} m={6} offset='m3'>
+                        <div>
+                            <label>Total Rounds</label>
+                            <input type="number" min="1" max="20" name="rounds" onChange={handleInput}/>
+                        </div>
+                        {/* <TextInput label="Total Picks" name="rounds" onChange={handleInput}></TextInput> */}
+                    </Col>
+                    <Col s={12} m={8}offset='s2'>
                     <Select
-                    // id="Select-9"
                     label='# of players' 
                     multiple={false}
                     options={{
@@ -138,24 +140,8 @@ function LeagueOptions(){
                             <option key={x.toString()} value={x.toString()}>{x}</option>
                         )
                     })}
-                    {/* <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option> */}
                     </Select>
-                    </Col>
-                    <Col s={6} m={3}>
-                        <TextInput label="Total Picks" name="rounds" onChange={handleInput}></TextInput>
-                    </Col>
-                    
+                    </Col>                    
                     </Row>
                     <Row>
                         {numP>1?[...Array(parseInt(numP))].map((u,i)=>{
@@ -164,7 +150,6 @@ function LeagueOptions(){
                         return(
                             <Col s={6} m={4} key={i.toString()}>
                             <TextInput label={"Player Email # "+x.toString()} id={i.toString()} type="email" onChange={handleEmailCh}></TextInput>
-                            <Button>Add</Button>
                             </Col>
                         )}
                         ):<div></div>}

@@ -233,18 +233,27 @@
   background-color:white;
   color:#141194;
 } */
-#timer{
+/* #timer{
   font-family: 'Luckiest Guy';
-  font-weight:600
-}
+  font-weight:600;
+} */
 .low{
+  font-family: 'Luckiest Guy';
+  font-weight:700;
+  font-size: 2.5em;
   color:#9b0909;
 }
 .med{
-  color:#283c64
+  font-family: 'Luckiest Guy';
+  font-weight:700;
+  font-size: 2.5em;
+  color:#283c64;
 }
 .high{
-  color:#0b8032
+  font-family: 'Luckiest Guy';
+  font-weight:700;
+  font-size: 2.5em;
+  color:#0b8032;
 }
 .currDRow{
   background-color:white;

@@ -1,17 +1,46 @@
 import React, {useEffect,useState} from 'react';
+import {Link} from 'react-router-dom'
 import {Row,Col, Button, Icon} from 'react-materialize';
 import {useAtom} from 'jotai';
-import socket from '../socketConfig'
+import socket from '../socketConfig';
+import axios from 'axios';
+import {draft} from '../Atoms'
 
 function DraftSearch(){
     const [leagueID, setLID]=useState('')
+    const [cDraft, setDraft]=useAtom(draft)
+    const [showBtn, setShowBtn]=useState(false)
     const handleInput=(e)=>{
         e.preventDefault();
         setLID(e.target.value)
     }
     const handleSearch=(e)=>{
         e.preventDefault();
-        socket.emit('findL',leagueID)
+        console.log("5fef9995a385ae239cff66b9"+leagueID)
+        axios.get('/api/league/'+leagueID).then((result)=>{
+            console.log(result.data._id)
+            if(result.data._id){
+                const lObj= {
+                    id: result.data._id,
+                    commish:result.data.commish,
+                    leagueName:result.data.leagueName,
+                    round: 0,
+                    trounds: result.data.numbRounds,
+                    teams: result.data.teams,
+                    messages:result.data.messages,
+                    draftTime:result.data.draftTime,
+                    currentPick: '',
+                    availableP: [],
+                    picked: []
+                }
+                setDraft(lObj)
+                setShowBtn(true)
+                console.log(cDraft)
+                // console.log(data)
+                console.log(result)
+            }
+        })
+        // socket.emit('findL',leagueID)
     }
     return(
         <Row>
@@ -30,6 +59,14 @@ function DraftSearch(){
                             </Button>
                         </Col>
                     </Row>
+                    {showBtn?
+                    <Row>
+                        <Col s={12} m={8} offset='s2'>
+                            <Link to='/draft'><Button >Go To {cDraft.leagueName}</Button></Link>
+                        </Col>
+                    </Row>:
+                    <div></div>
+                    }
                 </form>
             </Col>
         </Row>

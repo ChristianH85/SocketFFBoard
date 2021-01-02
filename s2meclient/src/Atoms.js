@@ -7,5 +7,19 @@ export const port=atom('')
 export const loggedIn =atom(false)
 export const user =atom('')
 export const messages=([{msg:'',username:'',time:''}])
-export const draft =atom({})
+export const draft =atom({
+    id:'',
+    commish:'',
+    draftTime:'',
+    messages:[],
+    round:1,
+    leagueName:'',
+    trounds:0,
+    teams:[],
+    currentPick:"",
+    availableP:[],
+    picked:[],
+
+})
+
 // export const team =atom()
