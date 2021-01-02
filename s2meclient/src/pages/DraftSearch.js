@@ -4,12 +4,14 @@ import {Row,Col, Button, Icon} from 'react-materialize';
 import {useAtom} from 'jotai';
 import socket from '../socketConfig';
 import axios from 'axios';
-import {draft} from '../Atoms'
+import {draft, user} from '../Atoms'
 
 function DraftSearch(){
     const [leagueID, setLID]=useState('')
     const [cDraft, setDraft]=useAtom(draft)
     const [showBtn, setShowBtn]=useState(false)
+    const [team,setTeam]= useAtom(user)
+    console.log(team)
     const handleInput=(e)=>{
         e.preventDefault();
         setLID(e.target.value)
@@ -42,6 +44,20 @@ function DraftSearch(){
         })
         // socket.emit('findL',leagueID)
     }
+    const handleSelect=()=>{
+        // console.log(leagueID)
+        const upObj={
+            league:leagueID,
+            user:team._id
+        }
+        axios.post('/api/user/leagues',upObj).then(data=>{
+            console.log(data)
+        })
+        // if(cDraft.commish===team._id){
+        //     socket.emit('findL',leagueID)
+        // }
+
+    }
     return(
         <Row>
             <Col s={12} m={8} offset='m2'>
@@ -62,7 +78,8 @@ function DraftSearch(){
                     {showBtn?
                     <Row>
                         <Col s={12} m={8} offset='s2'>
-                            <Link to='/draft'><Button >Go To {cDraft.leagueName}</Button></Link>
+                            <h3>Is This your League</h3>
+                            <Link to='/draft'><Button onClick={handleSelect}>Go To {cDraft.leagueName}</Button></Link>
                         </Col>
                     </Row>:
                     <div></div>

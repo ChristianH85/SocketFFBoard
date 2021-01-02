@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const User = require("../../models/users");
 const passport = require("../../config/passport");
+const { UploadStream } = require('cloudinary');
 
 router.post("/signup", (req, res) => {
   console.log("user signup");
@@ -42,4 +43,10 @@ router.post(
       console.log(process.env.PORT)
   }
 );
+router.post('/leagues',function (req,res){
+  User.findByIdAndUpdate(req.body.user,{$push:{leagues:req.body.league}}).then(data=>{
+    console.log(data)
+    res.json(data)})
+  // console.log(req.body)
+})
 module.exports = router;

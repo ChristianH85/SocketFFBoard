@@ -256,5 +256,28 @@
   color:#0b8032;
 }
 .currDRow{
-  background-color:white;
+  background-color:#9e9898;
+  border-bottom: 3px inset #382a14;
+  /* overflow:auto; */
+  
+}
+.timeout{
+  font-family: 'Luckiest Guy';
+  font-weight:700;
+  font-size: 2em;
+  color:#80220b;
+}
+.teams{
+  border:1px solid #382a14;
+  background-color:#141194;
+  color:#ebf0f1;
+  padding:.25em 0em .25em 0em;
+}
+.orderBox{
+  background-color:#9e9898;
+  overflow:auto;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  max-height:60vh;
+  /* width:auto; */
 }

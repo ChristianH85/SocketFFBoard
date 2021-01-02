@@ -1,8 +1,11 @@
 import React, {useState,useEffect} from 'react'
 import {Col, Row} from 'react-materialize'
 import Timer from '../components/Timer'
-
+import {draft} from '../Atoms'
+import {useAtom} from 'jotai'
 function DraftOrderBox(){
+    const[live, setLive]= useAtom(draft)
+    console.log(live)
     // const [round, setRound]
     const teams=[
         'Team1',
@@ -30,20 +33,33 @@ function DraftOrderBox(){
     // }
     return (
         <div>
-            <Row className='currDRow'>
-                <Col s={3}>
-                    <Timer/>
-                </Col>
-            </Row>
-            <Row>
-                {teams.map((team, i)=>{
-                    return(
-                    <Col s={12} className='teams'>
-
-                        {team}
+            <Row className='dBox'>
+                <Row className='currDRow'>
+                    <Col s={3}>
+                        <Timer/>
                     </Col>
-                    )
-                })}
+                </Row> 
+                <div className='orderBox'>
+                    {live.teams.length>0?
+                    <Row>
+                        {live.teams.map((team, i)=>{
+                        return(
+                            <Col s={8} offset='s2' >
+                                <div className='teams'>{team}</div>
+                            </Col>                               
+                        )
+                    })}
+                    </Row>:<div></div>}
+                    {/* {teams.map((team, i)=>{
+                        return(
+                            <Row>
+                                <Col s={8} offset='s2' >
+                                    <div className='teams'>{team}</div>
+                                </Col>
+                            </Row>   
+                        )
+                    })} */}
+                </div>               
             </Row>
         </div>
             )

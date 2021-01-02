@@ -1,11 +1,12 @@
 import React from 'react'
-// import {useAtom} from 'jotai'
+import {useAtom} from 'jotai'
 import {Tabs,Tab,Row,Col} from 'react-materialize'
 import PlayerList from './PlayerL'
 import Chatbox from './Chatbox'
 import DraftOrderBox from './DraftOrderBox'
 
 function DraftContainer(){
+    
     return(
         <Row id ='tabs'>
             <Col s={12} m={8} offset='m2' className='tabCont' >
