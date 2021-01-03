@@ -3,11 +3,12 @@ import {Col, Row} from 'react-materialize'
 import Timer from '../components/Timer'
 import {draft} from '../Atoms'
 import {useAtom} from 'jotai'
+import socket from '../socketConfig'
 function DraftOrderBox(){
     const[live, setLive]= useAtom(draft)
     console.log(live)
     const [round, setRound]=useState(live.round)
-    const [pick, setRound]=useState(live.round)
+    const [pick, Pick]=useState(live.currentPick)
 
     return (
         <div>
