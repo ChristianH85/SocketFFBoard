@@ -265,7 +265,8 @@
   font-family: 'Luckiest Guy';
   font-weight:700;
   font-size: 2em;
-  color:#80220b;
+  background-color:#80220b;
+  color:white;
 }
 .teams{
   border:1px solid #382a14;

@@ -31,11 +31,17 @@ function Options(){
                 </Col>
                 <Col s={12} >
                 <Card>
-                <Link to='/draft'>
+                    {currUser.leagues.length>0?
+                    <Link to='/draft'>
                         <Button>
-                            My League
+                            My Leagues
                         </Button>
-                        </Link>
+                    </Link>:
+                     <Link to='/search'>
+                     <Button>
+                         My Leagues
+                     </Button>
+                     </Link>}
                     </Card>
                 </Col>
                 <Col s={12} >
