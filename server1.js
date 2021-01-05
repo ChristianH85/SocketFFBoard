@@ -7,6 +7,7 @@ const bodyParser= require('body-parser');
 const passport = require('./config/passport')
 const mongoose = require('mongoose')
 const routes = require("./routes");
+const db= require('./models/index')
 require('dotenv').config();
 
 mongoose.connect(
@@ -35,13 +36,25 @@ io.use(wrap(passport.initialize()));
 io.use(wrap(passport.session()));
 app.use(routes);
 io.on('connect', (socket) => {
-    console.log(`new connection ${socket.id}`);
+  
     socket.on('subscribe', function(data){
       console.log(data)
       socket.join(data)
+     
     })
+    // socket.on('messL', function(data){
+    //   db.League.find({_id:data.room}).then(data=>{data})
+    //   console.log(data);
+    // })
     socket.on('outgoingMsg', function(data) {
       console.log('sending message');
+      
+      db.League.findByIdAndUpdate(data.room,{$push:{messages:data}}).then(data=>{
+        console.log(data)
+        // socket.in(data.room).emit('saved', data);
+        })
+      // console.log(req.body)
+    
       io.sockets.in(data.room).emit('incomingMsg', data);
   });
     const session = socket.request.session;

@@ -7,7 +7,8 @@ const leagueSchema = new Schema({
     numbTeams:{type:Number, required:true},
     numbRounds:{type:Number, required:true},
     teams:{type:Array, required:true},
-    messages:[{ type: Schema.Types.ObjectId, ref: 'Message' }],
+    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    messages:[],
     draftTime:{type:Date},
     
 })

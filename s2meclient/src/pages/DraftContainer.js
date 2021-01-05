@@ -17,6 +17,7 @@ function DraftContainer(){
                 }}
                 >
                 <Tab
+                    key='Players'
                     className='tabStyle'
                     options={{
                     duration: 300,
@@ -29,7 +30,7 @@ function DraftContainer(){
                     <PlayerList />
                 </Tab>
                 <Tab
-                    // active
+                    key='Draft Order'
                     className='tabStyle'
                     options={{
                     duration: 300,
@@ -41,7 +42,8 @@ function DraftContainer(){
                 >
                     <Chatbox />
                 </Tab>
-                <Tab
+                <Tab 
+                    key='Draft Order'
                     className='tabStyle'
                     options={{
                     duration: 300,

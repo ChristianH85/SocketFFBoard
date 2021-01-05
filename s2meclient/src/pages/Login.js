@@ -7,7 +7,6 @@ import { useAtom } from 'jotai'
 import {loggedIn, user, port} from '../Atoms'
 
 function Login (props) {
-    console.log(process.env.POR)
     const[point, setPort]=useAtom(port)
     const [email, setEmail] = useState('')
     const [password, setPass] = useState('')
@@ -15,7 +14,6 @@ function Login (props) {
     const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
     socket.on('connected',data=>{
-        // debugger
       console.log(data)
     })
 
@@ -27,10 +25,7 @@ function Login (props) {
 
     const handleSubmit = event => {
         event.preventDefault();
-        // socket.on('connected',data=>{
-        console.log(email)
-        //   console.log(data)
-        // })
+
         if (password.length < 6 ){
             setErr("password must be greater than 6 characters")
         }else if(validateEmail(email)!==true) {
@@ -45,8 +40,7 @@ function Login (props) {
                     email:email,
                     password: password,
                 }
-                // console.log(loginOBj)
-            // socket.emit('login', loginOBj)
+
             axios.post('api/user/login', loginOBj).then(data=>{
                 console.log(data)
                 setPort(data.data.port)

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 // import {messages} from '../Atoms'
 import socket from "../socketConfig";
+import MessageBox from '../components/MessageBox'
 // socket.emit('subscribe','whatabuda')
 function Chatbox(props){
 const [userInfo, setUInfo]=useAtom(user)
@@ -14,8 +15,13 @@ const [msgL, setMsgL]= useState([])
 const [inputVal, setInputVal]= useState('')
 const [leagueInfo, setLeagueInfo]=useAtom(draft)
 const [numMess, setNumM]=useState(0)
+// const [load messages]
 
 useEffect(()=>{
+    if(msgL.length<1){
+        const list= leagueInfo.messages
+        setMsgL(list)
+    }else if(msgL.length>=1){
     socket.on('incomingMsg',data=>{
         let mList=msgL
         mList.push(data)
@@ -24,8 +30,9 @@ useEffect(()=>{
         console.log(data)
     })
     socket.emit('subscribe', leagueInfo.id)
-},[])
-// useEffect(()=>{},)
+    socket.on('saved', data=>{console.log(data)})
+}
+},[msgL])
 
 const handleOutMessage=(e)=>{
     e.preventDefault()
@@ -37,25 +44,8 @@ const handleOutMessage=(e)=>{
         time:new Date()
     }
     socket.emit('outgoingMsg', mObj)
-    
+    setInputVal('')
 }
-
-
-// console.log(props)
-// const nMsg = (e)=>{
-// e.preventDefault()
-// let mObj={
-//     msg:inputVal,
-//     username: userInfo.ussername,
-//     time:new Date()
-// }
-// props.handleOut(mObj)
-// tempL.push(mObj)
-// setMsgL(tempL)
-// setInputVal('')
-
-// }
-
 const inputChng =(e)=>{
     setInputVal(e.target.value)
 }
@@ -64,43 +54,7 @@ return<>
         <Row>
             <Col s={12} >
                 <form className='Chatcard'>
-                    <div className='msgbox'>
-                        {msgL? msgL.map((data,i)=>{
-                            // console.log(data)
-                            if(data.userId===userInfo._id){
-                                return (
-                                    <div className='msgS msg'key={i}>
-                                        <Row>
-                                        <h5>{data.msg} </h5>
-                                        </Row>
-                                        <hr/>
-                                        <Row>
-                                            <Col s={6}>
-                                            <p className='time'>{data.time.toString()}</p>
-                                            </Col>
-                                            <Col s={6}>
-                                            <h6 className='userN'> {data.username.toString()}</h6>
-                                            </Col>
-                                        </Row>
-                                    </div>)
-                            }else{return (
-                                <div className='msgR msg'key={i}>
-                                    <Row>
-                                        <h5>{data.msg} </h5>
-                                    </Row>
-                                        <hr/>
-                                     <Row>
-                                        <Col s={6}>
-                                            <p className='time'>{data.time.toString()}</p>
-                                        </Col>
-                                        <Col s={6}>
-                                            <h6 className='userN'> {data.username.toString()}</h6>
-                                        </Col>
-                                    </Row>
-                                </div>)}
-
-                        }):<h6>No Messages Yet</h6>}
-                    </div>
+                    <MessageBox msgL={msgL} userInfo={userInfo}/>
                     <Row>
                         <Col s={12} > 
                         <textarea onChange={inputChng} value={inputVal}className='chatIn'></textarea>

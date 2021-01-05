@@ -6,16 +6,9 @@ import Options from './Option';
 function Landing(){
     const [ loginP, switchL] = useState(true)
     const[incoming, setIncoming]=useState([])
-        // const endpoint= process.env.Port || 'http://127.0.0.1:3001'
-        // const socket = socketIOClient(endpoint);
-        // const [socket] = useSocket(endpoint)
-        // socket.connect();
-        // console.log(socket)
-        // 
+
         socket.on('user', data=>{
-            console.log("######################User"+data)
-            // const user= data.user
-            
+            console.log("######################User"+data)            
         })
         
 return(

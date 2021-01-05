@@ -4,23 +4,27 @@ import {user} from '../Atoms'
 import {useAtom} from 'jotai'
 import socket from '../socketConfig'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
+
 function LeagueOptions(){
     const[commish, setComm]= useAtom(user)
     const [leagueName, setLName]=useState('')
     const [numP, setLNumP]=useState(0)
     const [date1, setD1]= useState('')
     const [date2, setD2]= useState('')
-    const [lEmails, setEmails]=useState('')
+    const [lEmails, setEmails]=useState([])
     const [eList, setEList]=useState([])
-    // const [pNum, setPNum]=useState('')
     const [rounds,setRounds]=useState(0)
     const [ePlayers, setEPlay]=useState(12)
     const handleOption=(e)=>{
         let val= e.target.value
-        setEmails(Array(parseInt(val)))
-        // const emailList=Array(parseInt(val))
-        if(lEmails.length>0){
-        console.log(lEmails)}
+        let emails = eList
+            emails.length=val
+            emails[0]=commish.email
+            console.log(emails)
+        setEmails(emails)
+        if(eList.length>0){
+        console.log(eList)}
         setLNumP(val)
     }
     const handleInput=(e)=>{
@@ -49,21 +53,7 @@ function LeagueOptions(){
             setD2(val)
         }
     }
-    const handleSubmit=(e)=>{
-        e.preventDefault()
-        let lObj={
-            leagueName:leagueName,
-            commish:commish,
-            date: date1+" "+date2,
-        }
-        socket.emit('Nleague', lObj)
-    }
-    const setList=(list)=>{
-        console.log(list)
-        // let nList=list.map((data)=>{data=null})
-        // setEList(list)
-    }
-    
+
     const handleEmailCh=(e)=>{
         e.preventDefault();
         let email= e.target.value;
@@ -76,19 +66,22 @@ function LeagueOptions(){
     }
     const setUpLeage=(e)=>{
         e.preventDefault()
-        console.log(commish._id)
+        let date= new Date(date1+"T"+date2).toISOString()
+        // let date12= new Date(date.toString())
+        console.log(date)
         let lObj={
             leagueName: leagueName,
-            draftTime: date1+" "+date2,
+            draftTime: date,
             // rounds: rounds,
             teams: eList,
             numbTeams:numP,
             numbRounds:rounds,
             commish: commish._id
         }
-        axios.post('/api/league/',lObj).then(res=>console.log(res))
+        axios.post('/api/league/',lObj).then(res=>{
+            console.log(res)
+        })
     }
-    // console.log(emailList)
     return(
         <Row>
         <Col s={12} m={8} offset='m2' className='leagueForm'>
@@ -110,11 +103,10 @@ function LeagueOptions(){
                             <label>Total Rounds</label>
                             <input type="number" min="1" max="20" name="rounds" onChange={handleInput}/>
                         </div>
-                        {/* <TextInput label="Total Picks" name="rounds" onChange={handleInput}></TextInput> */}
                     </Col>
                     <Col s={12} m={8}offset='s2'>
                     <Select
-                    label='# of players' 
+                    label='# of Players' 
                     multiple={false}
                     options={{
                         classes: '',
@@ -147,14 +139,18 @@ function LeagueOptions(){
                         {numP>1?[...Array(parseInt(numP))].map((u,i)=>{
                         // console.log(u,i)
                         let x=i+1
+                        
                         return(
+                            
                             <Col s={6} m={4} key={i.toString()}>
-                            <TextInput label={"Player Email # "+x.toString()} id={i.toString()} type="email" onChange={handleEmailCh}></TextInput>
+                                {i===0?
+                                <TextInput label={"Commissioner"} id={(i).toString()} type="email" value={lEmails[0]} disabled={true}></TextInput>:
+                                <TextInput label={"Player Email # "+x.toString()} id={(i).toString()} type="email" onChange={handleEmailCh}></TextInput>}
                             </Col>
                         )}
                         ):<div></div>}
                     </Row>                
-                <Button onClick={setUpLeage}>Create League</Button>
+                <Link to='/draft'><Button onClick={setUpLeage}>Create League</Button></Link>
             </form>
         </Col>
         </Row>

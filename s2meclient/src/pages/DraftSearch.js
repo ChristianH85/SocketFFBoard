@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import {Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {Row,Col, Button, Icon} from 'react-materialize';
 import {useAtom} from 'jotai';
 import socket from '../socketConfig';
@@ -11,14 +11,24 @@ function DraftSearch(){
     const [cDraft, setDraft]=useAtom(draft)
     const [showBtn, setShowBtn]=useState(false)
     const [team,setTeam]= useAtom(user)
-    console.log(team)
+    const [errM, setErrM]= useState('')
+    const [redirect, setRedirect]=useState(false)
+    const [myLeagues, setLeagues]=useState([])
+    const [tempL, setTemp]=useState('')
+    useEffect(()=>{
+        console.log(team._id)
+        axios.get('/api/user/'+team._id).then(res=>{
+            console.log(res.data.leagues.length)
+            if(res.data.leagues.length>0){
+                setLeagues(res.data.leagues)}
+        })
+    },[])
     const handleInput=(e)=>{
         e.preventDefault();
         setLID(e.target.value)
     }
     const handleSearch=(e)=>{
         e.preventDefault();
-        console.log("5fef9995a385ae239cff66b9"+leagueID)
         axios.get('/api/league/'+leagueID).then((result)=>{
             console.log(result.data._id)
             if(result.data._id){
@@ -33,40 +43,67 @@ function DraftSearch(){
                     draftTime:result.data.draftTime,
                     currentPick: '',
                     availableP: [],
-                    picked: []
+                    picked: [],
+                    users:result.data.users
                 }
-                setDraft(lObj)
-                setShowBtn(true)
-                console.log(cDraft)
+                setTemp(lObj)
+                evaluateCode()
+                // console.log(cDraft)
                 // console.log(data)
-                console.log(result)
+                // console.log(result)
             }
+            else{ setErrM('No Matching Leages Found')}
         })
         // socket.emit('findL',leagueID)
     }
-    const handleSelect=()=>{
-        // console.log(leagueID)
+    const evaluateCode=()=>{
+        if(team.leagues.length===0){
+            setShowBtn(true)
+        }
+        else if(team.leagues.indexOf(leagueID)===-1){
+            setShowBtn(true)
+        }
+        else{
+            setShowBtn(false)
+            setErrM('Already in this League')
+        }
+
+    }
+    const handleSelect=(e)=>{
+        e.preventDefault()
+        const btnID= e.target.id
+       if(btnID==='searched'){
         const upObj={
             league:leagueID,
             user:team._id
         }
         axios.post('/api/user/leagues',upObj).then(data=>{
+            // setDraft(data)
             console.log(data)
+            // setRedirect(true)
         })
-        // if(cDraft.commish===team._id){
-        //     socket.emit('findL',leagueID)
-        // }
+    }else{
+        
+        
+        axios.get('/api/league'+e.target.id).then(data=>{
+            // setDraft(data)
+            console.log(data)
+            // setRedirect(true)
+        })
+    }
 
     }
     return(
         <Row>
+            {redirect?<Redirect push to='/draft'/>:<div></div>}
             <Col s={12} m={8} offset='m2'>
                 <form className='findL'>
                     <Row id='search'>
+                        <Col s={12}> Search Leagues:</Col>
                         <Col s={2} m={2} >
                             <label>Verify Code</label>
                         </Col>
-                        <Col s={8} m={7} >
+                        <Col s={8} m={8} >
                             <input id ="lSearch"type='text' onChange={handleInput}></input>
                         </Col>
                         <Col s={2} m={2} >
@@ -74,16 +111,24 @@ function DraftSearch(){
                                 <Icon large>search</Icon>
                             </Button>
                         </Col>
+                        {errM.length>0?<Col s={12} className='errM'>{errM}</Col>:<div></div>}
                     </Row>
                     {showBtn?
                     <Row>
-                        <Col s={12} m={8} offset='s2'>
+                        <Col s={12} m={12} offset='s2'>
                             <h3>Is This your League</h3>
-                            <Link to='/draft'><Button onClick={handleSelect}>Go To {cDraft.leagueName}</Button></Link>
+                            <Button onClick={handleSelect} id='searched'>Go To {tempL.leagueName}</Button>
                         </Col>
                     </Row>:
                     <div></div>
                     }
+                    <Row>
+                        <Col s={12}> My Leagues:</Col>
+                        {myLeagues.length>0?myLeagues.map((league,i)=>{
+                        return(<Col s={12}  key={i}><Button id={league._id} onClick={handleSelect}>{league.leagueName}</Button></Col>)
+                         })
+                        :<div></div>}
+                    </Row>
                 </form>
             </Col>
         </Row>

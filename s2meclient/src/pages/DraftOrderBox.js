@@ -10,6 +10,7 @@ function DraftOrderBox(){
     const [round, setRound]=useState(live.round)
     const [pick, Pick]=useState(live.currentPick)
 
+
     return (
         <div>
             <Row className='dBox'>
@@ -23,8 +24,8 @@ function DraftOrderBox(){
                     <Row>
                         {live.teams.map((team, i)=>{
                         return(
-                            <Col s={8} offset='s2' >
-                                <div className='teams'>{team}</div>
+                            <Col s={8} offset='s2' key={i}>
+                                <div key={i} className='teams'>{team}</div>
                             </Col>                               
                         )
                     })}

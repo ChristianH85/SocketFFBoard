@@ -9,7 +9,7 @@ function Options(){
     console.log(currUser)
     return(
         <div>
-            <h3>Welcome: {currUser.username}</h3>
+            <h3 className='userName'>Welcome: {currUser.username}</h3>
             <Row>
                 <Col s={12} >
                     <Card>

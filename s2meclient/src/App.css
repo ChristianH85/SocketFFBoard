@@ -174,6 +174,9 @@
   color:white;
   font-weight: 700;
 }
+.errM{ 
+  color:white
+}
 
 .App-header {
   background-color: #282c34;
@@ -281,4 +284,8 @@
   border-bottom-right-radius: 8px;
   max-height:60vh;
   /* width:auto; */
+}
+.userName{
+  background-color: #141194;
+  color:white;
 }

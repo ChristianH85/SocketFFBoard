@@ -19,7 +19,8 @@ export const draft =atom({
     currentPick:"",
     availableP:[],
     picked:[],
-
+    leagues:[],
+    users:[]
 })
 
 // export const team =atom()
