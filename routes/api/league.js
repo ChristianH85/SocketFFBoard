@@ -64,8 +64,14 @@ router.post('/:id',function(req, res){
 })
 router.get('/:id',function(req, res){
     console.log(req.params.id)
+    console.log('%%%%%%%%%%%Req.BODY%%%%%%%%%%%')
     console.log(req.body)
-    League.findById(req.params.id).then(data=>{res.json(data)}).catch(err => {
+    League.findById(req.params.id).then(data=>{
+      console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%')
+      console.log(data)
+      console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%')
+      res.json(data)
+    }).catch(err => {
         res.json(err);
       });
 })

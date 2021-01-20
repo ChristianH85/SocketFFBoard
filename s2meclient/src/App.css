@@ -283,9 +283,12 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   max-height:60vh;
-  /* width:auto; */
+  width:auto;
 }
 .userName{
   background-color: #141194;
   color:white;
+}
+.dBox{
+  width:100%
 }

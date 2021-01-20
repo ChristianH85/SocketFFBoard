@@ -18,7 +18,7 @@ const [numMess, setNumM]=useState(0)
 // const [load messages]
 
 useEffect(()=>{
-    if(msgL.length<1){
+    if(!msgL){
         const list= leagueInfo.messages
         setMsgL(list)
     }else if(msgL.length>=1){

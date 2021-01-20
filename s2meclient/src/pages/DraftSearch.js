@@ -73,6 +73,8 @@ function DraftSearch(){
         e.preventDefault()
         const btnID= e.target.id
        if(btnID==='searched'){
+           console.log(leagueID)
+           console.log(team._id)
         const upObj={
             league:leagueID,
             user:team._id
@@ -85,10 +87,12 @@ function DraftSearch(){
     }else{
         
         
-        axios.get('/api/league'+e.target.id).then(data=>{
-            // setDraft(data)
+        axios.get('/api/league/'+e.target.id).then(data=>{
+            setDraft(data)
             console.log(data)
-            // setRedirect(true)
+            console.log('draft id')
+            
+            setRedirect(true)
         })
     }
 

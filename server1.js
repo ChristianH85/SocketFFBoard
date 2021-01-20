@@ -11,7 +11,7 @@ const db= require('./models/index')
 require('dotenv').config();
 
 mongoose.connect(
-    process.env.MONGODB_URI || "mongodb://localhost/footy", { useNewUrlParser: true,  useUnifiedTopology: true }
+    process.env.MONGODB_URI || "mongodb://localhost/footy", { useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false }
   );
 
 // app.use(express.urlencoded({extended:true}));
@@ -47,12 +47,13 @@ io.on('connect', (socket) => {
     //   console.log(data);
     // })
     socket.on('outgoingMsg', function(data) {
+      console.log(data)
       console.log('sending message');
       
       db.League.findByIdAndUpdate(data.room,{$push:{messages:data}}).then(data=>{
         console.log(data)
         // socket.in(data.room).emit('saved', data);
-        })
+        }).catch(err=>{console.log(err)})
       // console.log(req.body)
     
       io.sockets.in(data.room).emit('incomingMsg', data);

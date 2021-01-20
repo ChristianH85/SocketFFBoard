@@ -6,10 +6,16 @@ import {Row,Col} from 'react-materialize'
 function AdminControls(){
     const [me, setMe]=useAtom(user)
     const [thisLeague, setThisLeague]=useAtom(draft)
-
+    console.log(me)
+    console.log(thisLeague)
     return(
         <div className='container'>
-            
+            <Row>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+            </Row>
         </div>
     )
 }
