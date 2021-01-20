@@ -9,7 +9,7 @@ function AdminControls(){
     console.log(me)
     console.log(thisLeague)
     return(
-        <div className='container'>
+        <div className='container Admin'>
             <Row>
                 <Col>
                 </Col>

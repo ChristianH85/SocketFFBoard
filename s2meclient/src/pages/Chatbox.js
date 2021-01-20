@@ -18,26 +18,34 @@ const [numMess, setNumM]=useState(0)
 // const [load messages]
 
 useEffect(()=>{
-    if(!msgL){
+    if(msgL.length===0){
         const list= leagueInfo.messages
         setMsgL(list)
+        console.log(leagueInfo)
+        socket.emit('subscribe', leagueInfo._id)
     }else if(msgL.length>=1){
+        setMsgL(msgL)
     socket.on('incomingMsg',data=>{
         let mList=msgL
         mList.push(data)
         setMsgL(mList)
+        console.log(msgL)
         setInputVal('')
         console.log(data)
     })
-    socket.emit('subscribe', leagueInfo.id)
+    console.log(leagueInfo)
+    // socket.emit('subscribe', leagueInfo.id)
     socket.on('saved', data=>{console.log(data)})
 }
 },[msgL])
 
+
 const handleOutMessage=(e)=>{
     e.preventDefault()
+    // console.log(leagueInfo)
     let mObj={
-        room: leagueInfo.id,
+        
+        room: leagueInfo._id,
         msg:inputVal,
         username: userInfo.username,
         userId: userInfo._id,

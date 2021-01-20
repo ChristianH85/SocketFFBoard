@@ -10,20 +10,20 @@ function Timer(){
             setTimeout(()=>{
                 setCount(counter-1)
                 setTmessage('')
-                console.log(counter)
+                // console.log(counter)
             },1000)
         }
         if(counter===60){
             setTime('med')
             setTimeout(()=>{
                 setCount(counter-1)
-                console.log(counter)
+                // console.log(counter)
             },1000)
         }else if(counter===30){
             setTime('low')
             setTimeout(()=>{
                 setCount(counter-1)
-                console.log(counter)
+                // console.log(counter)
             },1000)
         }
         else if(counter===0){

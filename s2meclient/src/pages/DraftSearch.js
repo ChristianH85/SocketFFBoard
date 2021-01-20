@@ -88,7 +88,7 @@ function DraftSearch(){
         
         
         axios.get('/api/league/'+e.target.id).then(data=>{
-            setDraft(data)
+            setDraft(data.data)
             console.log(data)
             console.log('draft id')
             
