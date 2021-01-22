@@ -292,6 +292,13 @@
 .dBox{
   width:100%
 }
+.admin{
+  background-color: #9e9898;
+  /* color: white */
+}
+.adLabel{
+  color: #141194;
+}
 /* .hideTab{
   display:none
 } */
