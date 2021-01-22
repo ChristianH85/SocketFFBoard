@@ -6,7 +6,7 @@ import {useAtom} from 'jotai'
 import socket from '../socketConfig'
 function DraftOrderBox(){
     const[live, setLive]= useAtom(draft)
-    console.log(live)
+    // console.log(live)
     const [round, setRound]=useState(live.round)
     const [pick, Pick]=useState(live.currentPick)
 

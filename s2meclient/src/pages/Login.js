@@ -14,7 +14,7 @@ function Login (props) {
     const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
     socket.on('connected',data=>{
-      console.log(data)
+    //   console.log(data)
     })
 
     const validateEmail=(email) =>
@@ -42,7 +42,7 @@ function Login (props) {
                 }
 
             axios.post('api/user/login', loginOBj).then(data=>{
-                console.log(data)
+                // console.log(data)
                 setPort(data.data.port)
                 setUser(data.data.user)
                 setLogin(true)

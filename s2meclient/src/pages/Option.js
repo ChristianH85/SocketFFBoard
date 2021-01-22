@@ -6,7 +6,7 @@ import {useAtom} from 'jotai'
 
 function Options(){
     const [currUser, setCurrentUser]= useAtom(user)
-    console.log(currUser)
+    // console.log(currUser)
     return(
         <div>
             <h3 className='userName'>Welcome: {currUser.username}</h3>

@@ -3,11 +3,12 @@ import {Row, Col} from 'react-materialize'
 function MessageBox(props){
     const[msgs, setMsgs]= useState([])
     useEffect(()=>{
-        console.log(props.msgL)
+        // console.log(props.msgL)
         setMsgs(props.msgL)
     }, [props.msgL])
     return(
         <div className='msgbox'>
+            <div id="scroller">
                         {msgs? msgs.map((data,i)=>{
                             // console.log(data)
                             if(data.userId===props.userInfo._id){
@@ -43,6 +44,8 @@ function MessageBox(props){
                                 </div>)}
 
                         }):<h6>No Messages Yet</h6>}
+                        <div id="anchor"></div>
+                        </div>
                     </div>
     )
 }
