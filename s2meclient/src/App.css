@@ -273,7 +273,9 @@
   color:white;
 }
 .teams{
-  float:left;
+  /* float:left; */
+  /* display: inline-block; */
+  flex: 0 0 auto;
   border:1px solid #382a14;
   background-color:#141194;
   color:#ebf0f1;
@@ -286,11 +288,13 @@
   position: fixed;
   bottom: 0;
   background-color:#9e9898;
-  overflow-x:scroll;
+  display: flex;
+  overflow-x: auto;
+  /* white-space: nowrap; */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   max-height:10vh;
-  width:100vw;
+  width:100%;
 }
 .userName{
   background-color: #141194;

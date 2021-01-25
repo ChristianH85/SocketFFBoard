@@ -55,10 +55,11 @@ const snake=()=>{
                     {/* <Col s={2}>
                         <Timer/>
                     </Col> */}
-                    <div className='orderBox'>
                     <Col s={2}>
                         <Timer/>
                     </Col>
+                    <div className='orderBox'>
+                    
                     {/* {draftOrder?draftOrder.map((team, i)=>{
                         
                             {draftOrder[i].map((team, i)=>{
