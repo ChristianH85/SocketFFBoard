@@ -266,24 +266,31 @@
 }
 .timeout{
   font-family: 'Luckiest Guy';
-  font-weight:700;
-  font-size: 2em;
-  background-color:#80220b;
+  font-weight:500;
+  font-size: 1em;
+  vertical-align: middle;
+  background-color:#80220b00;
   color:white;
 }
 .teams{
+  float:left;
   border:1px solid #382a14;
   background-color:#141194;
   color:#ebf0f1;
-  padding:.25em 0em .25em 0em;
+  vertical-align: middle;
+  width:20vw;
+  height:10vh;
+  /* padding:.25em 0em .25em 0em; */
 }
 .orderBox{
+  position: fixed;
+  bottom: 0;
   background-color:#9e9898;
-  overflow:auto;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  max-height:60vh;
-  width:auto;
+  overflow-x:scroll;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  max-height:10vh;
+  width:100vw;
 }
 .userName{
   background-color: #141194;

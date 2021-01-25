@@ -13,6 +13,7 @@ function DraftContainer(){
     // console.log(userInfo)
     // console.log(leagueInfo)
     return(
+        <div>
         <Row id ='tabs'>
             <Col s={12} m={8} offset='m2' className='tabCont' >
 
@@ -81,6 +82,10 @@ function DraftContainer(){
             </Col>
         
         </Row>
+        <Row>
+            <DraftOrderBox/>
+        </Row>
+        </div>
     )
 }
 export default DraftContainer

@@ -6,33 +6,77 @@ import {useAtom} from 'jotai'
 import socket from '../socketConfig'
 function DraftOrderBox(){
     const[live, setLive]= useAtom(draft)
-    // console.log(live)
+    console.log(live)
     const [round, setRound]=useState(live.round)
     const [pick, Pick]=useState(live.currentPick)
+    const[draftOrder , setDraftOrder]=useState([])
+    
+    useEffect(()=>{
+        snake()
+    }, [])
 
+const snake=()=>{
+    const order=[]
+    console.log(live.numbRounds)
+    for(let i =1 ;i<live.numbRounds;i++){
+        // if(i===0){
+        //     const zOrder=live.teams
+            
+        //     zOrder.forEach(team =>order.push(team))
+        // }
+        
+         if ((i)%2!==0){
+            const nOrder=live.teams
+            console.log(nOrder)
+            nOrder.forEach(team =>order.push(team))
+            // setDraftOrder(prev=>[...prev, nOrder])
 
+        }
+        else if((i)%2===0){
+            const rOrder=live.teams.reverse()
+            rOrder.forEach(team =>order.push(team))
+            console.log(rOrder)
+            // setDraftOrder(prev=>[...prev, rOrder])
+            
+
+        }
+        // console.log(order) 
+    }
+   setDraftOrder(order)
+}
     return (   
-            <Row className='currDRow'>
-                {/* <Row className='currDRow'> */}
+            <Row>
+                {/* <Row className='currDRow'>
                     <Col s={12}>
                         <Timer/>
                     </Col>
-                {/* </Row>  */}
-                <div className='orderBox'>
-                    {live.teams?
-                    // <Row>
-                    <div>
-                        {live.teams.map((team, i)=>{
+                </Row>  */}
+                {/* <div className='orderBox'> */}
+                    {/* <Col s={2}>
+                        <Timer/>
+                    </Col> */}
+                    <div className='orderBox'>
+                    <Col s={2}>
+                        <Timer/>
+                    </Col>
+                    {/* {draftOrder?draftOrder.map((team, i)=>{
+                        
+                            {draftOrder[i].map((team, i)=>{
+                                return(<div key={i} className='teams'>{team}</div>)
+                            })}
+                        
+                    }):<div></div>} */}
+                    {draftOrder?draftOrder.map((team, i)=>{
                         return(
-                            <Col s={8} offset='s2' key={i}>
+                            // <Col s={2}  key={i}>
                                 <div key={i} className='teams'>{team}</div>
-                            </Col>                               
+                            //  </Col>                               
                         )
-                    })}
-                    </div>
-                    // </Row>
+                    })
+                   
                     :<div></div>}
-                </div>               
+                    </div>
+                {/* </div>                */}
             </Row>
             )
 }
