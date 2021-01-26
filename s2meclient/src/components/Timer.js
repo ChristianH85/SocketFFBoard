@@ -34,10 +34,10 @@ function Timer(){
     })
 
     return(
-        <Row>
-           {counter>0?<div>{Math.floor(counter/60)>=1?<span><Col s={1}className={time}>{Math.floor(counter/60)}:</Col> <Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></span>:<div><Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></div>}</div>:<div></div>} 
-            {timeEndM.length>1?<Col s={12} className='timeout'>{timeEndM}</Col>:<div></div>}
-        </Row>
+        <div>
+           {counter>0?<div>{Math.floor(counter/60)>=1?<span>< div className={time}>{Math.floor(counter/60)}:</div> <Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></span>:<div><Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></div>}</div>:<div></div>} 
+            {timeEndM.length>1?<div className='timeout'>{timeEndM}</div>:<div></div>}
+        </div>
     )
 }
 export default Timer

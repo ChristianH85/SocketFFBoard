@@ -102,8 +102,8 @@
 }
 
 .headRow {
-  /* position: fixed; */
-  top:0;
+  /* position: fixed;
+  top:0; */
   max-width: 100%;
   align-content: center;
   background-color: #141263;
@@ -118,7 +118,7 @@
 }
 .pcard {
   padding:.75em;
-  height: 90vh;
+  height: 80vh;
   background-color:#696459f5;
   /* padding-bottom: .75em; */
   /* min-height:60vh; */
@@ -215,7 +215,7 @@
 }
 #tabs{
   /* margin-top:10vh; */
-  height:95vh;
+  height:85vh;
 }
 .tabCont{
   height:75vh;
@@ -255,7 +255,8 @@
 .high{
   font-family: 'Luckiest Guy';
   font-weight:700;
-  font-size: 2.5em;
+  font-size: 2em;
+  /* background-color:#444038; */
   color:#0b8032;
 }
 .currDRow{
@@ -265,12 +266,15 @@
   
 }
 .timeout{
+  /* position: fixed; */
+  /* bottom: 0; */
   font-family: 'Luckiest Guy';
   font-weight:500;
   font-size: 1em;
-  vertical-align: middle;
-  background-color:#80220b00;
+  height:100%;
+  background-color:#494847fd;
   color:white;
+  margin: 0;
 }
 .teams{
   /* float:left; */
@@ -285,11 +289,12 @@
   /* padding:.25em 0em .25em 0em; */
 }
 .orderBox{
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
   background-color:#9e9898;
   display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   /* white-space: nowrap; */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -316,4 +321,15 @@
 
   /* anchor nodes are required to have non-zero area */
   height: 1px;
+}
+.doBox{
+  background-color: #e6e5e3;
+  margin-bottom:0;
+}
+.noMar{
+  padding:0 !important;
+  margin:0;
+}
+#current{
+  background-color:#aa4527
 }

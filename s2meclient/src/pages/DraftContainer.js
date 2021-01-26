@@ -82,7 +82,7 @@ function DraftContainer(){
             </Col>
         
         </Row>
-        <Row>
+        <Row className='doBox'>
             <DraftOrderBox/>
         </Row>
         </div>

@@ -10,7 +10,7 @@ function DraftOrderBox(){
     const [round, setRound]=useState(live.round)
     const [pick, Pick]=useState(live.currentPick)
     const[draftOrder , setDraftOrder]=useState([])
-    
+    // const [current, setPick]=useAtom(draft.currentPick)
     useEffect(()=>{
         snake()
     }, [])
@@ -45,7 +45,7 @@ const snake=()=>{
    setDraftOrder(order)
 }
     return (   
-            <Row>
+            <div >
                 {/* <Row className='currDRow'>
                     <Col s={12}>
                         <Timer/>
@@ -55,11 +55,11 @@ const snake=()=>{
                     {/* <Col s={2}>
                         <Timer/>
                     </Col> */}
-                    <Col s={2}>
+                    <Col s={2} className='noMar'>
                         <Timer/>
                     </Col>
+                    <Col s={10}className='noMar'>
                     <div className='orderBox'>
-                    
                     {/* {draftOrder?draftOrder.map((team, i)=>{
                         
                             {draftOrder[i].map((team, i)=>{
@@ -68,17 +68,17 @@ const snake=()=>{
                         
                     }):<div></div>} */}
                     {draftOrder?draftOrder.map((team, i)=>{
-                        return(
-                            // <Col s={2}  key={i}>
-                                <div key={i} className='teams'>{team}</div>
-                            //  </Col>                               
-                        )
+
+                        return(                            
+                                <div key={i} id={i===0?'current':'upcoming'}className='teams'>{team}</div>                                                      
+                              )
                     })
                    
                     :<div></div>}
                     </div>
+                    </Col>
                 {/* </div>                */}
-            </Row>
+            </div>
             )
 }
 export default DraftOrderBox
