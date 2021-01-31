@@ -41,13 +41,28 @@ io.on('connect', (socket) => {
       console.log('////////////41/////////////')
       console.log(data)
       socket.join(data)
+      
      
     })
     // socket.on('messL', function(data){
     //   db.League.find({_id:data.room}).then(data=>{data})
     //   console.log(data);
     // })
-    socket.on('outgoingMsg', function(data) {
+    socket.on('startDraft',(data)=>{
+      console.log(data)
+      io.sockets.to(data.room).emit('start')
+    })
+    socket.on('selection',data=>{
+      console.log(data)
+      io.sockets.to(data.room).emit('picked')
+    })
+    socket.on('endDraft',(data=>{
+      io.sockets.to(data.room).emit('end')
+    }))
+    socket.on('trade',(data=>{
+      io.sockets.to(data.room).emit('end')
+    }))
+    socket.on('outgoingMsg', (data)=>{
       console.log(data)
       console.log('sending message');
       
