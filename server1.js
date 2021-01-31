@@ -38,8 +38,8 @@ app.use(routes);
 io.on('connect', (socket) => {
   
     socket.on('subscribe', function(data){
-      console.log('////////////41/////////////')
-      console.log(data)
+      // console.log('////////////41/////////////')
+      // console.log(data)
       socket.join(data)
       
      
@@ -67,8 +67,8 @@ io.on('connect', (socket) => {
       console.log('sending message');
       
       db.League.findByIdAndUpdate({_id: data.room},{$push:{messages:data}},{new:true,}).then(data=>{
-        console.log(data._id)
-        socket.in(data._id).emit('saved', data);
+        // console.log(data._id)
+        // socket.in(data._id).emit('saved', data);
         }).catch(err=>{console.log(err)})
       // console.log(req.body)
     

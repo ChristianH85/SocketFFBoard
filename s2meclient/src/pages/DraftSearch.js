@@ -16,9 +16,9 @@ function DraftSearch(){
     const [myLeagues, setLeagues]=useState([])
     const [tempL, setTemp]=useState('')
     useEffect(()=>{
-        console.log(team._id)
+        // console.log(team._id)
         axios.get('/api/user/'+team._id).then(res=>{
-            console.log(res.data.leagues.length)
+            // console.log(res.data.leagues.length)
             if(res.data.leagues.length>0){
                 setLeagues(res.data.leagues)}
         })
@@ -73,15 +73,15 @@ function DraftSearch(){
         e.preventDefault()
         const btnID= e.target.id
        if(btnID==='searched'){
-           console.log(leagueID)
-           console.log(team._id)
+        //    console.log(leagueID)
+        //    console.log(team._id)
         const upObj={
             league:leagueID,
             user:team._id
         }
         axios.post('/api/user/leagues',upObj).then(data=>{
             // setDraft(data)
-            console.log(data)
+            // console.log(data)
             // setRedirect(true)
         })
     }else{
@@ -89,8 +89,8 @@ function DraftSearch(){
         
         axios.get('/api/league/'+e.target.id).then(data=>{
             setDraft(data.data)
-            console.log(data)
-            console.log('draft id')
+            // console.log(data)
+            // console.log('draft id')
             
             setRedirect(true)
         })

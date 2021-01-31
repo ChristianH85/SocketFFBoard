@@ -10,8 +10,8 @@ import {draft} from '../Atoms'
 function DraftContainer(){
     const [userInfo, setUInfo]=useAtom(user)
     const [leagueInfo, setLeagueInfo]=useAtom(draft)
-    console.log(userInfo)
-    console.log(leagueInfo)
+    // console.log(userInfo)
+    // console.log(leagueInfo)
     return(
         <Row id ='tabs'>
             <Col s={12} m={8} offset='m2' className='tabCont' >
@@ -36,7 +36,7 @@ function DraftContainer(){
                     <PlayerList />
                 </Tab>
                 <Tab
-                    key='Draft Order'
+                    key='Chat'
                     className='tabStyle'
                     options={{
                     duration: 300,

@@ -21,23 +21,17 @@ useEffect(()=>{
     if(msgL.length===0){
         const list= leagueInfo.messages
         setMsgL(list)
-        console.log(leagueInfo)
-        socket.emit('subscribe', leagueInfo._id)
-    }else if(msgL.length>=1){
-        setMsgL(msgL)
+        // console.log(leagueInfo)
+        socket.emit('subscribe', leagueInfo._id)}
+  
     socket.on('incomingMsg',data=>{
-        let mList=msgL
-        mList.push(data)
-        setMsgL(mList)
-        console.log(msgL)
-        setInputVal('')
-        console.log(data)
+        setMsgL(prevState=>[...prevState,data])
     })
-    console.log(leagueInfo)
+    // console.log(leagueInfo)
     // socket.emit('subscribe', leagueInfo.id)
     socket.on('saved', data=>{console.log(data)})
-}
-},[msgL])
+// }
+},[])
 
 
 const handleOutMessage=(e)=>{
