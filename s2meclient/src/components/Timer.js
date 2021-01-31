@@ -35,8 +35,8 @@ function Timer(){
 
     return(
         <div>
-           {counter>0?<div>{Math.floor(counter/60)>=1?<span>< div className={time}>{Math.floor(counter/60)}:</div> <Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></span>:<div><Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></div>}</div>:<div></div>} 
-            {timeEndM.length>1?<div className='timeout'>{timeEndM}</div>:<div></div>}
+           {counter>0?<div>{Math.floor(counter/60)>=1?<span>< div className={time}>{Math.floor(counter/60)}:</div> <Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></span>:<div><Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></div>}</div>:<div className='timeout'>{timeEndM}</div>} 
+            {/* {timeEndM.length>1?<div className='timeout'>{timeEndM}</div>:<div></div>} */}
         </div>
     )
 }

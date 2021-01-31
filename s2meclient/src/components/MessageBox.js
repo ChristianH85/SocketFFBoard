@@ -5,7 +5,13 @@ function MessageBox(props){
     useEffect(()=>{
         // console.log(props.msgL)
         setMsgs(props.msgL)
+        var el = document.getElementById("scroller");
+            el.scrollTop = el.scrollHeight;
     }, [props.msgL])
+    useEffect(()=>{
+        const el = document.getElementById("scroller");
+            el.scrollTop = el.scrollHeight;
+    }, [])
     return(
         <div className='msgbox'>
             <div id="scroller">
