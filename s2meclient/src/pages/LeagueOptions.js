@@ -16,6 +16,7 @@ function LeagueOptions(){
     const [eList, setEList]=useState([])
     const [rounds,setRounds]=useState(0)
     const [ePlayers, setEPlay]=useState(12)
+    const [dType, setDtype]=useState('Snake')
     const handleOption=(e)=>{
         let val= e.target.value
         let emails = eList
@@ -64,11 +65,12 @@ function LeagueOptions(){
         console.log(email+" \n"+index)
 
     }
-    const setUpLeage=(e)=>{
+    const setUpLeage=async(e)=>{
         e.preventDefault()
         let date= new Date(date1+"T"+date2).toISOString()
         // let date12= new Date(date.toString())
         console.log(date)
+        let order=await snake()
         let lObj={
             leagueName: leagueName,
             draftTime: date,
@@ -76,11 +78,39 @@ function LeagueOptions(){
             teams: eList,
             numbTeams:numP,
             numbRounds:rounds,
-            commish: commish._id
+            commish: commish._id,
+            draftType: dType,
+            draftOrder:order
         }
-        axios.post('/api/league/',lObj).then(res=>{
-            console.log(res)
-        })
+        console.log(lObj)
+        // axios.post('/api/league/',lObj).then(res=>{
+        //     console.log(res)
+        // })
+    }
+    
+    const snake=()=>{
+        const order=[]
+        console.log(rounds)
+        for(let i =1 ;i<rounds;i++){
+             if ((i)%2!==0){
+                const nOrder=eList
+                console.log(nOrder)
+                nOrder.forEach(team =>order.push(team))
+                // setDraftOrder(prev=>[...prev, nOrder])
+    
+            }
+            else if((i)%2===0){
+                const rOrder=eList.reverse()
+                rOrder.forEach(team =>order.push(team))
+                console.log(rOrder)
+            }
+        }
+        console.log()
+       return order
+    }
+    const handleType=(e)=>{
+        let draftType=e.target.value
+        setDtype(draftType)
     }
     return(
         <Row>
@@ -104,7 +134,34 @@ function LeagueOptions(){
                             <input type="number" min="1" max="20" name="rounds" onChange={handleInput}/>
                         </div>
                     </Col>
-                    <Col s={12} m={8}offset='s2'>
+                    <Col s={12} m={8}offset='m2'>
+                        <Select 
+                        label='Draft Type' 
+                        multiple={false}
+                        options={{
+                            classes: '',
+                            dropdownOptions: {
+                            alignment: 'left',
+                            autoTrigger: true,
+                            closeOnClick: true,
+                            constrainWidth: true,
+                            coverTrigger: true,
+                            hover: false,
+                            inDuration: 150,
+                            onCloseEnd: null,
+                            onCloseStart: null,
+                            onOpenEnd: null,
+                            onOpenStart: null,
+                            outDuration: 250
+                            }
+                        }} 
+                        value={dType.toString()} onChange={handleType}
+                        >
+                            <option  value='Snake'>Snake</option>
+                            <option disabled value='Auction'>Auction</option>
+                        </Select>
+                    </Col>
+                    <Col s={12} m={8}offset='m2'>
                     <Select
                     label='# of Players' 
                     multiple={false}

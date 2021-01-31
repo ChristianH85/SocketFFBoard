@@ -10,7 +10,9 @@ const leagueSchema = new Schema({
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     messages:[],
     draftTime:{type:Date},
-    
+    draftType:{type:String},
+    draftOrder:{type:Array},
+    status:{type:String, required:true},
 })
 
 const League = mongoose.model("League",leagueSchema)
