@@ -38,11 +38,11 @@ app.use(routes);
 io.on('connect', (socket) => {
   
     socket.on('subscribe', function(data){
-      // console.log('////////////41/////////////')
-      // console.log(data)
-      socket.join(data)
-      
-     
+      console.log('////////////41/////////////')
+      console.log(data)
+      socket.join(data.room)
+       
+       io.sockets.to(data.room).emit('joined', data.user)
     })
     // socket.on('messL', function(data){
     //   db.League.find({_id:data.room}).then(data=>{data})

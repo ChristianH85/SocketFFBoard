@@ -23,10 +23,13 @@
   padding:.75em;
 }
 .leagueForm {
-  margin-top:5em;
+  /* margin-top:5em; */
   background-color: #ebf0f1;
-  height: 30em;
+  height: 45em;
   overflow: auto;
+  padding:1em;
+  flex-direction: row;
+  align-content: center;
 }
 
 .chatIn {

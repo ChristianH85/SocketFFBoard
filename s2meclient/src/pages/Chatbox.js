@@ -22,8 +22,15 @@ useEffect(()=>{
         const list= leagueInfo.messages
         setMsgL(list)
         // console.log(leagueInfo)
-        socket.emit('subscribe', leagueInfo._id)}
-  
+        const userData={
+            room:leagueInfo._id,
+            user:userInfo.username
+        }
+        socket.emit('subscribe', userData)
+    }
+    socket.on('joined',data=>{
+        alert(data)
+    })
     socket.on('incomingMsg',data=>{
         setMsgL(prevState=>[...prevState,data])
     })

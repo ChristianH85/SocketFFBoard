@@ -5,7 +5,9 @@ import {useAtom} from 'jotai'
 import socket from '../socketConfig'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-
+import DForm1 from '../components/DForm1.js'
+import DForm2 from '../components/DForm2'
+import DForm3 from '../components/DForm3'
 function LeagueOptions(){
     const[commish, setComm]= useAtom(user)
     const [leagueName, setLName]=useState('')
@@ -16,6 +18,7 @@ function LeagueOptions(){
     const [eList, setEList]=useState([])
     const [rounds,setRounds]=useState(0)
     const [ePlayers, setEPlay]=useState(12)
+    const [form, setForm ]=useState('')
     const handleOption=(e)=>{
         let val= e.target.value
         let emails = eList
@@ -26,6 +29,24 @@ function LeagueOptions(){
         if(eList.length>0){
         console.log(eList)}
         setLNumP(val)
+    }
+    const next =(name)=>{
+        setForm(name)
+    }
+    const dispForm=()=>{
+        let dForm=form
+        switch(dForm){
+            case "LeagueName":
+                return   
+            case "LeagueInfo":
+                return<DForm2 setForm={next} numP={numP} handleOption={handleOption} handleInput={handleInput} />
+            case "Players":
+                return<DForm3 lEmails={lEmails} setForm={next} numP={numP} handleEmailCh={handleEmailCh}/>
+            case "Settings":
+                return  
+            default:
+                return<DForm1 setForm={next} handleInput={handleInput} leagueName={leagueName} handleDate={handleDate} />      
+        }
     }
     const handleInput=(e)=>{
         let val= e.target.value
@@ -84,7 +105,8 @@ function LeagueOptions(){
     }
     return(
         <Row>
-        <Col s={12} m={8} offset='m2' className='leagueForm'>
+            {dispForm()}
+        {/* <Col s={12} m={8} offset='m2' className='leagueForm'>
             <form >
                 <Row>
                     <Col s={12} m={6} >
@@ -149,10 +171,10 @@ function LeagueOptions(){
                             </Col>
                         )}
                         ):<div></div>}
-                    </Row>                
-                <Link to='/draft'><Button onClick={setUpLeage}>Create League</Button></Link>
-            </form>
-        </Col>
+                    </Row>                 */}
+                {/* <Link to='/draft'><Button onClick={setUpLeage}>Create League</Button></Link>
+            </form> */}
+        {/* </Col> */}
         </Row>
     )
     
