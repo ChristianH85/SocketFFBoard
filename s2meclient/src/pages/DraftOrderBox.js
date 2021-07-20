@@ -10,9 +10,16 @@ function DraftOrderBox(){
     const [round, setRound]=useState(live.round)
     const [pick, Pick]=useState(live.currentPick)
     const[draftOrder , setDraftOrder]=useState([])
+    const [myPick, setMyPick] = useState(false)
+    const [pickClass, setPickC] = useState('teams')
     // const [current, setPick]=useAtom(draft.currentPick)
     useEffect(()=>{
         snake()
+        socket.on('setMyPick',()=>{
+            setMyPick(true)
+        })
+        setClass()
+        // socket.emit('submitPick')
     }, [])
 
 const snake=()=>{
@@ -44,6 +51,16 @@ const snake=()=>{
     }
    setDraftOrder(order)
 }
+const setClass=()=>{
+    switch(myPick){
+        case true:
+            return'myPick'
+        case false:
+            return'teams'
+        default:
+            console.log('default')
+    }
+}
     return (   
             <div >
                 {/* <Row className='currDRow'>
@@ -70,7 +87,7 @@ const snake=()=>{
                     {draftOrder?draftOrder.map((team, i)=>{
 
                         return(                            
-                                <div key={i} id={i===0?'current':'upcoming'}className='teams'>{team}</div>                                                      
+                                <div key={i} id={i===0?'current':'upcoming'}className={setClass}>{team}</div>                                                      
                               )
                     })
                    

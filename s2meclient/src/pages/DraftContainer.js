@@ -10,7 +10,7 @@ import {draft} from '../Atoms'
 function DraftContainer(){
     const [userInfo, setUInfo]=useAtom(user)
     const [leagueInfo, setLeagueInfo]=useAtom(draft)
-
+    
     // console.log(leagueInfo)
     return(
         <div>

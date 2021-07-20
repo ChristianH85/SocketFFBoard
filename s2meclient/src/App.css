@@ -14,7 +14,15 @@
   background-color: #39d16c;
 
 }
-
+.formI{
+  background-color: #fcf9f5d7!important;
+  border-radius: 8px !important;
+  color: rgb(3, 3, 3) !important;
+}
+.formL{
+  font-size:1.5em;
+  color:#000000;
+}
 .highlight {
   background-color: #444038d7;
 }
@@ -22,10 +30,15 @@
   background-color: #d3d0cb;
   padding:.75em;
 }
-.leagueForm {
-  margin-top:5em;
-  background-color: #ebf0f1;
-  height: 30em;
+#leagueForm {
+  border-radius: 50px;
+  background: #243ae4be;
+  box-shadow:  5px 5px 14px #17279f,
+             -5px -5px 14px #1f35d7;
+  margin-top:5vh;
+  /* background-color: #ebf0f1; */
+  padding:2em;
+  height: 90vh;
   overflow: auto;
 }
 
@@ -47,11 +60,22 @@
   background: linear-gradient(45deg, red, #141263);
 }
 .btn{
-  width: 100%;
-  background-color:rgb(47, 47, 95);
+  width: 60%;
+  margin: auto;
+  border-radius: 8px;
+  background: linear-gradient(335deg, #ddb42c, #328e3e);
+    -webkit-animation: AnimationName 12s ease infinite;
+    -moz-animation: AnimationName 12s ease infinite;
+    animation: AnimationName 12s ease infinite;
 }
 
-
+.dropdown-content{
+  border-radius:8px;
+  color: rgb(8, 8, 8)!important;
+}
+.dropdown-content li>span {
+  color: rgb(8, 8, 8)!important;
+}
 .App {
   text-align: center;
   background: url("./images/field.jpg") ;
@@ -59,7 +83,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
-  
+  overflow-y: auto;
 }
 
 .msgbox{
@@ -301,9 +325,20 @@
   max-height:10vh;
   width:100%;
 }
+.optBtn{
+  height:18vh;
+  width:18vh;
+  margin-top: 2vh;
+  border-radius: 50px;
+  color:white;
+  background: linear-gradient(335deg, #dd382ce8, #2619daea);
+}
 .userName{
   background-color: #141194;
   color:white;
+  border-radius: 8px;
+  margin-top:1vh;
+  background: linear-gradient(335deg, #dd382ce8, #2619daea);
 }
 .dBox{
   width:100%
@@ -332,4 +367,19 @@
 }
 #current{
   background-color:#aa4527
+}
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 70%}
+  50%{background-position:100% 31%}
+  100%{background-position:0% 70%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 70%}
+  50%{background-position:100% 31%}
+  100%{background-position:0% 70%}
+}
+@keyframes AnimationName {
+  0%{background-position:0% 70%}
+  50%{background-position:100% 31%}
+  100%{background-position:0% 70%}
 }

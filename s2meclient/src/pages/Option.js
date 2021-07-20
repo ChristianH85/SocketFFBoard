@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Col, Card, Button} from 'react-materialize'
+import {Row, Col} from 'react-materialize'
 import {Link} from 'react-router-dom'
 import {user} from '../Atoms'
 import {useAtom} from 'jotai'
@@ -12,46 +12,46 @@ function Options(){
             <h3 className='userName'>Welcome: {currUser.username}</h3>
             <Row>
                 <Col s={12} >
-                    <Card>
+                    
                         <Link to='/loptions'>
-                        <Button>
+                        <button className='optBtn'>
                             Create League
-                        </Button>
+                        </button >
                         </Link>
-                    </Card>
+                    
                 </Col>
                 <Col s={12} >
-                <Card>
+                
                     <Link to='/search'>
-                        <Button>
+                        <button className='optBtn'>
                             Find My League
-                        </Button>
+                        </button >
                         </Link>
-                    </Card>
+                    
                 </Col>
                 <Col s={12} >
-                <Card>
+                
                     {currUser.leagues.length>0?
                     <Link to='/draft'>
-                        <Button>
+                        <button className='optBtn'>
                             My Leagues
-                        </Button>
+                        </button >
                     </Link>:
                      <Link to='/search'>
-                     <Button>
+                     <button className='optBtn'>
                          My Leagues
-                     </Button>
+                     </button>
                      </Link>}
-                    </Card>
+                    
                 </Col>
                 <Col s={12} >
-                <Card>
+                
                 <Link to='/account'>
-                        <Button>
+                        <button className='optBtn'>
                             Settings
-                        </Button>
+                        </button >
                         </Link>
-                    </Card>
+                    
                 </Col>
             </Row>
         </div>

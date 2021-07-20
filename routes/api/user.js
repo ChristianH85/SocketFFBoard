@@ -62,4 +62,7 @@ router.post('/leagues',function (req,res){
   // console.log(req.body)
 })
 })
+router.get('/draftPick/:id?user=userId', function (req,res){
+
+})
 module.exports = router;
