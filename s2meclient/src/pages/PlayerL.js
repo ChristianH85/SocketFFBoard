@@ -1,13 +1,16 @@
 import React,{useState, useEffect} from 'react'
-import {Button, Table} from 'react-materialize'
+import {Button, Table, Modal} from 'react-materialize'
 import players from './fakePlist'
+import DraftApi from '../helpers/draft'
 function PlayerList(){
     const [available, setAvail]=useState(players)
     const [picked, setTaken] = useState([])
     const [left, setLeft]=useState(players.length)
     const [dList, setDList]= useState(available)
-    const handlepick=(e)=>{
+    const handlepick=(e,player)=>{
         e.preventDefault();
+        console.log(e.target.name)
+        console.log(e.target.value)
         // let ruSure= confirm('are you sure')
         // console.log(ruSure)
         let currentL=available
@@ -19,20 +22,20 @@ function PlayerList(){
         console.log(currentL)
         setAvail(currentL)
         document.getElementById(e.target.name).remove()
-        
+        DraftApi.makePick(player)
     }
-    const dispPLIst=()=>{
-        dList.map((player)=>{
-            return(
-            <tr>
-                <td className='tableN'><Button className='pbutt' onClick={handlepick} value={player.id}>{player.name}</Button></td>
-                <td className='tableSec'>{player.rank}</td>
-                <td className='tableSec'>{player.bye}</td>
-                <td className='tableSec'>{player.team}</td>
-                {/* <td className='tableSec'>{player.pos}</td> */}
-            </tr>
-        )})
-    }
+    // const dispPLIst=()=>{
+    //     dList.map((player)=>{
+    //         return(
+    //         <tr>
+    //             <td className='tableN'><Button className='pbutt' name={player.name} onClick={(e)=>handlepick(e,player)} value={player.id}>{player.name}</Button></td>
+    //             <td className='tableSec'>{player.rank}</td>
+    //             <td className='tableSec'>{player.bye}</td>
+    //             <td className='tableSec'>{player.team}</td>
+    //             {/* <td className='tableSec'>{player.pos}</td> */}
+    //         </tr>
+    //     )})
+    // }
     const pickPlayer=(e)=>{
 
     }
@@ -131,7 +134,24 @@ function PlayerList(){
             {dList.map((player)=>{
                 return(
                 <tr id={player.id} key={player.rank}>
-                    <td className='tableN'><Button className='pbutt' onClick={handlepick} name={player.id} value={player.name}>{player.name}</Button></td>
+                    <td className='tableN'>
+                        <Button className="modal-trigger" href="#modal1" node="button">{player.name}</Button>
+                        <Modal
+                        actions={[
+                        <Button flat modal="close" node="button" waves="green">Close</Button>,
+                        <Button className='pbutt' onClick={(e)=>{handlepick(e,player)}} name={player.id} value={player.name}>{player.name}</Button>
+                        ]}
+                        bottomSheet={false}
+                        fixedFooter={false}
+                        header={`Are you sure you want ${player.name}?`}
+                        id="modal1"
+                        open={false}
+                    >
+                        <tr>
+                        <td>{player.team}</td><td>{player.pos}</td><td>{player.bye}</td>
+                        </tr>
+                    </Modal>
+                    </td>
                     <td className='tableSec'>{player.rank}</td>
                     <td className='tableSec'>{player.pos}</td>
                     <td className='tableSec'>{player.bye}</td>

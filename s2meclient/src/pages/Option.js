@@ -32,16 +32,17 @@ function Options(){
                 <Col s={12} >
                 
                     {currUser.leagues.length>0?
-                    <Link to='/draft'>
+                    <Link to='/myLeagues'>
                         <button className='optBtn'>
                             My Leagues
                         </button >
                     </Link>:
-                     <Link to='/search'>
-                     <button className='optBtn'>
-                         My Leagues
-                     </button>
-                     </Link>}
+                    // <Link to='/search'>
+                    // <button className='optBtn'>
+                    //     Search 
+                    // </button>
+                    // </Link>
+                     null}
                     
                 </Col>
                 <Col s={12} >

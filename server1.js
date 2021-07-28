@@ -38,17 +38,40 @@ app.use(routes);
 io.on('connect', (socket) => {
   
     socket.on('subscribe', function(data){
-      // console.log('////////////41/////////////')
-      // console.log(data)
-      socket.join(data)
-     
+      console.log('////////////41/////////////')
+      console.log(data)
+      socket.join(data.room)
+       
+       io.sockets.to(data.room).emit('joined', data.user)
     })
     // socket.on('messL', function(data){
     //   db.League.find({_id:data.room}).then(data=>{data})
     //   console.log(data);
     // })
-    socket.on('outgoingMsg', function(data) {
-      // console.log(data)
+    socket.on('startDraft',(data)=>{
+      console.log('//////////////start////////////')
+      console.log(data)
+      io.sockets.to(data._id).emit('start')
+    })
+    socket.on('selection',data=>{
+      console.log('//////////////pick////////////')
+      console.log(data)
+      // io.sockets.to(data._id).emit('picked')
+    })
+    socket.on('timesUp', data=>{
+      console.log('//////////////timesUp////////////')
+      console.log(data)
+    })
+    socket.on('endDraft',(data=>{
+      console.log('//////////////end////////////')
+      io.sockets.to(data._id).emit('end')
+    }))
+    socket.on('trade',(data=>{
+      io.sockets.to(data._id).emit('end')
+    }))
+    socket.on('outgoingMsg', (data)=>{
+      console.log('//////////////message////////////')
+      console.log(data)
       console.log('sending message');
       
       db.League.findByIdAndUpdate({_id: data.room},{$push:{messages:data}},{new:true,}).then(data=>{

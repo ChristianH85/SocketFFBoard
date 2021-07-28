@@ -18,7 +18,7 @@ passport.use(
       // When a user tries to sign in this code runs
       db.User.findOne({
           email: email
-      }).then(function(dbUser) {
+      }).populate('leagues').then(function(dbUser) {
         // console.log(dbUser)
         // If there's no user with the given email
         if (!dbUser) {

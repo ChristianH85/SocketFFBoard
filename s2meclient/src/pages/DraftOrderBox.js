@@ -4,9 +4,9 @@ import Timer from '../components/Timer'
 import {draft} from '../Atoms'
 import {useAtom} from 'jotai'
 import socket from '../socketConfig'
-function DraftOrderBox(){
+function DraftOrderBox(props){
     const[live, setLive]= useAtom(draft)
-    console.log(live)
+   
     const [round, setRound]=useState(live.round)
     const [pick, Pick]=useState(live.currentPick)
     const[draftOrder , setDraftOrder]=useState([])
@@ -65,7 +65,7 @@ const setClass=()=>{
             <div >
                 {/* <Row className='currDRow'>
                     <Col s={12}>
-                        <Timer/>
+                        <Timer time={props.time}started={props.started}/>
                     </Col>
                 </Row>  */}
                 {/* <div className='orderBox'> */}

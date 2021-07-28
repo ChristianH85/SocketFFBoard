@@ -17,7 +17,9 @@
 .formI{
   background-color: #fcf9f5d7!important;
   border-radius: 8px !important;
-  color: rgb(3, 3, 3) !important;
+  color: rgb(150, 17, 17) ;
+  font-size:1.5em;
+  font-weight: bold;
 }
 .formL{
   font-size:1.5em;
@@ -35,11 +37,14 @@
   background: #243ae4be;
   box-shadow:  5px 5px 14px #17279f,
              -5px -5px 14px #1f35d7;
-  margin-top:5vh;
+  margin-top:20vh;
   /* background-color: #ebf0f1; */
   padding:2em;
-  height: 90vh;
+  height: 60vh;
   overflow: auto;
+  padding:1em;
+  flex-direction: row;
+  align-content: center;
 }
 
 .chatIn {
@@ -148,7 +153,12 @@
   /* min-height:60vh; */
   overflow:auto;
 }
-
+.card{
+  background: #243ae4be;
+  box-shadow:  5px 5px 14px #17279f,
+             -5px -5px 14px #1f35d7;
+  color: white;
+}
 .pTable {
   height: 50em;
   overflow: auto;
@@ -238,7 +248,7 @@
   border-radius: 5px;
 }
 #tabs{
-  /* margin-top:10vh; */
+  margin-top:5vh;
   height:85vh;
 }
 .tabCont{
@@ -342,6 +352,13 @@
 }
 .dBox{
   width:100%
+}
+.admin{
+  background-color: #9e9898;
+  /* color: white */
+}
+.adLabel{
+  color: #141194;
 }
 /* .hideTab{
   display:none

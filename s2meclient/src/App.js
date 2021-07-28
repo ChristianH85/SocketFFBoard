@@ -11,6 +11,7 @@ import LeagueOptions from './pages/LeagueOptions';
 import DraftContainer from './pages/DraftContainer';
 import DraftSearch from './pages/DraftSearch';
 import Account from './pages/Account';
+import MyLeagues from './pages/MyLeagues';
 function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
@@ -26,6 +27,7 @@ function App() {
               <Route exact path='/' component={Landing}/>
               <Route exact path='/loptions' component={LeagueOptions}/>
               <Route exact path ='/draft' component={DraftContainer}/>
+              <Route exact path ='/myLeagues' component={MyLeagues}/>
               <Route exact path ='/search' component={DraftSearch}/>
               <Route exact path ='/account' component={Account}/>
               <Route render={() => <Redirect to="/" />} />
