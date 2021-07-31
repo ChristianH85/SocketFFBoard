@@ -5,6 +5,7 @@ import PlayerList from './PlayerL'
 import Chatbox from './Chatbox'
 import DraftOrderBox from './DraftOrderBox'
 import AdminControls from '../components/AdminControls'
+import Timer from '../components/Timer'
 import socket from "../socketConfig";
 import {user} from '../Atoms'
 import {draft} from '../Atoms'
@@ -58,14 +59,15 @@ function DraftContainer(){
     },[])
     useEffect(()=>{
         if(started){
-        checkTime()}},[])
+        checkTime()}},[timeLeft])
     const decrement=()=>{
-        setTimeout(setTime((time)=>{time--}),1000)
+        setTimeout(setTime(()=>{time-=1}),1000)
         // setTime((time)=>{time--})
         console.log(timeLeft)
     }
     socket.on('start',data=>{
         console.log('started',data)
+        ///trigger starting pick timer and make pick buttons active 
         setTime(119)
         setStart(true)
     })
@@ -84,6 +86,7 @@ function DraftContainer(){
     }
     return(
         <>
+        <Timer counter={timeLeft}/>
         <Row id ='tabs'>
             <Col s={12} m={8} offset='m2' className='tabCont' >
 
@@ -104,7 +107,7 @@ function DraftContainer(){
                     }}
                     title="Players"
                 >
-                    <PlayerList draft={leagueInfo} updateDraft={setLeagueInfo} updateUser={setUInfo} user={userInfo}/>
+                    <PlayerList status={started} draft={leagueInfo} updateDraft={setLeagueInfo} updateUser={setUInfo} user={userInfo}/>
                 </Tab>
                 <Tab
                     key='Chat'

@@ -2,11 +2,13 @@ import React,{useState, useEffect} from 'react'
 import {Button, Table, Modal} from 'react-materialize'
 import players from './fakePlist'
 import DraftApi from '../helpers/draft'
-function PlayerList(){
+function PlayerList(props){
     const [available, setAvail]=useState(players)
     const [picked, setTaken] = useState([])
     const [left, setLeft]=useState(players.length)
     const [dList, setDList]= useState(available)
+const{status,draft,updateDraft,updateUser,user}=props
+
     const handlepick=(e,player)=>{
         e.preventDefault();
         console.log(e.target.name)
@@ -22,7 +24,8 @@ function PlayerList(){
         console.log(currentL)
         setAvail(currentL)
         document.getElementById(e.target.name).remove()
-        DraftApi.makePick(player)
+        console.log(draft._id,user._id, user.email)
+        DraftApi.makePick(player,draft._id,user._id, user.email)
     }
     // const dispPLIst=()=>{
     //     dList.map((player)=>{
@@ -75,15 +78,6 @@ function PlayerList(){
                   setDList(sRList)
                   break;
         }
-        
-        // var items = [
-        //     { name: 'Edward', value: 21 },
-        //     { name: 'Sharpe', value: 37 },
-        //     { name: 'And', value: 45 },
-        //     { name: 'The', value: -12 },
-        //     { name: 'Magnetic', value: 13 },
-        //     { name: 'Zeros', value: 37 }
-        //   ];
           
           // sort by value
         //  const sList= await list.sort(function (a, b) {
@@ -135,7 +129,7 @@ function PlayerList(){
                 return(
                 <tr id={player.id} key={player.rank}>
                     <td className='tableN'>
-                        <Button className="modal-trigger" href="#modal1" node="button">{player.name}</Button>
+                        <Button disabled={status?true:false} className="modal-trigger" href="#modal1" node="button">{player.name}</Button>
                         <Modal
                         actions={[
                         <Button flat modal="close" node="button" waves="green">Close</Button>,
@@ -147,9 +141,11 @@ function PlayerList(){
                         id="modal1"
                         open={false}
                     >
-                        <tr>
-                        <td>{player.team}</td><td>{player.pos}</td><td>{player.bye}</td>
-                        </tr>
+                        <table>
+                            <tr>
+                                <td>{player.team}</td><td>{player.pos}</td><td>{player.bye}</td>
+                            </tr>
+                        </table>
                     </Modal>
                     </td>
                     <td className='tableSec'>{player.rank}</td>

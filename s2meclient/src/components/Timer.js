@@ -3,12 +3,13 @@ import {Row, Col} from 'react-materialize'
 import {useAtom} from 'jotai'
 import {clock} from '../Atoms'
 function Timer(props){
-    const[counter, setCount]=useState(120)
+    // const[counter, setCount]=useState(120)
     const[timesUp, setEnd]=useState(false)
     const[time, setTime]=useState('high')
     const[timeEndM, setTmessage]=useState('')
-    console.log(props.started)
-    // useEffect(()=>{console.log(counter)
+    const {counter}=props
+    // console.log(props.started)
+    useEffect(()=>{console.log(counter)
     //     console.log(counter,timesUp,props.started)
     //     if((counter > 0) && (timesUp===false)&&(props.started===true)){
     //         setTimeout(()=>{
@@ -39,7 +40,7 @@ function Timer(props){
     //     else if(counter===0 && props.started===false){
     //         console.log(counter)
     //     }
-    // },[])
+    },[counter])
 
     return(
         <div>

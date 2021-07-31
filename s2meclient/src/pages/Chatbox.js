@@ -29,7 +29,7 @@ useEffect(()=>{
         socket.emit('subscribe', userData)
     }
     socket.on('joined',data=>{
-        alert(data)
+        console.log('Hello '+data)
     })
     socket.on('incomingMsg',data=>{
         setMsgL(prevState=>[...prevState,data])

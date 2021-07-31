@@ -48,25 +48,44 @@ io.on('connect', (socket) => {
     //   db.League.find({_id:data.room}).then(data=>{data})
     //   console.log(data);
     // })
-    socket.on('startDraft',(data)=>{
+    socket.on('startDraft',async(data)=>{
       console.log('//////////////start////////////')
       console.log(data)
-      io.sockets.to(data._id).emit('start')
+      ///change league status to active
+      let startLeague= await db.League
+      .findByIdAndUpdate(data._id,{$set:{status:'active'}},{new:true})
+      .then(result=>{
+        console.log(result)
+        return result
+      })
+      
+      io.sockets.to(data._id).emit('start',startLeague)
     })
     socket.on('selection',data=>{
       console.log('//////////////pick////////////')
       console.log(data)
+      ///send pick with user info to league pick array
+      ///update order list
+      ///update available player list
+      ///return promise with league id to update active league through socket
+      ///trigger next pick
       // io.sockets.to(data._id).emit('picked')
     })
     socket.on('timesUp', data=>{
       console.log('//////////////timesUp////////////')
+      ///update admin that pick time has exceeded
       console.log(data)
     })
     socket.on('endDraft',(data=>{
       console.log('//////////////end////////////')
+      /// end draft and email picks to users
+      /// update league to disable draft options other than chat
       io.sockets.to(data._id).emit('end')
     }))
     socket.on('trade',(data=>{
+      /// stretch////
+      /// update the pick order to reflect trade
+      /// respond to league with updated value
       io.sockets.to(data._id).emit('end')
     }))
     socket.on('outgoingMsg', (data)=>{
