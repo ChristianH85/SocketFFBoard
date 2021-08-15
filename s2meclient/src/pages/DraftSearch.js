@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom'
 import {Row,Col, Button, Icon} from 'react-materialize';
 import {useAtom} from 'jotai';
 import socket from '../socketConfig';
+import { useHistory} from 'react-router-dom'
 import axios from 'axios';
 import {draft, user} from '../Atoms'
 
@@ -12,9 +13,10 @@ function DraftSearch(){
     const [showBtn, setShowBtn]=useState(false)
     const [team,setTeam]= useAtom(user)
     const [errM, setErrM]= useState('')
-    const [redirect, setRedirect]=useState(false)
+    
     const [myLeagues, setLeagues]=useState([])
     const [tempL, setTemp]=useState('')
+    const history=useHistory()
     useEffect(()=>{
         // console.log(team._id)
         axios.get('/api/user/'+team._id).then(res=>{
@@ -80,8 +82,9 @@ function DraftSearch(){
             user:team._id
         }
         axios.post('/api/user/leagues',upObj).then(data=>{
-            // setDraft(data)
-            // console.log(data)
+            setDraft(data.data)
+            console.log(data)
+            history.push('/draft')
             // setRedirect(true)
         })
     }else{
@@ -89,17 +92,17 @@ function DraftSearch(){
         
         axios.get('/api/league/'+e.target.id).then(data=>{
             setDraft(data.data)
+            history.push('/draft')
             // console.log(data)
             // console.log('draft id')
             
-            setRedirect(true)
+            
         })
     }
 
     }
     return(
         <Row>
-            {redirect?<Redirect push to='/draft'/>:<div></div>}
             <Col s={12} m={8} offset='m2'>
                 <form className='findL'>
                     <Row id='search'>

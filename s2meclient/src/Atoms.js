@@ -21,6 +21,7 @@ export const draft =atom({
     currentPick:"",
     availableP:[],
     picked:[],
+    draftOrder:[],
     leagues:[],
     users:[]
 })

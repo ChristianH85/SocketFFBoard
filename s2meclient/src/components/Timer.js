@@ -2,14 +2,28 @@ import React, {useState,useEffect} from 'react'
 import {Row, Col} from 'react-materialize'
 import {useAtom} from 'jotai'
 import {clock} from '../Atoms'
+import socket from '../socketConfig'
 function Timer(props){
     // const[counter, setCount]=useState(120)
     const[timesUp, setEnd]=useState(false)
     const[time, setTime]=useState('high')
     const[timeEndM, setTmessage]=useState('')
-    const {counter}=props
+    const[counter, setTimer]=useState('')
     // console.log(props.started)
     useEffect(()=>{console.log(counter)
+        socket.on('time',data=>{
+            setTimer(data)
+        })
+        switch(counter){
+            case '60':
+                setTime('med');
+                break;
+            case '30':
+                setTime('low')
+                break;
+            case '0':
+                setTmessage('Make a Pick Now')
+        }
     //     console.log(counter,timesUp,props.started)
     //     if((counter > 0) && (timesUp===false)&&(props.started===true)){
     //         setTimeout(()=>{
@@ -43,7 +57,7 @@ function Timer(props){
     },[counter])
 
     return(
-        <div>
+        <div className='timeBar'>
            {counter>0?<div>{Math.floor(counter/60)>=1?<span>< div className={time}>{Math.floor(counter/60)}:</div> <Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></span>:<div><Col s={1} className={time}>{counter%60<10?'0'+counter%60:counter%60}</Col></div>}</div>:<div className='timeout'>{timeEndM}</div>} 
             {/* {timeEndM.length>1?<div className='timeout'>{timeEndM}</div>:<div></div>} */}
         </div>

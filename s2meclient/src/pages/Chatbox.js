@@ -24,7 +24,7 @@ useEffect(()=>{
         // console.log(leagueInfo)
         const userData={
             room:leagueInfo._id,
-            user:userInfo.username
+            user:userInfo
         }
         socket.emit('subscribe', userData)
     }

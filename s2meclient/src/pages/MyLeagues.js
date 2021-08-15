@@ -22,7 +22,7 @@ function MyLeagues(){
                     </div>
                     <p>{league.status}</p>
                     <p>{league.draftTime}</p>
-                    <button className='btn' onClick={()=>handleLeague(league)}>Go To Lobby</button>
+                    <button className='btn'id={league.id} onClick={()=>handleLeague(league)}>Go To Lobby</button>
                 </div>
             )})}
         </>

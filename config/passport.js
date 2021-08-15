@@ -1,9 +1,9 @@
 const app=require('express')
-var passport = require("passport");
+const passport = require("passport");
+const auth= require('../controllers/auth/auth')
+const LocalStrategy = require("passport-local").Strategy;
 
-var LocalStrategy = require("passport-local").Strategy;
-
-var db = require("../models");
+const db = require("../models");
 // app.use(passport.initialize());
 // app.use(passport.session());
 // Telling passport we want to use a Local Strategy. In other words, we want login with a username/email and password
@@ -33,7 +33,19 @@ passport.use(
           return done(null, false, {
             message: "Incorrect password."
           });
-        }else{return done(null, dbUser);}
+        }else{
+          console.log('%%%%%%%%%%USERLOGIN%%%%%%%%%%%%%%')
+          console.log(dbUser)
+          const token=auth.signToken(dbUser.email,dbUser.username,dbUser._id)
+          let user={
+            JWTtoken: token,
+            username:dbUser.username,
+            leagues:dbUser.leagues,
+            _id:dbUser._id, 
+            email:dbUser.email,
+            team:dbUser.team
+          }
+          return done(null, user);}
         // If none of the above, return the user
         // console.log("34"+dbUser)
         

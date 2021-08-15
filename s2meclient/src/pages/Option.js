@@ -31,7 +31,7 @@ function Options(){
                 </Col>
                 <Col s={12} >
                 
-                    {currUser.leagues.length>0?
+                    {currUser.leagues?currUser.leagues.length>0?
                     <Link to='/myLeagues'>
                         <button className='optBtn'>
                             My Leagues
@@ -42,7 +42,7 @@ function Options(){
                     //     Search 
                     // </button>
                     // </Link>
-                     null}
+                     null:null}
                     
                 </Col>
                 <Col s={12} >

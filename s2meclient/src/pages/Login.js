@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
-import { Link } from 'react-router-dom'
+import { Link,useHistory } from 'react-router-dom'
 import axios from 'axios';
 import { useAtom } from 'jotai'
 import {loggedIn, user, port} from '../Atoms'
-
+import Auth from '../helpers/auth'
 function Login (props) {
     const[point, setPort]=useAtom(port)
     const [email, setEmail] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
     const[logInStatus, setLogin]=useAtom(loggedIn)
-  const [userInfo, setUser]=useAtom(user)
+    const [userInfo, setUser]=useAtom(user)
+    const history= useHistory()
     socket.on('connected',data=>{
     //   console.log(data)
     })
@@ -42,10 +43,21 @@ function Login (props) {
                 }
 
             axios.post('api/user/login', loginOBj).then(data=>{
-                // console.log(data)
+                console.log(data)
+                let res=data.data.user
+                let userInfo={
+                    username:res.username,
+                    email:res.email,
+                    _id:res._id, 
+                    leagues:res.leagues,
+                    team:res.team,
+                }
                 setPort(data.data.port)
-                setUser(data.data.user)
-                setLogin(true)
+                setUser(userInfo)
+                localStorage.setItem('user',JSON.stringify(userInfo))
+                // setLogin(true)
+                Auth.login(res.JWTtoken)
+                
             })
         }
     }

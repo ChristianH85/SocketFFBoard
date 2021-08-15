@@ -26,7 +26,7 @@ const sessionMiddleware = session({ secret: "mallon", resave: false, saveUniniti
 app.use(sessionMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 const io= require('socket.io')(server);
 const wrap= middleware=>(socket,next)=>middleware(socket.request, {}, next);
@@ -37,11 +37,16 @@ io.use(wrap(passport.session()));
 app.use(routes);
 io.on('connect', (socket) => {
   
-    socket.on('subscribe', function(data){
+    socket.on('subscribe', async function(data){
       console.log('////////////41/////////////')
       console.log(data)
       socket.join(data.room)
-       
+      let joinLeague= await db.League.findById(data.room)
+      // if(joinLeague.users.findIndex(obj=>{obj.id ===data.user.id})!=-1){
+      //   console.log('/////////////join//////////////')
+      //   console.log(joinLeague)
+      // }
+      console.log(joinLeague)
        io.sockets.to(data.room).emit('joined', data.user)
     })
     // socket.on('messL', function(data){
@@ -61,17 +66,46 @@ io.on('connect', (socket) => {
       
       io.sockets.to(data._id).emit('start',startLeague)
     })
+    socket.on('start-timer',data=>{
+      console.log('Timer! I hardly know her')
+      let timer =20
+      let pickTimer = () => {
+        if (timer>0){
+          timer--;
+          io.sockets.to(data).emit('time', timer);
+        }else if(timer=0){
+          console.log('zero')
+          io.sockets.to(data).emit('timesUp', timer);
+          clearInterval(timeID)
+        }
+      }
+      let timeID=setInterval(pickTimer,1000)
+    })
     socket.on('selection',data=>{
       console.log('//////////////pick////////////')
       console.log(data)
-      ///send pick with user info to league pick array
+      ////data keys player, draft_id, user_id, user_email
+      let pick={
+        email:data.user_email,
+        id:data.user_id,
+        pick:data.picked
+      }
+      ///send pick with user info to league pick array data.player
+      // db.League.findByIdAndUpdate(data.draft_id,{$elemMatch:{teams:{_id:data.User_id}}},{$push:{team:player}}).then(data=>{console.log(data)})
+      db.League.findOneAndUpdate(
+  {_id: data.draft_id},{"$set":{ currentTurn: data.currentTurn, available:data.available},'$push': {picked: pick}
+  },{
+    upsert:true,
+    new: true}).then(data=>{
+      console.log(data)
+      io.sockets.to(data._id).emit('nextPick',data)})
       ///update order list
       ///update available player list
       ///return promise with league id to update active league through socket
       ///trigger next pick
-      // io.sockets.to(data._id).emit('picked')
+      // io.sockets.to(data._id).emit('nextPick',data.player)
     })
-    socket.on('timesUp', data=>{
+    socket.on('pause', data=>{
       console.log('//////////////timesUp////////////')
       ///update admin that pick time has exceeded
       console.log(data)

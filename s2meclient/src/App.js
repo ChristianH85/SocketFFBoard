@@ -1,24 +1,39 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Landing from './pages/Landing'
 import './App.css';
-import { BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch,Redirect, useHistory } from 'react-router-dom'
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useAtom } from 'jotai'
 import {loggedIn, user} from './Atoms'
-import socket from "./socketConfig";
+// import socket from "./socketConfig";
 import LeagueOptions from './pages/LeagueOptions';
 import DraftContainer from './pages/DraftContainer';
 import DraftSearch from './pages/DraftSearch';
 import Account from './pages/Account';
 import MyLeagues from './pages/MyLeagues';
+import Auth from './helpers/auth'
 function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
-  // socket.on('user',data=>{
-  //   // setUser(data)
-  //   // setLogin(true)
-  // })
+  const history = useHistory()
+    // socket.on('user',data=>{
+    //   // setUser(data)
+    //   // setLogin(true)
+    // })
+    useEffect(()=>{
+      let loggedIn=Auth.loggedIn()
+      if(loggedIn!==null){
+        setLogin(loggedIn)
+        let user=JSON.parse(localStorage.getItem('user'))
+        console.log(user)
+        setUser(user)
+        // history.push('/')
+      }
+      console.log(loggedIn)
+      // setLogin(loggedIn)
+      
+    },[])
   return (
     <div className="App">
       <Router>

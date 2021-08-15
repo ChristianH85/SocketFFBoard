@@ -385,6 +385,18 @@
 #current{
   background-color:#aa4527
 }
+#modal1{
+  height:50vh;
+  background-color:#1e1ca8c0;
+  color:white;
+  border-radius: 8px;
+}
+.timeBox{
+  width:100vw;
+  height:5vh;
+  position:fixed;
+  top:0;
+}
 @-webkit-keyframes AnimationName {
   0%{background-position:0% 70%}
   50%{background-position:100% 31%}

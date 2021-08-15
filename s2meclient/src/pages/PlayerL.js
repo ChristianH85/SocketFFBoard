@@ -1,31 +1,37 @@
 import React,{useState, useEffect} from 'react'
-import {Button, Table, Modal} from 'react-materialize'
+import {Button, Table, Modal,Row, Col} from 'react-materialize'
 import players from './fakePlist'
 import DraftApi from '../helpers/draft'
 function PlayerList(props){
     const [available, setAvail]=useState(players)
-    const [picked, setTaken] = useState([])
+    const [picked, setTaken] = useState()
     const [left, setLeft]=useState(players.length)
     const [dList, setDList]= useState(available)
-const{status,draft,updateDraft,updateUser,user}=props
+    const [selected,setSelected]= useState('')
+    const[show,setShow]= useState(false)
+    const{status,draft,updateDraft,updateUser,user}=props
 
-    const handlepick=(e,player)=>{
+    const handlepick= async (e,player)=>{
         e.preventDefault();
         console.log(e.target.name)
         console.log(e.target.value)
         // let ruSure= confirm('are you sure')
         // console.log(ruSure)
         let currentL=available
-        let took=picked
-        const index = currentL.map(data => data.id).indexOf(e.target.value)
-        took.push(currentL[index])
+        
+        const index = await currentL.findIndex(el=>el.name===e.target.value)
+        console.log(index)
+        console.log(draft.currentTurn)
+        let newTurn=draft.currentTurn+1
+        let took=currentL[index]
         setTaken(took)
         currentL.splice(index,1)
         console.log(currentL)
         setAvail(currentL)
-        document.getElementById(e.target.name).remove()
-        console.log(draft._id,user._id, user.email)
-        DraftApi.makePick(player,draft._id,user._id, user.email)
+        // document.getElementById(e.target.name).remove()
+        // updateDraft(draft.draftOrder.splice(0,1))
+        console.log(draft._id,user._id, user.email, picked, newTurn )
+        DraftApi.makePick(player,draft._id,user._id, user.email,available,picked,newTurn)
     }
     // const dispPLIst=()=>{
     //     dList.map((player)=>{
@@ -59,6 +65,10 @@ const{status,draft,updateDraft,updateUser,user}=props
         // console.log(list, val)
         // let fList= await list.filter(item=>item.pos===val)
         // console.log(fList)
+    }
+    const handleSelectP=(player)=>{
+        setSelected(player)
+        setShow(true)
     }
     const handleSort=async(filter)=>{
         let list=dList
@@ -125,28 +135,41 @@ const{status,draft,updateDraft,updateUser,user}=props
             {/* <div className='headsSep'></div> */}
             <tbody>
                 
-            {dList.map((player)=>{
+            {dList.map((player,i)=>{
                 return(
                 <tr id={player.id} key={player.rank}>
                     <td className='tableN'>
-                        <Button disabled={status?true:false} className="modal-trigger" href="#modal1" node="button">{player.name}</Button>
-                        <Modal
-                        actions={[
-                        <Button flat modal="close" node="button" waves="green">Close</Button>,
-                        <Button className='pbutt' onClick={(e)=>{handlepick(e,player)}} name={player.id} value={player.name}>{player.name}</Button>
-                        ]}
-                        bottomSheet={false}
-                        fixedFooter={false}
-                        header={`Are you sure you want ${player.name}?`}
-                        id="modal1"
-                        open={false}
-                    >
-                        <table>
-                            <tr>
-                                <td>{player.team}</td><td>{player.pos}</td><td>{player.bye}</td>
-                            </tr>
-                        </table>
-                    </Modal>
+                    <Modal
+                                actions={[
+                                    <Row>
+                                        <Col s={6}>
+                                        <Button flat modal="close" id ='primaryBtn' node="button" >Cancel</Button>
+                                        </Col>
+                                        <Col s={6}>
+                                        <Button flat modal="close" className='btn'node="button"  name={player.id}value={player.name} onClick={(e)=>{handlepick(e,player)}}>Draft</Button>
+                                        </Col>
+                                    </Row>
+                                ]}
+                                header={`Are you sure you want ${player.name}?`}
+                                id="modal1"
+                                open={false}
+                                options={{ 
+                                    inDuration: 250,
+                                    opacity: 0.5,
+                                    outDuration: 250,
+                                    preventScrolling: true
+                                }}     
+                                trigger={<Button disabled={status?false:true}node="button">{player.name}</Button>}
+                                >
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Team: {player.team}</td><td>POS: {player.pos}</td><td>Bye: {player.bye}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </Modal>
+                        {/* <Button disabled={status?false:true}  onClick={(player)=>{handleSelectP(player)}} >{player.name}</Button> */}
                     </td>
                     <td className='tableSec'>{player.rank}</td>
                     <td className='tableSec'>{player.pos}</td>
@@ -158,6 +181,25 @@ const{status,draft,updateDraft,updateUser,user}=props
             </tbody>
             
         </Table>
+        {/* <Modal
+                        actions={[
+                        <Button flat modal="close" onClick={()=>{setShow(false)}} waves="green">Close</Button>,
+                        <Button className='pbutt' onClick={(e)=>{handlepick(e,selected)}} name={selected.id} value={selected.name}>{selected.name}</Button>
+                        ]}
+                        bottomSheet={false}
+                        fixedFooter={false}
+                        header={`Are you sure you want ${selected.name}?`}
+                        id="modal1"
+                        open={show}
+                    >
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>{selected.team}</td><td>{selected.pos}</td><td>{selected.bye}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </Modal>     */}
     </form>
         
     </>)

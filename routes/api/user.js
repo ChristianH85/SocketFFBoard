@@ -50,11 +50,19 @@ router.get('/:id',function(req,res){
     res.json(data)})
 })
 router.post('/leagues',function (req,res){
-  
-  User.findByIdAndUpdate(req.body.user,{$push:{leagues:req.body.league}}).then(data=>{
-    // console.log(data)
+  //check if league exist within user 
+  User.findByIdAndUpdate(req.body.user,{$push:{leagues:req.body.league}},{new:true}).then(data=>{
+    console.log(data)
+    let check={_id:req.body.league,'users.user_id':{$ne:data._id}}
+    let addObj={
+      _id:data._id,
+      username:data.username,
+      team:[]
+    }
+    console.log(addObj)
     // res.json(data)})
-  League.findByIdAndUpdate(req.body.league,{$push:{users:req.body.user}},{new: true}).populate('users').then(data=>{
+    ////check if key of _id equals req.body.user._id in user
+  League.findByIdAndUpdate(check,{$addToSet:{users:addObj}},{new: true}).then(data=>{
       console.log(data)
       res.json(data)
     })

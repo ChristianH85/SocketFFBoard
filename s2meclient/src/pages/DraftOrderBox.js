@@ -15,9 +15,9 @@ function DraftOrderBox(props){
     // const [current, setPick]=useAtom(draft.currentPick)
     useEffect(()=>{
         snake()
-        socket.on('setMyPick',()=>{
-            setMyPick(true)
-        })
+        // socket.on('setMyPick',()=>{
+        //     setMyPick(true)
+        // })
         setClass()
         // socket.emit('submitPick')
     }, [])
@@ -75,7 +75,7 @@ const setClass=()=>{
                     <Col s={2} className='noMar'>
                         <Timer/>
                     </Col>
-                    <Col s={10}className='noMar'>
+                    <Col s={10} className='noMar'>
                     <div className='orderBox'>
                     {/* {draftOrder?draftOrder.map((team, i)=>{
                         
@@ -87,7 +87,7 @@ const setClass=()=>{
                     {draftOrder?draftOrder.map((team, i)=>{
 
                         return(                            
-                                <div key={i} id={i===0?'current':'upcoming'}className={setClass}>{team}</div>                                                      
+                                <div key={i} id={i===0?'current':'upcoming'} className={pickClass}>{team}</div>                                                      
                               )
                     })
                    

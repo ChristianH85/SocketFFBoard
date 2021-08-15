@@ -7,8 +7,23 @@ const leagueSchema = new Schema({
     numbTeams:{type:Number, required:true},
     numbRounds:{type:Number, required:true},
     teams:{type:Array, required:true},
-    users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    currentTurn:{type: Number,default:1},
+    //configure user obj to reflect obj of user_id, username, team
+    users: [
+        {
+            user_id:{ type: String},
+            username: { type: String },
+            team: { type:Array }
+        }],
     messages:[],
+    available:{ type:Array },
+    picked:[
+        {
+            email:{type: String},
+            id:{type: String},
+            pick:{type:Object}
+        }
+    ],
     draftTime:{type:Date},
     draftType:{type:String},
     draftOrder:{type:Array},
