@@ -1,99 +1,99 @@
 const players=[
     {
-        name:'Dave',
-        rank:1,
-        bye:3,
-        pos:'QB',
-        team:'Eagles',
-        id:1
+        'name':'Dave',
+        'rank':1,
+        'bye':3,
+        'pos':'QB',
+        'team':'Eagles',
+        'id':1
     },
     {
-        name:'Joe',
-        rank:2,
-        bye:7,
-        pos:"WR",
-        team:'Bucs',
-        id:2
+        'name':'Joe',
+        'rank':2,
+        'bye':7,
+        'pos':"WR",
+        'team':'Bucs',
+        'id':2
     },
     {
-        name:'Bill',
-        rank:3,
-        bye:5,
-        pos:"RB",
-        team:'Bills',
-        id:3
+        'name':'Bill',
+        'rank':3,
+        'bye':5,
+        'pos':"RB",
+        'team':'Bills',
+        'id':3
     },
     {
-        name:'Tony',
-        rank:4,
-        bye:7,
-        pos:'TE',
-        team:'Cowboys',
-        id:4
+        'name':'Tony',
+        'rank':4,
+        'bye':7,
+        'pos':'TE',
+        'team':'Cowboys',
+        'id':4
     },
     {
-        name:'Bobby',
-        rank:6,
-        bye:8,
-        pos:"K",
-        team:'Rams',
-        id:5
+        'name':'Bobby',
+        'rank':6,
+        'bye':8,
+        'pos':"K",
+        'team':'Rams',
+        'id':5
     },
     {
-        name:'Mike',
-        rank:5,
-        bye:3,
-        pos:'RB',
-        team:'49ers',
-        id:6
+        'name':'Mike',
+        'rank':5,
+        'bye':3,
+        'pos':'RB',
+        'team':'49ers',
+        'id':6
     },
     {
-        name:'Peter',
-        rank:7,
-        bye:8,
-        pos:'QB',
-        team:'Vikings',
-        id:7
+        'name':'Peter',
+        'rank':7,
+        'bye':8,
+        'pos':'QB',
+        'team':'Vikings',
+        'id':7
     },
     {
-        name:'Jamal',
-        rank:8,
-        bye:5,
-        pos:'WR',
-        team:'Browns',
-        id:8
+        'name':'Jamal',
+        'rank':8,
+        'bye':5,
+        'pos':'WR',
+        'team':'Browns',
+        'id':8
     },
     {
-        name:'Drew',
-        rank:9,
-        bye:7,
-        pos:'RB',
-        team:'Saints',
-        id:9
+        'name':'Drew',
+        'rank':9,
+        'bye':7,
+        'pos':'RB',
+        'team':'Saints',
+        'id':9
     },
     {
-        name:'Terry',
-        rank:10,
-        bye:8,
-        pos:'QB',
-        team:'Jags',
-        id:10
+        'name':'Terry',
+        'rank':10,
+        'bye':8,
+        'pos':'QB',
+        'team':'Jags',
+        'id':10
     },
     {
-        name:'Phil',
-        rank:11,
-        bye:3,
-        pos:'WR',
-        team:'WFT',
-        id:11
+        'name':'Phil',
+        'rank':11,
+        'bye':3,
+        'pos':'WR',
+        'team':'WFT',
+        'id':11
     },
     {
-        name:'Justin',
-        rank:12,
-        bye:7,
-        pos:'K',
-        team:'Jets',
-        id:12
+        'name':'Justin',
+        'rank':12,
+        'bye':7,
+        'pos':'K',
+        'team':'Jets',
+        'id':12
     }
 ]
 export default players

@@ -49,12 +49,12 @@ function DForm2(props){
                             </Select>
                         </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col s={10} m={8} offset='s1 m2' >
                         <label className='formL'>Draft Time:</label>
                         <input className='formI' type='time' id='date2'onChange={props.handleDate}/>
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
                         <Col s={8} offset='s2'>
                             <Button onClick={next}>Next</Button>

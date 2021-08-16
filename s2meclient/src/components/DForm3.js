@@ -26,7 +26,7 @@ function DForm3(props){
                 ):<div></div>} 
                 <Row>
                     <Col s={8} offset='s2'>
-                        <Button onClick={props.setUp}>Next</Button>
+                        <Button onClick={props.setUp}>Finish</Button>
                     </Col>
                 </Row>
            </form>

@@ -53,6 +53,7 @@ function DraftContainer(){
                 ...prevState,
                 availableP:data.available,
                 draftOrder:data.draftorder,
+                currentTurn:data.currentTurn,
 
             }))
             // let email =leagueInfo.draftOrder[0]

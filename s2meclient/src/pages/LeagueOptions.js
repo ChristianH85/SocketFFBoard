@@ -3,8 +3,9 @@ import {TextInput, Button, Select, Col, Row} from 'react-materialize'
 import {user} from '../Atoms'
 import {useAtom} from 'jotai'
 import socket from '../socketConfig'
+import players from './fakePlist'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import DForm1 from '../components/DForm1.js'
 import DForm2 from '../components/DForm2'
 import DForm3 from '../components/DForm3'
@@ -19,6 +20,7 @@ function LeagueOptions(){
     const [rounds,setRounds]=useState(0)
     const [ePlayers, setEPlay]=useState(12)
     const [form, setForm ]=useState('')
+    const history=useHistory()
     const handleOption=(e)=>{
         let val= e.target.value
         let emails = eList
@@ -94,25 +96,27 @@ function LeagueOptions(){
     let lObj = {
       leagueName: leagueName,
       draftTime: date,
-      // rounds: rounds,
+      currentTurn: 1,
       status:'pending',
       teams: eList,
       numbTeams: numP,
       numbRounds: rounds,
       commish: commish._id,
-      // draftType: dType,
+      available: players,
       draftOrder: order,
     };
     console.log(lObj);
     axios.post("/api/league/", lObj).then((res) => {
       console.log(res);
+      history.push('/')
     });
+
   };
 
   const snake = () => {
     const order = [];
     console.log(rounds);
-    for (let i = 1; i < rounds; i++) {
+    for (let i = 1; i <= rounds; i++) {
       if (i % 2 !== 0) {
         const nOrder = eList;
         console.log(nOrder);

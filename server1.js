@@ -36,7 +36,7 @@ io.use(wrap(passport.initialize()));
 io.use(wrap(passport.session()));
 app.use(routes);
 io.on('connect', (socket) => {
-  
+  let timer=1
     socket.on('subscribe', async function(data){
       console.log('////////////41/////////////')
       console.log(data)
@@ -68,12 +68,12 @@ io.on('connect', (socket) => {
     })
     socket.on('start-timer',data=>{
       console.log('Timer! I hardly know her')
-      let timer =20
+       timer =20
       let pickTimer = () => {
         if (timer>0){
           timer--;
           io.sockets.to(data).emit('time', timer);
-        }else if(timer=0){
+        }else if(timer===0){
           console.log('zero')
           io.sockets.to(data).emit('timesUp', timer);
           clearInterval(timeID)
@@ -88,7 +88,7 @@ io.on('connect', (socket) => {
       let pick={
         email:data.user_email,
         id:data.user_id,
-        pick:data.picked
+        pick:data.player
       }
       ///send pick with user info to league pick array data.player
       // db.League.findByIdAndUpdate(data.draft_id,{$elemMatch:{teams:{_id:data.User_id}}},{$push:{team:player}}).then(data=>{console.log(data)})

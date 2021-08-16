@@ -3,23 +3,21 @@ import {Button, Table, Modal,Row, Col} from 'react-materialize'
 import players from './fakePlist'
 import DraftApi from '../helpers/draft'
 function PlayerList(props){
-    const [available, setAvail]=useState(players)
-    const [picked, setTaken] = useState()
-    const [left, setLeft]=useState(players.length)
-    const [dList, setDList]= useState(available)
-    const [selected,setSelected]= useState('')
-    const[show,setShow]= useState(false)
     const{status,draft,updateDraft,updateUser,user}=props
+    const [available, setAvail]=useState(draft.available)
+    const [picked, setTaken] = useState({})
+    // const [left, setLeft]=useState(players.length)
+    const [dList, setDList]= useState(draft.available)
+    // const [selected,setSelected]= useState('')
+    // const[show,setShow]= useState(false)
+    
 
     const handlepick= async (e,player)=>{
         e.preventDefault();
         console.log(e.target.name)
-        console.log(e.target.value)
-        // let ruSure= confirm('are you sure')
-        // console.log(ruSure)
         let currentL=available
         
-        const index = await currentL.findIndex(el=>el.name===e.target.value)
+        const index = await currentL.findIndex(el=>el.name===e.target.name)
         console.log(index)
         console.log(draft.currentTurn)
         let newTurn=draft.currentTurn+1
@@ -30,7 +28,7 @@ function PlayerList(props){
         setAvail(currentL)
         // document.getElementById(e.target.name).remove()
         // updateDraft(draft.draftOrder.splice(0,1))
-        console.log(draft._id,user._id, user.email, picked, newTurn )
+        console.log(draft._id,user._id, user.email, player, newTurn )
         DraftApi.makePick(player,draft._id,user._id, user.email,available,picked,newTurn)
     }
     // const dispPLIst=()=>{
@@ -66,10 +64,10 @@ function PlayerList(props){
         // let fList= await list.filter(item=>item.pos===val)
         // console.log(fList)
     }
-    const handleSelectP=(player)=>{
-        setSelected(player)
-        setShow(true)
-    }
+    // const handleSelectP=(player)=>{
+    //     setSelected(player)
+    //     setShow(true)
+    // }
     const handleSort=async(filter)=>{
         let list=dList
         switch(filter){
@@ -135,7 +133,7 @@ function PlayerList(props){
             {/* <div className='headsSep'></div> */}
             <tbody>
                 
-            {dList.map((player,i)=>{
+            {dList?dList.map((player,i)=>{
                 return(
                 <tr id={player.id} key={player.rank}>
                     <td className='tableN'>
@@ -146,7 +144,7 @@ function PlayerList(props){
                                         <Button flat modal="close" id ='primaryBtn' node="button" >Cancel</Button>
                                         </Col>
                                         <Col s={6}>
-                                        <Button flat modal="close" className='btn'node="button"  name={player.id}value={player.name} onClick={(e)=>{handlepick(e,player)}}>Draft</Button>
+                                        <Button flat modal="close" className='btn'node="button"  value={player.id} name={player.name} onClick={(e)=>{handlepick(e,player)}}>Draft</Button>
                                         </Col>
                                     </Row>
                                 ]}
@@ -177,7 +175,7 @@ function PlayerList(props){
                     <td className='tableSec'>{player.team}</td>
                 </tr>
                 )
-            })}  
+            }):null}  
             </tbody>
             
         </Table>
