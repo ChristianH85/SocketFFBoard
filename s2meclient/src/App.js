@@ -13,6 +13,7 @@ import DraftSearch from './pages/DraftSearch';
 import Account from './pages/Account';
 import MyLeagues from './pages/MyLeagues';
 import Auth from './helpers/auth'
+import NavBar from './components/Navbar';
 function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
@@ -36,6 +37,7 @@ function App() {
     },[])
   return (
     <div className="App">
+      <NavBar/>
       <Router>
         {logInStatus?
             <Switch>

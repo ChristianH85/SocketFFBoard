@@ -73,7 +73,14 @@
     -moz-animation: AnimationName 12s ease infinite;
     animation: AnimationName 12s ease infinite;
 }
-
+#navIcon{
+  max-width: 10vh;
+  max-height:10vh;
+  border-radius: 8px;
+  position:fixed;
+  top: 0;
+  left: 0;
+}
 .dropdown-content{
   border-radius:8px;
   color: rgb(8, 8, 8)!important;
