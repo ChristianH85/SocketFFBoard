@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
-import { Link,useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useAtom } from 'jotai'
-import {loggedIn, user, port} from '../Atoms'
+import { user, port} from '../Atoms'
 import Auth from '../helpers/auth'
-function Login (props) {
+function Login () {
     const[point, setPort]=useAtom(port)
     const [email, setEmail] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
-    const[logInStatus, setLogin]=useAtom(loggedIn)
+
     const [userInfo, setUser]=useAtom(user)
-    const history= useHistory()
+
     socket.on('connected',data=>{
     //   console.log(data)
     })
@@ -26,7 +26,6 @@ function Login (props) {
 
     const handleSubmit = event => {
         event.preventDefault();
-
         if (password.length < 6 ){
             setErr("password must be greater than 6 characters")
         }else if(validateEmail(email)!==true) {
@@ -41,7 +40,6 @@ function Login (props) {
                     email:email,
                     password: password,
                 }
-
             axios.post('api/user/login', loginOBj).then(data=>{
                 console.log(data)
                 let res=data.data.user
@@ -51,13 +49,12 @@ function Login (props) {
                     _id:res._id, 
                     leagues:res.leagues,
                     team:res.team,
+                    avatar:res.avatar
                 }
                 setPort(data.data.port)
                 setUser(userInfo)
                 localStorage.setItem('user',JSON.stringify(userInfo))
-                // setLogin(true)
-                Auth.login(res.JWTtoken)
-                
+                Auth.login(res.JWTtoken) 
             })
         }
     }

@@ -8,51 +8,38 @@ function Options(){
     const [currUser, setCurrentUser]= useAtom(user)
     // console.log(currUser)
     return(
-        <div>
-            <h3 className='userName'>Welcome: {currUser.username}</h3>
+        <div>        
             <Row>
-                <Col s={12} >
-                    
+                <Col s={6} offset='s3'>
                         <Link to='/loptions'>
                         <button className='optBtn'>
                             Create League
                         </button >
                         </Link>
-                    
                 </Col>
-                <Col s={12} >
-                
+                <Col s={6} offset='s3'>
                     <Link to='/search'>
                         <button className='optBtn'>
                             Find My League
                         </button >
                         </Link>
-                    
                 </Col>
-                <Col s={12} >
-                
+                <Col s={6} offset='s3'>
                     {currUser.leagues?currUser.leagues.length>0?
                     <Link to='/myLeagues'>
                         <button className='optBtn'>
                             My Leagues
                         </button >
                     </Link>:
-                    // <Link to='/search'>
-                    // <button className='optBtn'>
-                    //     Search 
-                    // </button>
-                    // </Link>
-                     null:null}
-                    
+                     null:null}  
                 </Col>
-                <Col s={12} >
+                <Col s={6} offset='s3'>
                 
                 <Link to='/account'>
                         <button className='optBtn'>
                             Settings
                         </button >
-                        </Link>
-                    
+                        </Link>                    
                 </Col>
             </Row>
         </div>

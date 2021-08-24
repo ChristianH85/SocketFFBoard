@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
-import {TextInput, Button, Select, Col, Row} from 'react-materialize'
+import { Row} from 'react-materialize'
 import {user} from '../Atoms'
 import {useAtom} from 'jotai'
-import socket from '../socketConfig'
 import players from './fakePlist'
 import axios from 'axios'
-import {Link, useHistory} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import DForm1 from '../components/DForm1.js'
 import DForm2 from '../components/DForm2'
 import DForm3 from '../components/DForm3'
+import adminFn from '../helpers/draft'
 function LeagueOptions(){
     const[commish, setComm]= useAtom(user)
     const [leagueName, setLName]=useState('')
@@ -18,7 +18,6 @@ function LeagueOptions(){
     const [lEmails, setEmails]=useState([])
     const [eList, setEList]=useState([])
     const [rounds,setRounds]=useState(0)
-    const [ePlayers, setEPlay]=useState(12)
     const [form, setForm ]=useState('')
     const history=useHistory()
     const handleOption=(e)=>{
@@ -92,7 +91,7 @@ function LeagueOptions(){
     let date = new Date(date1 + "T" + date2).toISOString();
     // let date12= new Date(date.toString())
     console.log(date);
-    let order = await snake();
+    let order = await adminFn.snake(eList,rounds);
     let lObj = {
       leagueName: leagueName,
       draftTime: date,
@@ -102,7 +101,6 @@ function LeagueOptions(){
       numbTeams: numP,
       numbRounds: rounds,
       commish: commish._id,
-      available: players,
       draftOrder: order,
     };
     console.log(lObj);
@@ -121,7 +119,6 @@ function LeagueOptions(){
         const nOrder = eList;
         console.log(nOrder);
         nOrder.forEach((team) => order.push(team));
-        // setDraftOrder(prev=>[...prev, nOrder])
       } else if (i % 2 === 0) {
         const rOrder = eList.reverse();
         rOrder.forEach((team) => order.push(team));
@@ -135,201 +132,6 @@ function LeagueOptions(){
     <Row>
         {dispForm()}
     </Row>
-)
-  
-  //////////////////////////////////
-  // const handleType = (e) => {
-  //   let draftType = e.target.value;
-  //   setDtype(draftType);
-  // };
-  // const today=()=>{
-  //   let day = new Date();
-  //   let minDate = day.getFullYear()+'-'+(day.getMonth()+1)+'-'+day.getDate();
-  //   console.log(minDate)
-  //   setDate(minDate)
-  // }
-  // return (
-  //   <Row>
-  //     <Col s={12} m={8} offset="m2" id="leagueForm">
-  //       <form>
-  //         <Row>
-  //           <Col s={12} m={6} offset="m3">
-  //           <label className='formL'> Draft Date: </label>
-  //             <input
-  //               className='formI'
-  //               name="setLName"
-  //               onChange={handleInput}
-  //               value={leagueName}
-  //             />                
-  //           </Col>
-  //           </Row>
-  //           <Row>
-  //           <Col s={12} m={4} offset="m4">
-  //             <label className='formL'> Draft Date: </label>
-  //             <input type="date" className='formI' id="date1" min={date} onChange={handleDate} />
-  //           </Col>
-  //           </Row>
-  //           <Row>
-  //           <Col s={12} m={4} offset="m4">
-  //             <label className='formL'> Draft Time: </label>
-  //             <input type="time" className='formI' step="900" id="date2" onChange={handleDate} />
-  //           </Col>
-  //           </Row>
-  //           <Row>
-  //           <Col s={12} m={4}  offset="m4">
-  //             <div>
-  //               <label className='formL'> Total Rounds </label>
-  //               <input
-  //               className='formI'
-  //                 type="number"
-  //                 min="1"
-  //                 max="20"
-  //                 name="rounds"
-  //                 onChange={handleInput}
-  //               />
-  //             </div>
-  //           </Col>
-  //           </Row>
-  //           <Row>
-  //           <Col s={12} m={4} offset="m4" className='formI'>
-  //           <label className='formL'>Draft Type</label>
-  //             <Select
-  //               multiple={false}
-  //               options={{
-  //                 classes: "",
-  //                 dropdownOptions: {
-  //                   alignment: "left",
-  //                   autoTrigger: true,
-  //                   closeOnClick: true,
-  //                   constrainWidth: true,
-  //                   coverTrigger: true,
-  //                   hover: false,
-  //                   inDuration: 150,
-  //                   onCloseEnd: null,
-  //                   onCloseStart: null,
-  //                   onOpenEnd: null,
-  //                   onOpenStart: null,
-  //                   outDuration: 250,
-  //                 },
-  //               }}
-  //               value={dType.toString()}
-  //               onChange={handleType}
-  //             >
-  //               <option value="Snake"> Snake </option>
-  //               <option disabled value="Auction">
-                  
-  //                 Auction
-  //               </option>
-  //             </Select>
-  //           </Col>
-  //           </Row>
-  //           <Row>
-  //           <Col s={12} m={4} offset="m4" className='formI'>
-  //             <label className='formL'># of Players</label>
-  //             <Select
-  //               multiple={false}
-  //               options={{
-  //                 classes: "",
-  //                 dropdownOptions: {
-  //                   alignment: "left",
-  //                   autoTrigger: true,
-  //                   closeOnClick: true,
-  //                   constrainWidth: true,
-  //                   coverTrigger: true,
-  //                   hover: false,
-  //                   inDuration: 150,
-  //                   onCloseEnd: null,
-  //                   onCloseStart: null,
-  //                   onOpenEnd: null,
-  //                   onOpenStart: null,
-  //                   outDuration: 250,
-  //                 },
-  //               }}
-  //               value={numP.toString()}
-  //               onChange={handleOption}
-  //             >
-  //               <option disabled value="">
-                  
-  //                 # of players
-  //               </option>
-  //               {[...Array(12)].map((u, i) => {
-  //                 let x = i + 1;
-  //                 return (
-  //                   <option key={x.toString()} value={x.toString()}>
-                      
-  //                     {x}
-  //                   </option>
-  //                 );
-  //               })}
-  //             </Select>
-  //           </Col>
-  //         </Row>
-  //         <Row>
-            
-  //           {numP > 1 ? (
-  //             [...Array(parseInt(numP))].map((u, i) => {
-  //               // console.log(u,i)
-  //               let x = i + 1;
-
-  //               return (
-  //                 <Col s={6} m={4} key={i.toString()}>
-                    
-  //                   {i === 0 ? (
-  //                     <>
-  //                     <label className='formL'>Commissioner</label>
-  //                     <input
-  //                       className='formI'
-  //                       id={i.toString()}
-  //                       type="email"
-  //                       value={lEmails[0]}
-  //                       disabled={true}
-  //                     />
-                        
-  //                     </>
-  //                   ) : (
-  //                     <input
-  //                       className='formI'
-  //                       label={"Player Email # " + x.toString()}
-  //                       id={i.toString()}
-  //                       type="email"
-  //                       onChange={handleEmailCh}
-  //                     />
-  //                   )}
-  //                 </Col>
-  //               );
-  //             })
-  //           ) : (
-  //             <div> </div>
-  //           )}
-  //         </Row>
-  //         <Link to="/draft">
-            
-  //           <Button onClick={setUpLeage}> Create League </Button>
-  //         </Link>
-  //       </form>
-  //     </Col>
-  //   </Row>
-  // );
-  //////////////////////////////////////////
-    // const setUpLeage=(e)=>{
-    //     e.preventDefault()
-    //     let date= new Date(date1+"T"+date2).toISOString()
-    //     // let date12= new Date(date.toString())
-    //     console.log(date)
-    //     let lObj={
-    //         leagueName: leagueName,
-    //         draftTime: date,
-    //         // rounds: rounds,
-    //         teams: eList,
-    //         numbTeams:numP,
-    //         numbRounds:rounds,
-    //         commish: commish._id
-    //     }
-    //     axios.post('/api/league/',lObj).then(res=>{
-    //         console.log(res)
-    //     })
-    // }
-    
-    
+)   
 }
 export default LeagueOptions;

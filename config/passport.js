@@ -43,7 +43,8 @@ passport.use(
             leagues:dbUser.leagues,
             _id:dbUser._id, 
             email:dbUser.email,
-            team:dbUser.team
+            team:dbUser.team,
+            avatar:dbUser.avatar
           }
           return done(null, user);}
         // If none of the above, return the user

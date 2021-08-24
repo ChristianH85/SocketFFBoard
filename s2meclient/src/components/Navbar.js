@@ -1,7 +1,24 @@
 import React, {useState,useEffect} from 'react';
 import FFDB from '../images/FFDB.png'
-import {SideNav,SideNavItem} from 'react-materialize'
-function NavBar(){
+import field from '../images/field.jpg'
+import {SideNav,SideNavItem, Button, Row} from 'react-materialize'
+import {Link, useHistory} from 'react-router-dom'
+
+function NavBar(props){
+    const {status, user, setLogin}=props
+    const history = useHistory()
+    useEffect(()=>{
+        if (status){
+
+        }
+        
+    },[status,user])
+    const handleLogout=()=>{
+        localStorage.removeItem('jwt-id');
+        localStorage.removeItem('user');
+        setLogin(false);
+        history.push('/')
+    }
     return(
         <div>
             <SideNav
@@ -11,34 +28,44 @@ function NavBar(){
                 }}
                 trigger={<img node='button' src={FFDB} id='navIcon'/>}
             >
+                {!status?
+                <div>
+                    <Row>
+                        <Link to='/signup'>SignUp</Link>
+                    </Row>
+                    <Row>
+                        <Link to='/'>Login</Link>
+                    </Row>
+                </div>:
+                <>               
                 <SideNavItem
                 user={{
-                    background: 'https://placeimg.com/640/480/tech',
-                    email: 'jdandturk@gmail.com',
-                    image: 'static/media/react-materialize-logo.824c6ea3.svg',
-                    name: 'John Doe'
+                    background: field,
+                    image: user.avatar?user.avatar:FFDB,
+                    name: user.username
                 }}
                 userView
                 />
-                {/* <SideNavItem
-                href="#!icon"
-                icon={<Icon>cloud</Icon>}
-                > */}
-                {/* First Link With Icon
-                </SideNavItem> */}
-                <SideNavItem href="#!second">
-                Second Link
-                </SideNavItem>
-                <SideNavItem divider />
-                <SideNavItem subheader>
-                Subheader
-                </SideNavItem>
-                <SideNavItem
-                href="#!third"
-                waves
-                >
-                Third Link With Waves
-                </SideNavItem>
+                <Row >
+                    <Link to='/'>Home</Link>
+                </Row>
+                <Row>
+                    <Link to='/search'>Search Leagues</Link>
+                </Row>
+                <Row>
+                    <Link to='/myLeagues'>My Drafts</Link>
+                </Row>
+                <Row>
+                    <Link to='/loptions'>Set Up New</Link>
+                </Row>
+                <Row>
+                    <Link to='/account'>Settings</Link>
+                </Row>
+                <Row>
+                    <Button onClick={handleLogout}>Logout</Button>
+                </Row>
+                </>
+                }
             </SideNav>
         </div>
     )

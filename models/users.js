@@ -7,7 +7,8 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     username: { type: String, required: true },
     team: { type: Array, default: [] },
-    leagues:[{ type: Schema.Types.ObjectId, ref: 'League' }]
+    leagues:[{ type: Schema.Types.ObjectId, ref: 'League' }],
+    avatar:{ type: String, default:'https://res.cloudinary.com/dm2obdaq7/image/upload/v1548726982/dog/lh52vb36jl386s8lefbu.jpg'}
 
 })
 

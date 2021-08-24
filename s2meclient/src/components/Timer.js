@@ -9,10 +9,18 @@ function Timer(props){
     const[time, setTime]=useState('high')
     const[timeEndM, setTmessage]=useState('')
     const[counter, setTimer]=useState('')
+    const[pick,setPick]=useState(1)
     // console.log(props.started)
-    useEffect(()=>{console.log(counter)
-        socket.on('time',data=>{
+    useEffect(()=>{
+        socket.on('start-timer',data=>{
+            console.log(data)
             setTimer(data)
+           let count = setInterval(()=>{
+                setTimer(counter=>counter-1)
+            },1000)
+            if((props.pick!==1)&&(props.pick===pick)){
+                clearInterval(count)
+            }
         })
         switch(counter){
             case '60':

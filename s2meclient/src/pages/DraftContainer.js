@@ -10,91 +10,64 @@ import socket from "../socketConfig";
 import {user} from '../Atoms'
 import {draft} from '../Atoms'
 import DraftApi from "../helpers/draft";
-import{clock} from '../Atoms'
+import axios from 'axios'
+import Picked from '../components/Picked'
 function DraftContainer(){
     const [userInfo, setUInfo]=useAtom(user)
     const [leagueInfo, setLeagueInfo]=useAtom(draft)
-    const[timeLeft,setTime]=useState(0)
     const [started, setStart]=useState(false)
-    const[time, setTimeL]=useState('high')
     const[mine,setMine]=useState(false)
     
-    // const [players,setPlayers]=useState(PlayerList)
-    // console.log(userInfo)
-    // console.log(leagueInfo)
-    useEffect(async() => {
-        
-        if(leagueInfo.status==='active'){
-            
-            let email =leagueInfo.draftOrder[leagueInfo.currentTurn-1]
-            let myTurn=await isMyPick(email)
-            console.log(myTurn)
-            setMine(myTurn)
-            setStart(true)
-        }
+    useEffect(() => {
+        axios.get(`/api/league/${leagueInfo._id}`).then(res=>{
+            console.log(res)
+            if(res.status===200){
+                setLeagueInfo(res.data)
+                if(res.data.status==='active'){
+                    setStart(true)
+                    evalPick(res.data)
+                    
+                }
+            }else{console.log(res)}
+            socket.emit('subscribe', leagueInfo._id)
+        })
+        socket.on('joined',data=>{
+            console.log('Hello '+data)
+            // setLeagueInfo(data)
+        })
         socket.on('start',async data=>{
             console.log('started',data)
-            let email =data.draftOrder[data.currentTurn-1]
-            let myTurn=await isMyPick(email)
-            console.log(myTurn)
-            setMine(myTurn)
-            ///trigger starting pick timer and make pick buttons active 
-            // setTime(119)
-            setStart(true)
-            
+            // setUInfo(data.data)
+            evalPick(data)
+            setStart(true) 
         })
         socket.on('nextPick',async data=>{
             console.log('next',data)
-            let email =data.draftOrder[data.currentTurn-1]
-            let myTurn=await isMyPick(email)
-            console.log(myTurn)
-            setMine(myTurn)
+            evalPick(data)
             setLeagueInfo(prevState=>({
                 ...prevState,
                 availableP:data.available,
-                draftOrder:data.draftorder,
+                draftOrder:data.draftOrder,
                 currentTurn:data.currentTurn,
-
             }))
-            // let email =leagueInfo.draftOrder[0]
-            // let myTurn=await isMyPick(email)
-            // console.log(myTurn)
-            // setMine(myTurn)
-            ///trigger starting pick timer and make pick buttons active 
-            DraftApi.nextPick(data._id)
+            // DraftApi.nextPick(data._id)
         }) 
-
+        socket.on('end',(data)=>{
+            console.log(data)
+            setStart(false)
+            setMine(false)
+            alert('Draft concluded')
+        })
     },[])
-    useEffect(()=>{
-        if(started){
-        checkTime()}},[timeLeft])
-    const decrement=()=>{
-        setTimeout(setTime(()=>{time-=1}),1000)
-        // setTime((time)=>{time--})
-        console.log(timeLeft)
+    const evalPick=async(data)=>{
+        let email =data.draftOrder[data.currentTurn-1]
+        let myTurn=await isMyPick(email)
+        console.log(myTurn)
+        setMine(myTurn)
     }
-    // socket.on('start',async data=>{
-    //     console.log('started',data)
-    //     let email =data.draftOrder[0]
-    //     let myTurn=await isMyPick(email)
-    //     console.log(myTurn)
-    //     ///trigger starting pick timer and make pick buttons active 
-    //     setTime(119)
-    //     setStart(true)
-    // })
     const isMyPick=(email)=>{
         console.log(email,userInfo.email)
       return  email===userInfo.email?true: false
-    }
-    const checkTime=()=>{
-        let time=timeLeft
-        switch(time){
-            case time>60 && started===true:
-                decrement()
-                break;
-            case time===0 && started===false:
-                break;   
-        }
     }
     const isMine=()=>{
         console.log(started,mine)
@@ -109,10 +82,9 @@ function DraftContainer(){
     }
     return(
         <>
-        <Timer />
+        <Timer pick={leagueInfo.currentTurn}/>
         <Row id ='tabs'>
             <Col s={12} m={8} offset='m2' className='tabCont' >
-
                 <Tabs
                 className="  z-depth-1"
                 options={{
@@ -156,7 +128,20 @@ function DraftContainer(){
                     }}
                     title="Draft Order"
                 >
-                    <DraftOrderBox />
+                    <DraftOrderBox order={leagueInfo.draftOrder} turn={leagueInfo.currentTurn-1}/>
+                </Tab>
+                <Tab 
+                    key='Picked'
+                    className='tabStyle'
+                    options={{
+                    duration: 300,
+                    onShow: null,
+                    responsiveThreshold: Infinity,
+                    swipeable: false
+                    }}
+                    title="Picked"
+                >
+                    <Picked/>
                 </Tab>
                 {userInfo._id===leagueInfo.commish?
                     <Tab
@@ -176,9 +161,7 @@ function DraftContainer(){
                     }
                 </Tabs>
             </Col>
-        
         </Row>
-        <DraftOrderBox started={started}time={timeLeft}/>
         </>
     )
 }

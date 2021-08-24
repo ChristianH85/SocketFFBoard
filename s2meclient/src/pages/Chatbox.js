@@ -3,9 +3,6 @@ import {Row, Col, Button} from 'react-materialize'
 import { useAtom } from 'jotai'
 import {user} from '../Atoms'
 import {draft} from '../Atoms'
-import axios from 'axios';
-
-// import {messages} from '../Atoms'
 import socket from "../socketConfig";
 import MessageBox from '../components/MessageBox'
 // socket.emit('subscribe','whatabuda')
@@ -26,12 +23,11 @@ useEffect(()=>{
             room:leagueInfo._id,
             user:userInfo
         }
-        socket.emit('subscribe', userData)
+        // socket.emit('subscribe', userData)
     }
-    socket.on('joined',data=>{
-        console.log('Hello '+data)
-    })
+    
     socket.on('incomingMsg',data=>{
+        console.log(data)
         setMsgL(prevState=>[...prevState,data])
     })
     // console.log(leagueInfo)
@@ -50,6 +46,7 @@ const handleOutMessage=(e)=>{
         msg:inputVal,
         username: userInfo.username,
         userId: userInfo._id,
+        avatar:userInfo.avatar,
         time:new Date()
     }
     socket.emit('outgoingMsg', mObj)

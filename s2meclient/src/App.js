@@ -37,8 +37,9 @@ function App() {
     },[])
   return (
     <div className="App">
-      <NavBar/>
+      
       <Router>
+      <NavBar status={logInStatus} user={userInfo} setLogin={setLogin}/>
         {logInStatus?
             <Switch>
               <Route exact path='/' component={Landing}/>

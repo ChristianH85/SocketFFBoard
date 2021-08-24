@@ -9,7 +9,8 @@ const mongoose = require('mongoose')
 const routes = require("./routes");
 const db= require('./models/index')
 require('dotenv').config();
-
+const fin= require('./utils/tally')
+const email=require('./controllers/email/emailController')
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/footy", { useNewUrlParser: true,  useUnifiedTopology: true, useFindAndModify: false }
   );
@@ -40,14 +41,14 @@ io.on('connect', (socket) => {
     socket.on('subscribe', async function(data){
       console.log('////////////41/////////////')
       console.log(data)
-      socket.join(data.room)
+      socket.join(data)
       let joinLeague= await db.League.findById(data.room)
       // if(joinLeague.users.findIndex(obj=>{obj.id ===data.user.id})!=-1){
-      //   console.log('/////////////join//////////////')
-      //   console.log(joinLeague)
+        console.log('/////////////join//////////////')
+        // console.log(joinLeague)
       // }
       console.log(joinLeague)
-       io.sockets.to(data.room).emit('joined', data.user)
+       io.sockets.to(data).emit('joined',joinLeague)
     })
     // socket.on('messL', function(data){
     //   db.League.find({_id:data.room}).then(data=>{data})
@@ -63,24 +64,29 @@ io.on('connect', (socket) => {
         console.log(result)
         return result
       })
-      
+      let timer =117
       io.sockets.to(data._id).emit('start',startLeague)
+      io.sockets.to(data._id).emit('start-timer',timer)
     })
-    socket.on('start-timer',data=>{
-      console.log('Timer! I hardly know her')
-       timer =20
-      let pickTimer = () => {
-        if (timer>0){
-          timer--;
-          io.sockets.to(data).emit('time', timer);
-        }else if(timer===0){
-          console.log('zero')
-          io.sockets.to(data).emit('timesUp', timer);
-          clearInterval(timeID)
-        }
-      }
-      let timeID=setInterval(pickTimer,1000)
-    })
+    // socket.on('start-timer',data=>{
+    //   console.log('Timer! I hardly know her')
+    //    timer =117
+       
+    //   let pickTimer = () => {
+    //     io.on('stop-timer',data=>{
+    //      clearInterval(timeID)
+    //     })
+    //     if (timer>0){
+    //       timer--;
+    //       io.sockets.to(data).emit('time', timer);
+    //     }else if(timer===0){
+    //       console.log('zero')
+    //       io.sockets.to(data).emit('timesUp', timer);
+    //       clearInterval(timeID)
+    //     }
+    //   }
+    //   let timeID=setInterval(pickTimer,1000)
+    // })
     socket.on('selection',data=>{
       console.log('//////////////pick////////////')
       console.log(data)
@@ -90,6 +96,7 @@ io.on('connect', (socket) => {
         id:data.user_id,
         pick:data.player
       }
+      ///check if next turn is possible then add last pick
       ///send pick with user info to league pick array data.player
       // db.League.findByIdAndUpdate(data.draft_id,{$elemMatch:{teams:{_id:data.User_id}}},{$push:{team:player}}).then(data=>{console.log(data)})
       db.League.findOneAndUpdate(
@@ -98,7 +105,17 @@ io.on('connect', (socket) => {
     upsert:true,
     new: true}).then(data=>{
       console.log(data)
-      io.sockets.to(data._id).emit('nextPick',data)})
+      if(!data.draftOrder[data.currentTurn-1]){
+        let plist=fin.tally(data.users,data.picked)
+        // email.sendDraftFinal(plist,data.leagueName)
+        let endLeague= {
+          league:data,
+          result:plist
+        }
+        io.sockets.to(data._id).emit('end',endLeague)
+      }else{
+      io.sockets.to(data._id).emit('nextPick',data)}})
+    
       ///update order list
       ///update available player list
       ///return promise with league id to update active league through socket

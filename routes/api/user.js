@@ -2,34 +2,22 @@ const express = require('express')
 const router = express.Router();
 const User = require("../../models/users");
 const passport = require("../../config/passport");
-const League = require('../../models/leagues')
+const League = require('../../models/leagues');
+const userFn= require('../../controllers/users/userController')
+require('dotenv').config();
+const fs=require('fs')
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-
-router.post("/signup", (req, res) => {
-  console.log("user signup");
-  console.log(req.body);
-  const { email, password, username } = req.body;
-  
-  User.findOne({ username: username }, (err, user) => {
-    if (err) {
-      console.log(err);
-    } else if (user) {
-      res.json({
-        error: `Sorry, already a user with the username: ${username}`
-      });
-    } else {
-      console.log("creating new user");
-      const newUser = new User({
-        username: username,
-        password: password,
-        email: email
-      });
-      newUser.save((err, savedUser) => {
-        if (err) return res.json(err);
-        res.json(savedUser);
-      });
-    }
-  });
+router.post("/signup", async(req, res) => {
+  let newuUser = await userFn.newUser(req.body)
+  res.json(newuUser)
 });
 
 router.post(
@@ -37,31 +25,24 @@ router.post(
   passport.authenticate("local", {
     failureRedirect: "/signup"}),
     function(req,res) {
-      console.log(req.user)
-      // console.log(req.user)
       const userInfo={port:process.env.PORT, user:req.user}
       res.json(userInfo)
       console.log(process.env.PORT)
   }
 );
 router.get('/:id',function(req,res){
-  console.log(req.body)
-  User.findOne({_id:req.params.id}).populate('leagues').then(data=>{ console.log(data)
+  User.findOne({_id:req.params.id}).populate('leagues').then(data=>{
     res.json(data)})
 })
 router.post('/leagues',function (req,res){
   //check if league exist within user 
   User.findByIdAndUpdate(req.body.user,{$push:{leagues:req.body.league}},{new:true}).then(data=>{
-    console.log(data)
     let check={_id:req.body.league,'users.user_id':{$ne:data._id}}
     let addObj={
       _id:data._id,
       username:data.username,
       team:[]
     }
-    console.log(addObj)
-    // res.json(data)})
-    ////check if key of _id equals req.body.user._id in user
   League.findByIdAndUpdate(check,{$addToSet:{users:addObj}},{new: true}).then(data=>{
       console.log(data)
       res.json(data)
@@ -69,6 +50,21 @@ router.post('/leagues',function (req,res){
 
   // console.log(req.body)
 })
+})
+router.post('/avatar/:id',upload.single('file'),function(req,res, next){
+  cloudinary.uploader.upload(req.file.path, { tags: 'avatar' })
+    .then(function (image) {
+      console.log('** file uploaded to Cloudinary service');
+      fs.unlink(req.file.path, err=>{if(err){console.log(err)}})
+      User.findByIdAndUpdate(req.params.id,{$set:{avatar:image.url}},{new:true})
+      .then(data=>{
+        res.json(data)
+      })
+    })
+    .then(function () {
+      console.log('** photo saved');
+
+    })
 })
 router.get('/draftPick/:id?user=userId', function (req,res){
 

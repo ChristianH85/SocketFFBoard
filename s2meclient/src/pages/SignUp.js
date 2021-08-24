@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
-import { Card, TextInput, Button, Row, Col } from 'react-materialize'
+import { Button, Row, Col } from 'react-materialize'
 import socket from "../socketConfig";
+import { useAtom } from 'jotai'
+import { user, port} from '../Atoms'
+import Auth from '../helpers/auth'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+
 function Signup (props) {
 
     const [email, setEmail] = useState('')
     const [username, setUName] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
+    const[sPort, setSport] = useAtom(port)
+    const [userInfo, setUser]=useAtom(user)
     socket.on('connected',data=>{
         // debugger
       console.log(data)
@@ -44,8 +50,22 @@ function Signup (props) {
                     email:email,
                     password: password,
                 }
-                axios.post('api/user/signup',signupOBj).then(data=>{console.log(data)})
-            // socket.emit('signup', signupOBj)
+                axios.post('api/user/signup',signupOBj).then(data=>{
+
+                    let res=data.data.user
+                    setSport(data.data.port)
+                    let userInfo={
+                        username:res.username,
+                        email:res.email,
+                        _id:res._id, 
+                        leagues:res.leagues,
+                        team:res.team,
+                        avatar:res.avatar
+                    }
+                    setUser(userInfo)
+                    localStorage.setItem('user',JSON.stringify(userInfo))
+                    Auth.login(res.JWTtoken) 
+                    console.log(data)})
         }
     }
     return (
