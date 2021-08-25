@@ -42,12 +42,12 @@ io.on('connect', (socket) => {
       console.log('////////////41/////////////')
       console.log(data)
       socket.join(data)
-      let joinLeague= await db.League.findById(data.room)
-      // if(joinLeague.users.findIndex(obj=>{obj.id ===data.user.id})!=-1){
-        console.log('/////////////join//////////////')
-        // console.log(joinLeague)
-      // }
-      console.log(joinLeague)
+      let joinLeague= await db.League.findById(data).then(data=>{return data})
+      // // if(joinLeague.users.findIndex(obj=>{obj.id ===data.user.id})!=-1){
+      //   console.log('/////////////join//////////////')
+      //   // console.log(joinLeague)
+      // // }
+      // console.log(joinLeague)
        io.sockets.to(data).emit('joined',joinLeague)
     })
     // socket.on('messL', function(data){
@@ -89,7 +89,7 @@ io.on('connect', (socket) => {
     // })
     socket.on('selection',data=>{
       console.log('//////////////pick////////////')
-      console.log(data)
+      console.log(data.available.length)
       ////data keys player, draft_id, user_id, user_email
       let pick={
         email:data.user_email,
@@ -103,18 +103,19 @@ io.on('connect', (socket) => {
   {_id: data.draft_id},{"$set":{ currentTurn: data.currentTurn, available:data.available},'$push': {picked: pick}
   },{
     upsert:true,
-    new: true}).then(data=>{
-      console.log(data)
-      if(!data.draftOrder[data.currentTurn-1]){
-        let plist=fin.tally(data.users,data.picked)
+    new: true}).then(res=>{
+      console.log(res.available.length)
+      if(!res.draftOrder[res.currentTurn-1]){
+        let plist=fin.tally(res.users,res.picked)
         // email.sendDraftFinal(plist,data.leagueName)
         let endLeague= {
-          league:data,
+          league:res,
           result:plist
         }
-        io.sockets.to(data._id).emit('end',endLeague)
+        io.sockets.to(res._id).emit('end',endLeague)
       }else{
-      io.sockets.to(data._id).emit('nextPick',data)}})
+        console.log(res._id)
+      io.sockets.to(res._id).emit('nextPick',res)}})
     
       ///update order list
       ///update available player list

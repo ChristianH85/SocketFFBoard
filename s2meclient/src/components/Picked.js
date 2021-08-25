@@ -2,12 +2,12 @@ import React, {useState,useEffect} from 'react';
 import {useAtom} from 'jotai'
 import {draft} from '../Atoms'
 import { Col, Row } from 'react-materialize';
-function Picked(){
+function Picked({picks}){
     const [league,setleague]=useAtom(draft)
     const [picked,setPicked]=useState([])
     useEffect(()=>{
-        setPicked(league.picked)
-    },[league.picked])
+        setPicked(picks)
+    },[picks])
 
     return(
         <div className='orderBox'>

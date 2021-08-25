@@ -19,14 +19,16 @@ function PlayerList(props){
         e.preventDefault();
         let currentL=available
         const index = await currentL.findIndex(el=>el.name===e.target.name)
-        let newTurn=draft.currentTurn+1
+        
         let took=currentL[index]
-        setTaken(took)
-        currentL.splice(index,1)
-        setAvail(currentL)
-        setDList(currentL)
+        console.log(took)
+        // setTaken(took)
+         currentL.splice(parseInt(index),1)
+        console.log(currentL)
+        // setAvail(currentL)
+        // setDList(currentL)
         // console.log(draft._id,user._id, user.email, player, newTurn )
-        DraftApi.makePick(player,draft._id,user._id, user.email,available,picked,newTurn)
+        DraftApi.makePick(player,draft._id,user._id, user.email,currentL,picked,draft.currentTurn)
     }
     const filterList=async(val)=>{
         let list=available

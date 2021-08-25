@@ -10,7 +10,7 @@ function DraftOrderBox(props){
    
     // const [round, setRound]=useState(live.round)
     // const [pick, Pick]=useState(live.currentPick)
-    const[draftOrder , setDraftOrder]=useState(order)
+    const[draftOrder , setDraftOrder]=useState('')
     // const [myPick, setMyPick] = useState(false)
     const [pickClass, setPickC] = useState('teams')
 
@@ -23,7 +23,7 @@ function DraftOrderBox(props){
         // })
         if(order){
             console.log(turn)
-            console.log(order)
+            setDraftOrder(order)
         }
         console.log(turn)
         console.log(live.draftOrder)

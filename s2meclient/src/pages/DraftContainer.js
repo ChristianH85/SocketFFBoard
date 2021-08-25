@@ -17,7 +17,7 @@ function DraftContainer(){
     const [leagueInfo, setLeagueInfo]=useAtom(draft)
     const [started, setStart]=useState(false)
     const[mine,setMine]=useState(false)
-    
+    const[available, setAvail]=useState(draft.available)
     useEffect(() => {
         axios.get(`/api/league/${leagueInfo._id}`).then(res=>{
             console.log(res)
@@ -25,7 +25,7 @@ function DraftContainer(){
                 setLeagueInfo(res.data)
                 if(res.data.status==='active'){
                     setStart(true)
-                    evalPick(res.data)
+                    evalPick(res.data.draftOrder[res.data.currentTurn-1])
                     
                 }
             }else{console.log(res)}
@@ -38,18 +38,15 @@ function DraftContainer(){
         socket.on('start',async data=>{
             console.log('started',data)
             // setUInfo(data.data)
-            evalPick(data)
+            evalPick(data.draftOrder[data.currentTurn-1])
             setStart(true) 
         })
         socket.on('nextPick',async data=>{
             console.log('next',data)
-            evalPick(data)
-            setLeagueInfo(prevState=>({
-                ...prevState,
-                availableP:data.available,
-                draftOrder:data.draftOrder,
-                currentTurn:data.currentTurn,
-            }))
+            setAvail(data.available)
+            evalPick(data.draftOrder[data.currentTurn-1])
+            setLeagueInfo(data)
+            console.log(leagueInfo)
             // DraftApi.nextPick(data._id)
         }) 
         socket.on('end',(data)=>{
@@ -59,8 +56,8 @@ function DraftContainer(){
             alert('Draft concluded')
         })
     },[])
-    const evalPick=async(data)=>{
-        let email =data.draftOrder[data.currentTurn-1]
+    const evalPick=async(email)=>{
+        
         let myTurn=await isMyPick(email)
         console.log(myTurn)
         setMine(myTurn)
@@ -141,7 +138,7 @@ function DraftContainer(){
                     }}
                     title="Picked"
                 >
-                    <Picked/>
+                    <Picked picks={leagueInfo.picked}/>
                 </Tab>
                 {userInfo._id===leagueInfo.commish?
                     <Tab

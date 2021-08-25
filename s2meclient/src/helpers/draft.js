@@ -2,7 +2,7 @@ import socket from "../socketConfig"
 import axios from 'axios'
 const DraftApi={
     startDraft:(league)=>{
-        // console.log(league,'started')
+        console.log(league,'started')
         socket.emit('startDraft',league)
     },
     // nextPick:(room)=>{
@@ -23,7 +23,7 @@ const DraftApi={
             user_email:user_email,
             available:avail,
             picked:picked,
-            currentTurn:currentTurn
+            currentTurn:currentTurn+1
         }
         console.log(pick,'pick')
         socket.emit('selection',pick)
