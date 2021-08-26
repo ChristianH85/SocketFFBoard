@@ -28,7 +28,7 @@ function PlayerList(props){
         // setAvail(currentL)
         // setDList(currentL)
         // console.log(draft._id,user._id, user.email, player, newTurn )
-        DraftApi.makePick(player,draft._id,user._id, user.email,currentL,picked,draft.currentTurn)
+        DraftApi.makePick(player,draft._id,user._id, user.email,user.username,currentL,draft.currentTurn)
     }
     const filterList=async(val)=>{
         let list=available

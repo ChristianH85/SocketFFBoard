@@ -23,7 +23,7 @@ function Picked({picks}){
                 <Col s={10} offset='s1'>
                     <Select onChange={(e)=>{handleSelect(e)}} className='pDrop'>
                         <option value='All'>All</option>
-                        {league.teams.map(team=>{return <option value={team}>{team}</option>})}
+                        {league.teams.map((team,i)=>{return <option value={team} key={i}>{team}</option>})}
                     </Select>
                 </Col>
             

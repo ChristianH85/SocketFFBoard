@@ -18,7 +18,7 @@ function AdminControls(){
         socket.on('start',data=>{
             console.log('started',data)
         })
-    },[])
+    },[thisLeague.status])
     useEffect(()=>{
         let fList= thisLeague.available.filter(item=>{
             if(item.name.toLowerCase().includes(fValue.toLowerCase())){
@@ -43,23 +43,30 @@ function AdminControls(){
         // }
         // DraftApi.adminForcePick()
     }
+    const userTurn=async()=>{
+        console.log(thisLeague.users)
+        const email=thisLeague.draftOrder[thisLeague.currentTurn-1]
+        console.log(email)
+        let user=  thisLeague.users.filter(user=>{return user.email===email})        
+       return user[0]
+    }
     const handlepick= async (e,player)=>{
         e.preventDefault();
-        console.log(e.target.name)
+        let userCurr = await userTurn();
+        console.log(userCurr)
         let currentL=thisLeague.available
-        const index = await currentL.findIndex(el=>el.name===e.target.name)
-        console.log(index)
-        console.log(thisLeague.currentTurn)
-        let newTurn=thisLeague.currentTurn+1
-        let took=currentL[index]
-        // setTaken(took)
+        const index = await currentL.findIndex(el=>el.name===player.name)
+        // console.log(index)
+        // console.log(thisLeague.currentTurn)
+        // let took=currentL[index]
+        // // setTaken(took)
         currentL.splice(index,1)
-        console.log(currentL)
+        // console.log(currentL)
         // setAvail(currentL)
         // setDlist(currentL)
         // console.log('user' + user.email)
         // console.log(thisLeague._id,user._id, user.email, player, newTurn )
-        // DraftApi.makePick(player,draft._id,user._id, user.email,available,picked,newTurn)
+        DraftApi.makePick(player,thisLeague._id,userCurr._id, userCurr.email,userCurr.username,currentL,thisLeague.currentTurn)
     }
   
     return(
@@ -99,7 +106,7 @@ function AdminControls(){
                                                 <Button flat modal="close" id ='primaryBtn' node="button" >Cancel</Button>
                                                 </Col>
                                                 <Col s={6}>
-                                                <Button flat modal="close" className='btn'node="button"  value={player.id} name={player.name} onClick={(e)=>{handlepick(e,player)}}>Draft</Button>
+                                                <Button flat modal="close" className='btn'node="button"value={player.id} name={player.name} onClick={(e)=>{handlepick(e,player)}}>Draft</Button>
                                                 </Col>
                                             </Row>
                                         ]}
@@ -112,7 +119,7 @@ function AdminControls(){
                                             outDuration: 250,
                                             preventScrolling: true
                                         }}     
-                                        trigger={<Button disabled={!active?false:true}node="button">{player.name}</Button>}
+                                        trigger={<Button disabled={active?false:true} onClick={()=>{handlepick(player)}} node="button">{player.name}</Button>}
                                         >
                                             <table>
                                                 <tbody>

@@ -41,7 +41,7 @@ router.post('/leagues',function (req,res){
     let addObj={
       _id:data._id,
       username:data.username,
-      team:[]
+      email:data.email
     }
   League.findByIdAndUpdate(check,{$addToSet:{users:addObj}},{new: true}).then(data=>{
       console.log(data)

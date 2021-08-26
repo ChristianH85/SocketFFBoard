@@ -51,16 +51,18 @@ function DraftContainer(){
         }) 
         socket.on('end',(data)=>{
             console.log(data)
+            setLeagueInfo(data.league)
             setStart(false)
             setMine(false)
             alert('Draft concluded')
         })
     },[])
     const evalPick=async(email)=>{
+        if(email){
+            let myTurn=await isMyPick(email)
+            setMine(myTurn)
+        }
         
-        let myTurn=await isMyPick(email)
-        console.log(myTurn)
-        setMine(myTurn)
     }
     const isMyPick=(email)=>{
         console.log(email,userInfo.email)

@@ -94,6 +94,7 @@ io.on('connect', (socket) => {
       let pick={
         email:data.user_email,
         id:data.user_id,
+        username:data.username,
         pick:data.player
       }
       ///check if next turn is possible then add last pick

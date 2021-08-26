@@ -15,14 +15,14 @@ const DraftApi={
         console.log(league,'ended')
         socket.emit('endDraft',league)
     },
-    makePick:(player,draft_id,user_id,user_email,avail,picked, currentTurn)=>{
+    makePick:(player,draft_id,user_id,user_email,user_username,avail, currentTurn)=>{
         const pick= {
             player:player,
             draft_id:draft_id,
             user_id:user_id,
             user_email:user_email,
+            username:user_username,
             available:avail,
-            picked:picked,
             currentTurn:currentTurn+1
         }
         console.log(pick,'pick')
@@ -62,7 +62,6 @@ const DraftApi={
              rOrder=list1.reverse()
           }
         }
-        // console.log();
         return order;
     }
 

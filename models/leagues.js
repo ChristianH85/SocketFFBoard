@@ -13,7 +13,7 @@ const leagueSchema = new Schema({
         {
             user_id:{ type: String},
             username: { type: String },
-            team: { type:Array }
+            email: {type: String}
         }],
     messages:[],
     available:{ type:Array },
@@ -21,6 +21,7 @@ const leagueSchema = new Schema({
         {
             email:{type: String},
             id:{type: String},
+            username: { type: String },
             pick:{type:Object}
         }
     ],
