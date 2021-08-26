@@ -43,18 +43,26 @@ const DraftApi={
         })
     },
     snake:(tList,rounds)=>{
-        const order = [];
-        console.log(rounds);
+        let order = [];
+        // console.log(tList)
+        
+        let list1=tList
+        // console.log(list1,list2);
         for (let i = 1; i <= rounds; i++) {
           if (i % 2 !== 0) {
-            tList.forEach((team) => order.push(team));
+              console.log(list1)
+            list1.forEach((team) => order.push(team));
+    
+            // console.log(i,list1)
           } else if (i % 2 === 0) {
-            const rOrder = tList.reverse();
+            let rOrder=list1.reverse()
+            console.log(rOrder)
             rOrder.forEach((team) => order.push(team));
-            console.log(rOrder);
+            // return
+             rOrder=list1.reverse()
           }
         }
-        console.log();
+        // console.log();
         return order;
     }
 

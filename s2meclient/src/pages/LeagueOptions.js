@@ -88,10 +88,11 @@ function LeagueOptions(){
   };
   const setUpLeage = async (e) => {
     e.preventDefault();
-    let date = new Date(date1 + "T" + date2).toISOString();
+    let date = new Date(`${date1}T${date2}`).toISOString();
     // let date12= new Date(date.toString())
     console.log(date);
     let order = await adminFn.snake(eList,rounds);
+    console.log(order)
     let lObj = {
       leagueName: leagueName,
       draftTime: date,

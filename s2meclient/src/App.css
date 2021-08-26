@@ -340,7 +340,7 @@
 }
 .orderBox{
   background-color:#9e9898;
-  overflow-y: auto;
+  overflow: auto;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   min-height:20vh;
@@ -441,28 +441,41 @@
   color:white;
 }
 .WR{
-  background-color:#49ac6a;
+
+  background-color:#49ac6ae0;
   color:white;
 }
 .RB{
-  background-color:#995348;
+  background-color:#995348e0;
   color:white;
 }
 .QB{
-  background-color:#3450ca;
+  background-color:#344fcade;
   color:white;
 }
 .TE{
-  background-color:#886b2c;
+  background-color:#886b2cdc;
   color:white;
 }
 .K{
-  background-color:#ca30b0;
+  background-color:#ca30b0dc;
   color:white;
 }
 .DST{
-  background-color:#242524;
+  background-color:#242524e1;
   color:white;
+}
+.pCol{
+  border:1px solid white;
+  white-space: normal;
+  height: 100%;
+  padding: .1em;
+}
+.pRow{
+  margin: 0!important;
+}
+.pDrop{
+  width: 100%;
 }
 @-webkit-keyframes AnimationName {
   0%{background-position:0% 70%}
