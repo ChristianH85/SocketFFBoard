@@ -19,8 +19,10 @@ mongoose.connect(
 app.use(express.json());
 if (process.env.NODE_ENV === "production") {
       app.use(express.static('s2meclient/build'));
+    }else{
+      app.use(express.static('s2meclient/public'));
     }
-app.use(express.static('s2meclient/public'));
+// app.use(express.static('s2meclient/public'));
 
 
 const sessionMiddleware = session({ secret: "mallon", resave: false, saveUninitialized: false });

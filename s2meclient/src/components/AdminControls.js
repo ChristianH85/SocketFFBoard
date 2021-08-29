@@ -119,7 +119,7 @@ function AdminControls(){
                                             outDuration: 250,
                                             preventScrolling: true
                                         }}     
-                                        trigger={<Button disabled={active?false:true} onClick={()=>{handlepick(player)}} node="button">{player.name}</Button>}
+                                        trigger={<Button disabled={active?false:true}className='btn' onClick={()=>{handlepick(player)}} node="button">{player.name}</Button>}
                                         >
                                             <table>
                                                 <tbody>

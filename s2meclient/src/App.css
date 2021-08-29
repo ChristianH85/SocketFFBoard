@@ -31,7 +31,7 @@
 .Chatcard{
   background-color: #d3d0cb;
   padding:.75em;
-  min-height:75vh;
+  min-height:60vh;
 }
 #leagueForm {
   border-radius: 50px;

@@ -7,7 +7,7 @@ router.use("/api", apiRoutes);
 
 
 router.use(function(req, res) {
-    res.sendFile(path.join(__dirname, "../s2meclient/public/index.html"));
+    res.sendFile(path.join(__dirname, "../s2meclient/build/index.html"));
   });
 
   module.exports = router;
