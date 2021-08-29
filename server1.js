@@ -40,7 +40,7 @@ io.on('connect', (socket) => {
   let timer=1
     socket.on('subscribe', async function(data){
       console.log('////////////41/////////////')
-      console.log(data)
+      // console.log(data)
       socket.join(data)
       let joinLeague= await db.League.findById(data).then(data=>{return data})
       // // if(joinLeague.users.findIndex(obj=>{obj.id ===data.user.id})!=-1){
@@ -56,17 +56,17 @@ io.on('connect', (socket) => {
     // })
     socket.on('startDraft',async(data)=>{
       console.log('//////////////start////////////')
-      console.log(data)
+      // console.log(data)
       ///change league status to active
       let startLeague= await db.League
       .findByIdAndUpdate(data._id,{$set:{status:'active'}},{new:true})
       .then(result=>{
-        console.log(result)
+        // console.log(result)
         return result
       })
       let timer =117
       io.sockets.to(data._id).emit('start',startLeague)
-      io.sockets.to(data._id).emit('start-timer',timer)
+      // io.sockets.to(data._id).emit('start-timer',timer)
     })
     // socket.on('start-timer',data=>{
     //   console.log('Timer! I hardly know her')
@@ -127,7 +127,7 @@ io.on('connect', (socket) => {
     socket.on('pause', data=>{
       console.log('//////////////timesUp////////////')
       ///update admin that pick time has exceeded
-      console.log(data)
+      // console.log(data)
     })
     socket.on('endDraft',(data=>{
       console.log('//////////////end////////////')
@@ -143,7 +143,7 @@ io.on('connect', (socket) => {
     }))
     socket.on('outgoingMsg', (data)=>{
       console.log('//////////////message////////////')
-      console.log(data)
+      // console.log(data)
       console.log('sending message');
       
       db.League.findByIdAndUpdate({_id: data.room},{$push:{messages:data}},{new:true,}).then(data=>{

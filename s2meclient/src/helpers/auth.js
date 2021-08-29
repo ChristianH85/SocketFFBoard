@@ -8,7 +8,7 @@ class Auth {
   loggedIn() {
       console.log('log in check')
     const token = this.getToken();
-    console.log(token)
+    // console.log(token)
     // If there is a token and it's not expired, return `true`
     if(token){
         let loggedIn= token && !this.isTokenExpired(token) ? true : false;

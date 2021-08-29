@@ -13,7 +13,7 @@ function Picked({picks}){
             setPicked(picks)
         }
         else{ 
-            let userFilter= await picks.filter(pick=>{return pick.email===e.target.value})
+            let userFilter= await picks.filter(pick=>{return pick.username===e.target.value})
             setPicked(userFilter)
         }
     }
@@ -42,7 +42,7 @@ function Picked({picks}){
                         <Col className='pCol' s={1}>{pick.pick.pos}</Col>
                         <Col className='pCol' s={3}>{pick.pick.name}</Col>
                         <Col className='pCol' s={2}>{pick.pick.team}</Col>
-                        <Col className='pCol' s={5}>{pick.email}</Col>
+                        <Col className='pCol' s={5}>{pick.username}</Col>
                     </Row>)
             }):<p>No Picks Yet</p>}
         </div>

@@ -100,7 +100,7 @@ function Signup (props) {
                     </Row>
                     <Row>
                         <Col s={10} m={8} offset='s1 m2'>
-                        <Button id='loginB' type='submit' onClick={handleSubmit}id='primaryBtn'>Sign Up</Button>
+                        <Button id='loginB' type='submit' onClick={handleSubmit}>Sign Up</Button>
                         </Col>
                     </Row>
                     <Link to="/">already a User? Login </Link>

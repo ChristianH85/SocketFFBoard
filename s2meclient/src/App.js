@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Landing from './pages/Landing'
 import './App.css';
-import { BrowserRouter as Router, Route, Switch,Redirect, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch,Redirect} from 'react-router-dom'
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useAtom } from 'jotai'
@@ -17,7 +17,7 @@ import NavBar from './components/Navbar';
 function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
-  const history = useHistory()
+  // const history = useHistory()
     // socket.on('user',data=>{
     //   // setUser(data)
     //   // setLogin(true)
@@ -27,11 +27,11 @@ function App() {
       if(loggedIn!==null){
         setLogin(loggedIn)
         let user=JSON.parse(localStorage.getItem('user'))
-        console.log(user)
+        // console.log(user)
         setUser(user)
         // history.push('/')
       }
-      console.log(loggedIn)
+      // console.log(loggedIn)
       // setLogin(loggedIn)
       
     },[])

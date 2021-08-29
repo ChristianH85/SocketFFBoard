@@ -24,7 +24,7 @@ router.get('/:id',function(req, res){
     console.log(req.body)
     League.findById(req.params.id).then(data=>{
       console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%')
-      console.log(data)
+      // console.log(data)
       console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%')
       res.json(data)
     }).catch(err => {

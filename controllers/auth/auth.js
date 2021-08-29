@@ -10,7 +10,7 @@ module.exports = {
   },
   decodeJWT: function (token){
     jwt.verify(token, secret , function(err, decoded) {
-        console.log(decoded) 
+        // console.log(decoded) 
       });
   }
 };

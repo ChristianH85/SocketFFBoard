@@ -13,7 +13,7 @@ function Timer(props){
     // console.log(props.started)
     useEffect(()=>{
         socket.on('start-timer',data=>{
-            console.log(data)
+            // console.log(data)
             setTimer(data)
            let count = setInterval(()=>{
                 setTimer(counter=>counter-1)

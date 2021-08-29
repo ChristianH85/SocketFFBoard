@@ -83,7 +83,7 @@ function DraftSearch(){
         }
         axios.post('/api/user/leagues',upObj).then(data=>{
             setDraft(data.data)
-            console.log(data)
+            // console.log(data)
             history.push('/draft')
             // setRedirect(true)
         })

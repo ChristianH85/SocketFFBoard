@@ -41,7 +41,7 @@ function Login () {
                     password: password,
                 }
             axios.post('api/user/login', loginOBj).then(data=>{
-                console.log(data)
+                // console.log(data)
                 let res=data.data.user
                 let userInfo={
                     username:res.username,

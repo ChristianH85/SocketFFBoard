@@ -71,6 +71,7 @@
 .btn{
   width: 60%;
   margin: auto;
+  white-space: normal;
   border-radius: 8px;
   background: linear-gradient(335deg, #ddb42c, #328e3e);
     -webkit-animation: AnimationName 12s ease infinite;

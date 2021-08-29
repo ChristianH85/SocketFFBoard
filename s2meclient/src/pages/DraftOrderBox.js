@@ -22,11 +22,11 @@ function DraftOrderBox(props){
         //     setMyPick(true)
         // })
         if(order){
-            console.log(turn)
+            // console.log(turn)
             setDraftOrder(order)
         }
         console.log(turn)
-        console.log(live.draftOrder)
+        // console.log(live.draftOrder)
 
         // setClass()
         // socket.emit('submitPick')

@@ -37,17 +37,17 @@ function AdminControls(){
     //     DraftApi.endDraft(thisLeague)
     // }
     const forcePick=()=>{
-        console.log(thisLeague.users)
+        // console.log(thisLeague.users)
         // if(){
 
         // }
         // DraftApi.adminForcePick()
     }
     const userTurn=async()=>{
-        console.log(thisLeague.users)
-        const email=thisLeague.draftOrder[thisLeague.currentTurn-1]
-        console.log(email)
-        let user=  thisLeague.users.filter(user=>{return user.email===email})        
+        // console.log(thisLeague.users)
+        const username=thisLeague.draftOrder[thisLeague.currentTurn-1]
+        console.log(username)
+        let user=  thisLeague.users.filter(user=>{return user.username===username})        
        return user[0]
     }
     const handlepick= async (e,player)=>{

@@ -27,12 +27,14 @@ useEffect(()=>{
     }
     
     socket.on('incomingMsg',data=>{
-        console.log(data)
+        // console.log(data)
         setMsgL(prevState=>[...prevState,data])
     })
     // console.log(leagueInfo)
     // socket.emit('subscribe', leagueInfo.id)
-    socket.on('saved', data=>{console.log(data)})
+    socket.on('saved', data=>{
+        // console.log(data)
+    })
 // }
 },[])
 

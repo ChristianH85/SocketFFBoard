@@ -11,14 +11,14 @@ function Reorder(props){
         
     // }, [])
     
-    console.log(props)
+    // console.log(props)
 return(
     <div  className='reorderList'>
         {draftOrder.teams?draftOrder.teams.map((player,i)=>{
         return(<Row className='pItem' key={i}>
             <Col s={2}  id={parseInt(i)}>{parseInt(i+1)}</Col>
             <Col s={10}>
-                <DropMenu mOrder={draftOrder.teams} i={i} order={order} setOrder={setOrder}/>
+                <DropMenu mOrder={draftOrder.teams} rounds={draftOrder.rounds}i={i} order={order} setOrder={setOrder}/>
             </Col>
         </Row>)}):null}
     </div>

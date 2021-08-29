@@ -55,11 +55,11 @@ function LeagueOptions(){
             setLName(val)
         }
         else if(name==="setPNum"){
-        console.log(val)
+        // console.log(val)
             setLNumP(val)
         }
         else if(name==="rounds"){
-            console.log(val)
+            // console.log(val)
                 setRounds(parseInt(val))
             }
     }
@@ -111,23 +111,23 @@ function LeagueOptions(){
 
   };
 
-  const snake = () => {
-    const order = [];
-    console.log(rounds);
-    for (let i = 1; i <= rounds; i++) {
-      if (i % 2 !== 0) {
-        const nOrder = eList;
-        console.log(nOrder);
-        nOrder.forEach((team) => order.push(team));
-      } else if (i % 2 === 0) {
-        const rOrder = eList.reverse();
-        rOrder.forEach((team) => order.push(team));
-        console.log(rOrder);
-      }
-    }
-    console.log();
-    return order;
-  };
+  // const snake = () => {
+  //   const order = [];
+  //   console.log(rounds);
+  //   for (let i = 1; i <= rounds; i++) {
+  //     if (i % 2 !== 0) {
+  //       const nOrder = eList;
+  //       console.log(nOrder);
+  //       nOrder.forEach((team) => order.push(team));
+  //     } else if (i % 2 === 0) {
+  //       const rOrder = eList.reverse();
+  //       rOrder.forEach((team) => order.push(team));
+  //       console.log(rOrder);
+  //     }
+  //   }
+  //   console.log();
+  //   return order;
+  // };
   return(
     <Row>
         {dispForm()}

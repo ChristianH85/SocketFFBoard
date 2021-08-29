@@ -25,7 +25,7 @@ function Account(){
         }
     }
     const handleIChange=(event)=>{
-        console.log(event.target.files[0])
+        // console.log(event.target.files[0])
         setImgD(event.target.files[0])
         setUpBtn(true)
       }
@@ -35,7 +35,7 @@ function Account(){
         formData.append('file',imgData );
 
         axios.post('/api/user/avatar/'+userInfo._id,formData).then((response)=>{
-          console.log (response)
+        //   console.log (response)
           if(response.status===200){
               setUser(response.data)
           }else{

@@ -44,7 +44,7 @@ router.post('/leagues',function (req,res){
       email:data.email
     }
   League.findByIdAndUpdate(check,{$addToSet:{users:addObj}},{new: true}).then(data=>{
-      console.log(data)
+      // console.log(data)
       res.json(data)
     })
 

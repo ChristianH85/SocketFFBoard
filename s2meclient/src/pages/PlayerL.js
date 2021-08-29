@@ -10,10 +10,10 @@ function PlayerList(props){
 
     
     useEffect(()=>{
-        console.log(draft)
+        // console.log(draft)
         setAvail(draft.available)
         setDList(draft.available)
-        console.log('change')
+        // console.log('change')
     },[draft.available])
     const handlepick= async (e,player)=>{
         e.preventDefault();
@@ -21,10 +21,10 @@ function PlayerList(props){
         const index = await currentL.findIndex(el=>el.name===e.target.name)
         
         let took=currentL[index]
-        console.log(took)
+        // console.log(took)
         // setTaken(took)
          currentL.splice(parseInt(index),1)
-        console.log(currentL)
+        // console.log(currentL)
         // setAvail(currentL)
         // setDList(currentL)
         // console.log(draft._id,user._id, user.email, player, newTurn )
@@ -47,14 +47,14 @@ function PlayerList(props){
                 let sList= await list.sort(function (a, b) {
                     return a.bye - b.bye;
                   })
-                  console.log(sList)
+                //   console.log(sList)
                   setDList(sList)
                   break;
             case 'rank':
                 let sRList= await list.sort(function (a, b) {
                     return a.rank - b.rank;
                   })
-                  console.log(sRList)
+                //   console.log(sRList)
                   setDList(sRList)
                   break;
         }
@@ -83,7 +83,7 @@ function PlayerList(props){
             <tr >
             <th >Name</th>
             <th ><Button onClick={handleList} className='player-btn'>Rank</Button></th>
-            <th ><select onChange={handleList} className="browser-default" id='pos'><option>ALL</option><option>QB</option><option>WR</option><option>RB</option><option>TE</option><option>DEF</option><option>K</option>POS</select></th>
+            <th ><select onChange={handleList} className="browser-default" id='pos'><option>ALL</option><option>QB</option><option>WR</option><option>RB</option><option>TE</option><option>DST</option><option>K</option>POS</select></th>
             <th ><Button onClick={handleList} className='player-btn'>Bye</Button></th>
             <th >Team</th>
             </tr>

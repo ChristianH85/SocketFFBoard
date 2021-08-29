@@ -35,7 +35,7 @@ passport.use(
           });
         }else{
           console.log('%%%%%%%%%%USERLOGIN%%%%%%%%%%%%%%')
-          console.log(dbUser)
+          // console.log(dbUser)
           const token=auth.signToken(dbUser.email,dbUser.username,dbUser._id)
           let user={
             JWTtoken: token,
