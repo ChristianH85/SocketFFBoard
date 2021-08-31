@@ -4,10 +4,10 @@ import socket from "../socketConfig";
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useAtom } from 'jotai'
-import { user, port} from '../Atoms'
+import { user } from '../Atoms'
 import Auth from '../helpers/auth'
 function Login () {
-    const[point, setPort]=useAtom(port)
+    
     const [email, setEmail] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
@@ -15,22 +15,19 @@ function Login () {
     const [userInfo, setUser]=useAtom(user)
 
     socket.on('connected',data=>{
-    //   console.log(data)
+      console.log(data)
     })
-
     const validateEmail=(email) =>
     {
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     }
-
     const handleSubmit = event => {
         event.preventDefault();
         if (password.length < 6 ){
             setErr("password must be greater than 6 characters")
         }else if(validateEmail(email)!==true) {
-          console.log("invalid email");
-          
+          console.log("invalid email");          
           setErr(
              "invalid email"
           );
@@ -41,7 +38,6 @@ function Login () {
                     password: password,
                 }
             axios.post('api/user/login', loginOBj).then(data=>{
-                // console.log(data)
                 let res=data.data.user
                 let userInfo={
                     username:res.username,
@@ -51,7 +47,6 @@ function Login () {
                     team:res.team,
                     avatar:res.avatar
                 }
-                setPort(data.data.port)
                 setUser(userInfo)
                 localStorage.setItem('user',JSON.stringify(userInfo))
                 Auth.login(res.JWTtoken) 

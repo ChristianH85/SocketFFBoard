@@ -13,25 +13,17 @@ function Signup (props) {
     const [username, setUName] = useState('')
     const [password, setPass] = useState('')
     const[errM, setErr] = useState('')
-    const[sPort, setSport] = useAtom(port)
     const [userInfo, setUser]=useAtom(user)
     socket.on('connected',data=>{
-        // debugger
       console.log(data)
     })
-
-    const validateEmail=(email) =>
-    {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
-
+    const validateEmail=(email) =>{
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
     const handleSubmit = event => {
         event.preventDefault();
-        // socket.on('connected',data=>{
         console.log(email)
-        //   console.log(data)
-        // })
         if(username.length<=0){
             setErr("You need a name friend")
         }
@@ -39,7 +31,6 @@ function Signup (props) {
             setErr("password must be greater than 6 characters")
         }else if(validateEmail(email)!==true) {
           console.log("invalid email");
-          
           setErr(
              "invalid email"
           );
@@ -53,7 +44,6 @@ function Signup (props) {
                 axios.post('api/user/signup',signupOBj).then(data=>{
 
                     let res=data.data.user
-                    setSport(data.data.port)
                     let userInfo={
                         username:res.username,
                         email:res.email,

@@ -11,7 +11,7 @@ const [userInfo, setUInfo]=useAtom(user)
 const [msgL, setMsgL]= useState([])
 const [inputVal, setInputVal]= useState('')
 const [leagueInfo, setLeagueInfo]=useAtom(draft)
-const [numMess, setNumM]=useState(0)
+// const [numMess, setNumM]=useState(0)
 // const [load messages]
 
 useEffect(()=>{

@@ -17,29 +17,18 @@ import NavBar from './components/Navbar';
 function App() {
   const[logInStatus, setLogin]=useAtom(loggedIn)
   const [userInfo, setUser]=useAtom(user)
-  // const history = useHistory()
-    // socket.on('user',data=>{
-    //   // setUser(data)
-    //   // setLogin(true)
-    // })
     useEffect(()=>{
       let loggedIn=Auth.loggedIn()
       if(loggedIn!==null){
         setLogin(loggedIn)
         let user=JSON.parse(localStorage.getItem('user'))
-        // console.log(user)
         setUser(user)
-        // history.push('/')
-      }
-      // console.log(loggedIn)
-      // setLogin(loggedIn)
-      
-    },[])
+      }      
+    })
   return (
     <div className="App">
-      
       <Router>
-      <NavBar status={logInStatus} user={userInfo} setLogin={setLogin}/>
+        <NavBar status={logInStatus} user={userInfo} setLogin={setLogin}/>
         {logInStatus?
             <Switch>
               <Route exact path='/' component={Landing}/>

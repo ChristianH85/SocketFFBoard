@@ -1,19 +1,15 @@
 import React, {useState,useEffect} from 'react'
 import {Row, Col} from 'react-materialize'
-import {useAtom} from 'jotai'
-import {clock} from '../Atoms'
 import socket from '../socketConfig'
 function Timer(props){
     // const[counter, setCount]=useState(120)
-    const[timesUp, setEnd]=useState(false)
+    // const[timesUp, setEnd]=useState(false)
     const[time, setTime]=useState('high')
     const[timeEndM, setTmessage]=useState('')
     const[counter, setTimer]=useState('')
     const[pick,setPick]=useState(1)
-    // console.log(props.started)
     useEffect(()=>{
         socket.on('start-timer',data=>{
-            // console.log(data)
             setTimer(data)
            let count = setInterval(()=>{
                 setTimer(counter=>counter-1)

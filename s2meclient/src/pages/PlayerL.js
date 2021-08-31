@@ -4,30 +4,17 @@ import DraftApi from '../helpers/draft'
 function PlayerList(props){
     const{status,draft,updateDraft,updateUser,user}=props
     const [available, setAvail]=useState([])
-    const [picked, setTaken] = useState({})
-    // const [left, setLeft]=useState(players.length)
     const [dList, setDList]= useState([])
-
-    
     useEffect(()=>{
-        // console.log(draft)
         setAvail(draft.available)
         setDList(draft.available)
-        // console.log('change')
     },[draft.available])
     const handlepick= async (e,player)=>{
         e.preventDefault();
         let currentL=available
-        const index = await currentL.findIndex(el=>el.name===e.target.name)
-        
+        const index = await currentL.findIndex(el=>el.name===e.target.name) 
         let took=currentL[index]
-        // console.log(took)
-        // setTaken(took)
          currentL.splice(parseInt(index),1)
-        // console.log(currentL)
-        // setAvail(currentL)
-        // setDList(currentL)
-        // console.log(draft._id,user._id, user.email, player, newTurn )
         DraftApi.makePick(player,draft._id,user._id, user.email,user.username,currentL,draft.currentTurn)
     }
     const filterList=async(val)=>{
@@ -124,7 +111,6 @@ function PlayerList(props){
                                         </tbody>
                                     </table>
                                 </Modal>
-                        {/* <Button disabled={status?false:true}  onClick={(player)=>{handleSelectP(player)}} >{player.name}</Button> */}
                     </td>
                     <td className='tableSec'>{player.rank}</td>
                     <td className='tableSec'>{player.pos}</td>

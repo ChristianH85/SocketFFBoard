@@ -1,16 +1,14 @@
 import React,{useState} from 'react';
-import { Button, Card, Col, Row } from 'react-materialize'
+import { Col, Row } from 'react-materialize'
 import socket from "../socketConfig";
 import Options from './Option';
 
 function Landing(){
-    const [ loginP, switchL] = useState(true)
-    const[incoming, setIncoming]=useState([])
-
+    // const [ loginP, switchL] = useState(true)
+    // const[incoming, setIncoming]=useState([])
         socket.on('user', data=>{
             console.log("######################User"+data)            
-        })
-        
+        })        
 return(
     <div className= 'home valign-wrapper center-align'>
         <Row >

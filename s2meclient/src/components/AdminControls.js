@@ -20,31 +20,15 @@ function AdminControls(){
         })
     },[thisLeague.status])
     useEffect(()=>{
-        let fList= thisLeague.available.filter(item=>{
-            if(item.name.toLowerCase().includes(fValue.toLowerCase())){
-                return item
-            }
-           
+        let fList= thisLeague.available.filter( item=>{
+            return item.name.toLowerCase().includes(fValue.toLowerCase())?item:null
         })
         setDlist(fList)
     },[fValue,thisLeague.available])
     const beginDraft=()=>{
         DraftApi.startDraft(thisLeague)
     }
-    // const endDraft=()=>{
-    //     let room={room:thisLeague._id}
-    //     // socket.emit('startDraft',room)
-    //     DraftApi.endDraft(thisLeague)
-    // }
-    const forcePick=()=>{
-        // console.log(thisLeague.users)
-        // if(){
-
-        // }
-        // DraftApi.adminForcePick()
-    }
     const userTurn=async()=>{
-        // console.log(thisLeague.users)
         const username=thisLeague.draftOrder[thisLeague.currentTurn-1]
         console.log(username)
         let user=  thisLeague.users.filter(user=>{return user.username===username})        
@@ -56,19 +40,9 @@ function AdminControls(){
         console.log(userCurr)
         let currentL=thisLeague.available
         const index = await currentL.findIndex(el=>el.name===player.name)
-        // console.log(index)
-        // console.log(thisLeague.currentTurn)
-        // let took=currentL[index]
-        // // setTaken(took)
         currentL.splice(index,1)
-        // console.log(currentL)
-        // setAvail(currentL)
-        // setDlist(currentL)
-        // console.log('user' + user.email)
-        // console.log(thisLeague._id,user._id, user.email, player, newTurn )
         DraftApi.makePick(player,thisLeague._id,userCurr._id, userCurr.email,userCurr.username,currentL,thisLeague.currentTurn)
     }
-  
     return(
         <div className= 'admin'>
             <Row>
@@ -89,7 +63,6 @@ function AdminControls(){
                 <Row>
                     {showReorder?<Reorder order={thisLeague.teams}/>:null}
                 </Row>
-                {/* {showReorder?<Reorder order={thisLeague.teams}/>:null} */}
                 <Col s={12}>
                     <label className='adLabel'>Make Selection</label>
                     <input onChange={(e)=>{setFvalue(e.target.value)}}></input> 
@@ -129,7 +102,6 @@ function AdminControls(){
                                                 </tbody>
                                             </table>
                                         </Modal>
-                                {/* <Button disabled={status?false:true}  onClick={(player)=>{handleSelectP(player)}} >{player.name}</Button> */}
                             </td>
                                 <td>Team: {player.team}</td><td >Bye: {player.bye}</td>
                             </tr>   
@@ -137,7 +109,6 @@ function AdminControls(){
                     }):null}  
                     </tbody>
                     </table>
-                    <button onClick={forcePick()}></button>
                 </Col>
                 <Col s={12}>  
                 </Col>

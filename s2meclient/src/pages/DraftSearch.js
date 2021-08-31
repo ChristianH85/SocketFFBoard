@@ -1,8 +1,6 @@
 import React, {useEffect,useState} from 'react';
-import {Redirect} from 'react-router-dom'
 import {Row,Col, Button, Icon} from 'react-materialize';
 import {useAtom} from 'jotai';
-import socket from '../socketConfig';
 import { useHistory} from 'react-router-dom'
 import axios from 'axios';
 import {draft, user} from '../Atoms'
@@ -13,14 +11,11 @@ function DraftSearch(){
     const [showBtn, setShowBtn]=useState(false)
     const [team,setTeam]= useAtom(user)
     const [errM, setErrM]= useState('')
-    
     const [myLeagues, setLeagues]=useState([])
     const [tempL, setTemp]=useState('')
     const history=useHistory()
     useEffect(()=>{
-        // console.log(team._id)
         axios.get('/api/user/'+team._id).then(res=>{
-            // console.log(res.data.leagues.length)
             if(res.data.leagues.length>0){
                 setLeagues(res.data.leagues)}
         })
@@ -50,13 +45,9 @@ function DraftSearch(){
                 }
                 setTemp(lObj)
                 evaluateCode()
-                // console.log(cDraft)
-                // console.log(data)
-                // console.log(result)
             }
             else{ setErrM('No Matching Leages Found')}
         })
-        // socket.emit('findL',leagueID)
     }
     const evaluateCode=()=>{
         if(team.leagues.length===0){
@@ -69,37 +60,25 @@ function DraftSearch(){
             setShowBtn(false)
             setErrM('Already in this League')
         }
-
     }
     const handleSelect=(e)=>{
         e.preventDefault()
         const btnID= e.target.id
        if(btnID==='searched'){
-        //    console.log(leagueID)
-        //    console.log(team._id)
         const upObj={
             league:leagueID,
             user:team._id
         }
         axios.post('/api/user/leagues',upObj).then(data=>{
             setDraft(data.data)
-            // console.log(data)
             history.push('/draft')
-            // setRedirect(true)
         })
-    }else{
-        
-        
-        axios.get('/api/league/'+e.target.id).then(data=>{
-            setDraft(data.data)
-            history.push('/draft')
-            // console.log(data)
-            // console.log('draft id')
-            
-            
-        })
-    }
-
+        }else{        
+            axios.get('/api/league/'+e.target.id).then(data=>{
+                setDraft(data.data)
+                history.push('/draft')
+            })
+        }
     }
     return(
         <Row>
